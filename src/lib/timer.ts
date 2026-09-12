@@ -11,6 +11,19 @@ export function restoreRemainingSeconds(
   return Math.max(0, persistedRemaining - elapsedSeconds);
 }
 
+export function remainingFromDeadline(
+  startedAtIso: string,
+  durationSeconds: number,
+  nowMs: number = Date.now(),
+): number {
+  const started = Date.parse(startedAtIso);
+  if (Number.isNaN(started) || durationSeconds <= 0) {
+    return 0;
+  }
+  const elapsedSeconds = Math.floor((nowMs - started) / 1000);
+  return Math.max(0, durationSeconds - elapsedSeconds);
+}
+
 export function shouldExpire(remainingSeconds: number): boolean {
   return remainingSeconds <= 0;
 }

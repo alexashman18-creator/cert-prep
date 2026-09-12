@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 
 import { FeedbackPanel } from '@/components/question/FeedbackPanel';
@@ -30,6 +31,12 @@ export default function PracticeSessionScreen() {
     error,
     busy,
   } = usePracticeSession(id);
+
+  useEffect(() => {
+    if (session?.status === 'completed') {
+      router.replace({ pathname: '/practice/results', params: { id: session.id } });
+    }
+  }, [session]);
 
   if (error) {
     return (
@@ -94,6 +101,7 @@ export default function PracticeSessionScreen() {
         accessibilityRole="button"
         accessibilityState={{ selected: flagged }}
         accessibilityLabel={flagged ? 'Remove flag from question' : 'Flag question'}
+        hitSlop={8}
         style={styles.flag}>
         <Ionicons
           name={flagged ? 'flag' : 'flag-outline'}

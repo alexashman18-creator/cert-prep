@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   },
   stats: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: spacing.sm,
     marginTop: spacing.lg,
   },
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
   domainRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: spacing.md,
   },
   domainCopy: {

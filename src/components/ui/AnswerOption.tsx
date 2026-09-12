@@ -37,7 +37,10 @@ export function AnswerOption({ label, text, state, disabled, onPress }: AnswerOp
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
-      accessibilityState={{ disabled: Boolean(disabled), selected: state === 'selected' || state === 'incorrect' }}
+      accessibilityState={{
+        disabled: Boolean(disabled),
+        selected: state === 'selected' || state === 'incorrect' || state === 'correct',
+      }}
       accessibilityLabel={`${label}. ${text}${status ? `. ${status}` : ''}`}
       style={[styles.row, { borderColor: tone.border, backgroundColor: tone.bg }]}>
       <View style={[styles.letter, { backgroundColor: colors.surface }]}>

@@ -141,7 +141,8 @@ export default function ExamSessionScreen() {
           </View>
           <AppButton label="Finish Exam" variant="secondary" onPress={finish} />
           <AppText variant="caption" color={colors.inkTertiary} align="center">
-            Answers stay hidden until you finish. Progress is saved on this device.
+            Answers stay hidden until you finish. The timer keeps running if you leave or close the
+            app, like a real exam.
           </AppText>
         </>
       }>
@@ -151,6 +152,7 @@ export default function ExamSessionScreen() {
           onPress={() => setNavigatorOpen(true)}
           accessibilityRole="button"
           accessibilityLabel="Open question navigator"
+          hitSlop={8}
           style={styles.navButton}>
           <Ionicons name="grid-outline" size={18} color={colors.accent} />
           <AppText variant="bodyStrong" color={colors.accent}>
@@ -173,6 +175,7 @@ export default function ExamSessionScreen() {
         accessibilityRole="button"
         accessibilityState={{ selected: flagged }}
         accessibilityLabel={flagged ? 'Remove review flag' : 'Flag for review'}
+        hitSlop={8}
         style={styles.flag}>
         <Ionicons
           name={flagged ? 'flag' : 'flag-outline'}
@@ -202,12 +205,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: spacing.md,
     marginBottom: spacing.lg,
   },
   navButton: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
+    minHeight: 44,
   },
   flag: {
     flexDirection: 'row',

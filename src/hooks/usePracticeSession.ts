@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useRepositories } from '@/hooks/useRepositories';
+import { missedQuestionIdsFromAnswers } from '@/lib/sessionMistakes';
 import { selectPracticeQuestionIds, alignSessionQuestions } from '@/lib/sessionIntegrity';
 import { buildSessionResults } from '@/lib/scoring';
 import { useUiStore } from '@/stores/uiStore';
@@ -54,6 +55,25 @@ export function useStartMistakePractice() {
   }, [repos]);
 }
 
+export function useStartSessionMistakePractice() {
+  const repos = useRepositories();
+
+  return useCallback(
+    async (sessionId: string) => {
+      const answers = await repos.practice.getAnswers(sessionId);
+      const uniqueIds = missedQuestionIdsFromAnswers(answers);
+      if (uniqueIds.length === 0) {
+        throw new Error('This session has no missed questions to review.');
+      }
+      return repos.practice.create({
+        domainFilter: 'all',
+        questionIds: uniqueIds,
+      });
+    },
+    [repos],
+  );
+}
+
 export function usePracticeSession(sessionId: string | undefined) {
   const repos = useRepositories();
   const resetQuestionUi = useUiStore((state) => state.resetQuestionUi);
@@ -76,6 +96,15 @@ export function usePracticeSession(sessionId: string | undefined) {
     const loaded = await repos.practice.getById(sessionId);
     if (!loaded) {
       setError('This practice session could not be found.');
+      return;
+    }
+    if (loaded.status === 'abandoned') {
+      setError('This practice session was discarded when a new session was started.');
+      return;
+    }
+    if (loaded.status === 'completed') {
+      setSession(loaded);
+      setQuestions([]);
       return;
     }
     const [loadedQuestions, loadedAnswers, flags] = await Promise.all([
@@ -109,7 +138,7 @@ export function usePracticeSession(sessionId: string | undefined) {
   }, [answers]);
 
   const submit = useCallback(async () => {
-    if (!session || !currentQuestion || !selectedOptionId || submitted) {
+    if (!session || session.status !== 'in_progress' || !currentQuestion || !selectedOptionId || submitted) {
       return;
     }
     setBusy(true);
@@ -207,6 +236,7 @@ export function usePracticeResults(sessionId: string | undefined) {
   const [results, setResults] = useState<SessionResults | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [domainFilter, setDomainFilter] = useState<PracticeDomainFilter | DomainId | 'all'>('all');
+  const [missedQuestionIds, setMissedQuestionIds] = useState<string[]>([]);
 
   useEffect(() => {
     if (!sessionId) {
@@ -228,6 +258,7 @@ export function usePracticeResults(sessionId: string | undefined) {
           return;
         }
         setDomainFilter(session.domainFilter);
+        setMissedQuestionIds(missedQuestionIdsFromAnswers(answers));
         setResults(
           buildSessionResults({
             sessionId: session.id,
@@ -243,5 +274,5 @@ export function usePracticeResults(sessionId: string | undefined) {
     })();
   }, [repos, sessionId]);
 
-  return { results, error, domainFilter };
+  return { results, error, domainFilter, missedQuestionIds };
 }

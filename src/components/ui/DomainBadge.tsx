@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/AppText';
-import { DOMAIN_SHORT_LABELS, type DomainId } from '@/types/domain';
+import { DOMAIN_LABELS, DOMAIN_SHORT_LABELS, type DomainId } from '@/types/domain';
 import { colors, radii, spacing } from '@/theme/tokens';
 
 interface DomainBadgeProps {
@@ -10,7 +10,7 @@ interface DomainBadgeProps {
 
 export function DomainBadge({ domain }: DomainBadgeProps) {
   return (
-    <View style={styles.badge}>
+    <View style={styles.badge} accessibilityRole="text" accessibilityLabel={DOMAIN_LABELS[domain]}>
       <AppText variant="label" color={colors.accent}>
         {DOMAIN_SHORT_LABELS[domain].toUpperCase()}
       </AppText>

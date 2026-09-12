@@ -6,11 +6,13 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { AppButton } from '@/components/ui/AppButton';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
+import { ChoiceDialog } from '@/components/ui/ChoiceDialog';
 import { Screen } from '@/components/ui/Screen';
 import { StatTile } from '@/components/ui/StatTile';
 import { SAMPLE_CONTENT_NOTICE } from '@/data/sampleQuestions';
 import { useHomeData } from '@/hooks/useHomeData';
 import { useStartExam } from '@/hooks/useExamSession';
+import { mockExamSubtitle } from '@/lib/examCopy';
 import { formatCount, formatPercent } from '@/lib/format';
 import { colors, radii, spacing } from '@/theme/tokens';
 
@@ -19,6 +21,8 @@ export default function HomeScreen() {
   const startExam = useStartExam();
   const [startingExam, setStartingExam] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [examChoiceOpen, setExamChoiceOpen] = useState(false);
+  const [discardConfirmOpen, setDiscardConfirmOpen] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -26,25 +30,43 @@ export default function HomeScreen() {
     }, [refresh]),
   );
 
-  const openExam = async () => {
+  const navigateToExam = async (forceNew = false) => {
     setStartingExam(true);
     setActionError(null);
     try {
-      if (data?.inProgressExam) {
-        router.push({ pathname: '/exam/session', params: { id: data.inProgressExam.id } });
-        return;
-      }
       if ((data?.questionBankSize ?? 0) === 0) {
         setActionError('No questions are available for a mock exam yet.');
         return;
       }
-      const session = await startExam();
+      const session = await startExam({ forceNew });
       router.push({ pathname: '/exam/session', params: { id: session.id } });
     } catch (caught) {
       setActionError(caught instanceof Error ? caught.message : 'Unable to start a mock exam.');
     } finally {
       setStartingExam(false);
+      setExamChoiceOpen(false);
+      setDiscardConfirmOpen(false);
     }
+  };
+
+  const openExam = () => {
+    setActionError(null);
+    if (!data) {
+      return;
+    }
+    if (data.inProgressExam) {
+      setExamChoiceOpen(true);
+      return;
+    }
+    void navigateToExam(false);
+  };
+
+  const resumeExam = () => {
+    if (!data?.inProgressExam) {
+      return;
+    }
+    setExamChoiceOpen(false);
+    router.push({ pathname: '/exam/session', params: { id: data.inProgressExam.id } });
   };
 
   return (
@@ -75,7 +97,8 @@ export default function HomeScreen() {
         <Card style={styles.resume}>
           <AppText variant="subtitle">Resume mock exam</AppText>
           <AppText variant="body" color={colors.inkSecondary}>
-            Your previous exam is saved locally, including answers, flags, and remaining time.
+            Your previous exam is saved locally, including answers, flags, and remaining time. The
+            timer keeps running while the app is closed.
           </AppText>
           <AppButton
             label="Continue exam"
@@ -117,9 +140,11 @@ export default function HomeScreen() {
         <ActionCard
           icon="timer-outline"
           title="Mock Exam"
-          subtitle="40 questions · 45-minute timer"
-          onPress={() => void openExam()}
-          disabled={startingExam}
+          subtitle={
+            data ? mockExamSubtitle(data.questionBankSize) : 'Loading available questions…'
+          }
+          onPress={openExam}
+          disabled={startingExam || !data}
         />
         <ActionCard
           icon="refresh-outline"
@@ -146,6 +171,37 @@ export default function HomeScreen() {
           {actionError ?? error}
         </AppText>
       ) : null}
+
+      <ChoiceDialog
+        visible={examChoiceOpen}
+        title="Unfinished mock exam"
+        body="You already have an exam in progress on this device. The timer continues while the app is closed."
+        onCancel={() => setExamChoiceOpen(false)}
+        actions={[
+          { label: 'Resume Exam', variant: 'primary', onPress: resumeExam },
+          {
+            label: 'Start New Exam',
+            variant: 'secondary',
+            onPress: () => {
+              setExamChoiceOpen(false);
+              setDiscardConfirmOpen(true);
+            },
+          },
+        ]}
+      />
+      <ChoiceDialog
+        visible={discardConfirmOpen}
+        title="Discard unfinished exam?"
+        body="Starting a new exam abandons the current one. Saved answers, flags, and remaining time for that attempt will not be kept."
+        onCancel={() => setDiscardConfirmOpen(false)}
+        actions={[
+          {
+            label: 'Start New Exam',
+            variant: 'danger',
+            onPress: () => void navigateToExam(true),
+          },
+        ]}
+      />
     </Screen>
   );
 }
@@ -168,11 +224,12 @@ function ActionCard({
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
+      accessibilityState={{ disabled: Boolean(disabled) }}
       accessibilityLabel={`${title}. ${subtitle}`}
       style={({ pressed }) => [pressed && styles.pressed]}>
       <Card>
         <View style={styles.actionRow}>
-          <View style={styles.iconWrap}>
+          <View style={styles.iconWrap} importantForAccessibility="no-hide-descendants">
             <Ionicons name={icon} size={22} color={colors.accent} />
           </View>
           <View style={styles.actionCopy}>
@@ -181,7 +238,12 @@ function ActionCard({
               {subtitle}
             </AppText>
           </View>
-          <Ionicons name="chevron-forward" size={20} color={colors.inkTertiary} />
+          <Ionicons
+            name="chevron-forward"
+            size={20}
+            color={colors.inkTertiary}
+            style={styles.actionChevron}
+          />
         </View>
       </Card>
     </Pressable>
@@ -196,6 +258,7 @@ const styles = StyleSheet.create({
   },
   stats: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: spacing.sm,
     marginBottom: spacing.lg,
   },
@@ -204,8 +267,9 @@ const styles = StyleSheet.create({
   },
   actionRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: spacing.md,
+    minHeight: 52,
   },
   iconWrap: {
     width: 44,
@@ -218,6 +282,9 @@ const styles = StyleSheet.create({
   actionCopy: {
     flex: 1,
     gap: 2,
+  },
+  actionChevron: {
+    alignSelf: 'center',
   },
   resume: {
     gap: spacing.md,

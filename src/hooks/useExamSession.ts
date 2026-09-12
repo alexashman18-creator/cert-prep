@@ -6,7 +6,7 @@ import { completeExamSession } from '@/lib/completeExam';
 import { EXAM_DURATION_SECONDS, EXAM_QUESTION_TARGET, selectExamQuestions } from '@/lib/examBlueprint';
 import { buildSessionResults } from '@/lib/scoring';
 import { alignSessionQuestions } from '@/lib/sessionIntegrity';
-import { restoreRemainingSeconds, shouldExpire } from '@/lib/timer';
+import { remainingFromDeadline, shouldExpire } from '@/lib/timer';
 import { useUiStore } from '@/stores/uiStore';
 import type { Question } from '@/types/question';
 import type { ExamSession, SessionAnswer, SessionResults } from '@/types/session';
@@ -14,20 +14,25 @@ import type { ExamSession, SessionAnswer, SessionResults } from '@/types/session
 export function useStartExam() {
   const repos = useRepositories();
 
-  return useCallback(async () => {
-    const existing = await repos.exams.getInProgress();
-    if (existing) {
-      return existing;
-    }
-    const questions = selectExamQuestions(await repos.questions.getAll(), EXAM_QUESTION_TARGET);
-    if (questions.length === 0) {
-      throw new Error('No questions are available for a mock exam.');
-    }
-    return repos.exams.create({
-      questionIds: questions.map((question) => question.id),
-      durationSeconds: EXAM_DURATION_SECONDS,
-    });
-  }, [repos]);
+  return useCallback(
+    async (options?: { forceNew?: boolean }) => {
+      if (!options?.forceNew) {
+        const existing = await repos.exams.getInProgress();
+        if (existing) {
+          return existing;
+        }
+      }
+      const questions = selectExamQuestions(await repos.questions.getAll(), EXAM_QUESTION_TARGET);
+      if (questions.length === 0) {
+        throw new Error('No questions are available for a mock exam.');
+      }
+      return repos.exams.create({
+        questionIds: questions.map((question) => question.id),
+        durationSeconds: EXAM_DURATION_SECONDS,
+      });
+    },
+    [repos],
+  );
 }
 
 export function useExamSession(sessionId: string | undefined) {
@@ -62,7 +67,10 @@ export function useExamSession(sessionId: string | undefined) {
         return null;
       }
       completedRef.current = true;
-      await repos.exams.persistTimer(currentSession.id, remainingRef.current);
+      await repos.exams.persistTimer(
+        currentSession.id,
+        remainingFromDeadline(currentSession.startedAt, currentSession.durationSeconds),
+      );
       return completeExamSession(repos, {
         sessionId: currentSession.id,
         questions: currentQuestions,
@@ -82,6 +90,10 @@ export function useExamSession(sessionId: string | undefined) {
       setError('This exam session could not be found.');
       return;
     }
+    if (loaded.status === 'abandoned') {
+      setError('This exam was discarded when a new exam was started.');
+      return;
+    }
 
     const [loadedQuestions, loadedAnswers, flags] = await Promise.all([
       repos.questions.getByIds(loaded.questionIds),
@@ -96,7 +108,7 @@ export function useExamSession(sessionId: string | undefined) {
 
     const restored =
       loaded.status === 'in_progress'
-        ? restoreRemainingSeconds(loaded.remainingSeconds, loaded.lastTickAt)
+        ? remainingFromDeadline(loaded.startedAt, loaded.durationSeconds)
         : loaded.remainingSeconds;
 
     if (loaded.status === 'in_progress' && shouldExpire(restored)) {
@@ -146,32 +158,32 @@ export function useExamSession(sessionId: string | undefined) {
       return;
     }
 
+    const syncFromDeadline = () => {
+      const restored = remainingFromDeadline(session.startedAt, session.durationSeconds);
+      remainingRef.current = restored;
+      setRemainingSeconds(restored);
+      return restored;
+    };
+
     const interval = setInterval(() => {
-      setRemainingSeconds((current) => Math.max(0, (current ?? 0) - 1));
+      syncFromDeadline();
     }, 1000);
 
     const persistInterval = setInterval(() => {
-      void repos.exams.persistTimer(session.id, remainingRef.current);
+      void repos.exams.persistTimer(session.id, remainingFromDeadline(session.startedAt, session.durationSeconds));
     }, 5000);
 
     const handleAppState = (next: AppStateStatus) => {
+      const remaining = remainingFromDeadline(session.startedAt, session.durationSeconds);
+      remainingRef.current = remaining;
+      setRemainingSeconds(remaining);
       if (next !== 'active') {
-        void repos.exams.persistTimer(session.id, remainingRef.current);
+        void repos.exams.persistTimer(session.id, remaining);
         return;
       }
-      void (async () => {
-        const latest = await repos.exams.getById(session.id);
-        if (!latest || latest.status !== 'in_progress') {
-          return;
-        }
-        const restored = restoreRemainingSeconds(latest.remainingSeconds, latest.lastTickAt);
-        remainingRef.current = restored;
-        setRemainingSeconds(restored);
-        if (shouldExpire(restored)) {
-          return;
-        }
-        await repos.exams.persistTimer(session.id, restored);
-      })();
+      if (!shouldExpire(remaining)) {
+        void repos.exams.persistTimer(session.id, remaining);
+      }
     };
     const subscription = AppState.addEventListener('change', handleAppState);
 
@@ -210,7 +222,10 @@ export function useExamSession(sessionId: string | undefined) {
         return;
       }
       await repos.exams.updatePosition(session.id, index);
-      await repos.exams.persistTimer(session.id, remainingRef.current);
+      await repos.exams.persistTimer(
+        session.id,
+        remainingFromDeadline(session.startedAt, session.durationSeconds),
+      );
       const nextQuestion = questions[index];
       const existing = answers.find((answer) => answer.questionId === nextQuestion?.id);
       setSession({ ...session, currentIndex: index });

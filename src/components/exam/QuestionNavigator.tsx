@@ -44,6 +44,7 @@ export function QuestionNavigator({
                     onClose();
                   }}
                   accessibilityRole="button"
+                  accessibilityState={{ selected: current }}
                   accessibilityLabel={`Question ${index + 1}${current ? ', current' : ''}${answered ? ', answered' : ', unanswered'}${flagged ? ', flagged' : ''}`}
                   style={[
                     styles.cell,

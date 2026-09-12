@@ -24,6 +24,7 @@ export function StatTile({ label, value }: StatTileProps) {
 const styles = StyleSheet.create({
   tile: {
     flex: 1,
+    minWidth: 96,
     backgroundColor: colors.surface,
     borderRadius: radii.md,
     borderWidth: 1,

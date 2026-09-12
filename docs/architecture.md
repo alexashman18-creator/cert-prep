@@ -109,9 +109,13 @@ Exam:
 
 - The selected question set, answers, flags, and current index are persisted locally.
 - Answers are saved on selection so Next/Previous never loses work.
-- The countdown is written at least every 5 seconds, on AppState background, and on navigation.
-- On restore, remaining time is `persistedRemaining - elapsedSinceLastTick`. The exam clock continues while the app is closed.
-- If remaining time is already zero on restore, the exam is expired and scored.
+- Remaining time is always derived from `started_at + duration_seconds - now` (`remainingFromDeadline`). The live interval recalculates from that deadline; it does not decrement an in-memory counter.
+- `remaining_seconds` and `last_tick_at` are checkpoints only. Restore never trusts them as the source of remaining time.
+- The exam clock continues while the app is backgrounded or closed, matching a real timed exam.
+- If remaining time is already zero on restore, the exam is expired and scored. Extra time is not restored.
+- Home copy advertises `min(bankSize, 40)` unique questions. The engine still targets 40 once the bank is large enough and never duplicates items to pad a smaller bank.
+- Tapping Mock Exam while an unfinished exam exists offers Resume Exam, Start New Exam, or Cancel. Start New requires a second confirmation and abandons the previous in-progress exam.
+- Practice Results → Review Mistakes reviews only that session’s incorrect `practice_answers`. Home → Review Mistakes still lists every outstanding saved mistake.
 
 Unexpected termination can lose at most a few unsaved timer seconds, not answers or flags.
 

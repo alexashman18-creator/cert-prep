@@ -15,9 +15,11 @@ export function FeedbackPanel({ question, selectedOptionId }: FeedbackPanelProps
   return (
     <View style={styles.stack}>
       <Card style={{ backgroundColor: isCorrect ? colors.successSoft : colors.dangerSoft }}>
-        <AppText variant="subtitle" color={isCorrect ? colors.success : colors.danger}>
-          {isCorrect ? 'Correct' : 'Incorrect'}
-        </AppText>
+        <View accessibilityRole="text" accessibilityLabel={isCorrect ? 'Correct' : 'Incorrect'}>
+          <AppText variant="subtitle" color={isCorrect ? colors.success : colors.danger}>
+            {isCorrect ? 'Correct' : 'Incorrect'}
+          </AppText>
+        </View>
         <AppText variant="body" color={colors.ink} style={styles.block}>
           {question.explanation}
         </AppText>
