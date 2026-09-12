@@ -6,6 +6,7 @@ import { createMistakeRepository } from '@/repositories/mistakeRepository';
 import { createPracticeRepository } from '@/repositories/practiceRepository';
 import { createProgressRepository } from '@/repositories/progressRepository';
 import { createQuestionRepository } from '@/repositories/questionRepository';
+import { createSettingsRepository } from '@/repositories/settingsRepository';
 
 export function createRepositories(db: SQLiteDatabase) {
   return {
@@ -15,6 +16,7 @@ export function createRepositories(db: SQLiteDatabase) {
     progress: createProgressRepository(db),
     mistakes: createMistakeRepository(db),
     flags: createFlagRepository(db),
+    settings: createSettingsRepository(db),
     async transaction<T>(work: () => Promise<T>): Promise<T> {
       let result: T | undefined;
       await db.withTransactionAsync(async () => {

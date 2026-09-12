@@ -1,14 +1,18 @@
 import { mapSourceQuestions } from '@/content/mapSource';
-import { DEVELOPMENT_QUESTION_ID_PREFIX, type QuestionBankFile } from '@/content/types';
-import { assertValidQuestionBank, validateQuestionBankFile } from '@/content/validate';
+import { DEVELOPMENT_QUESTION_ID_PREFIX } from '@/content/types';
+import {
+  assertValidQuestionBank,
+  listQuestionBankFiles,
+  validateProductionCatalogFile,
+} from '@/content/validate';
 import productionQuestionBank from '@/data/generated/productionQuestionBank.json';
 import { sampleQuestions } from '@/data/sampleQuestions';
 import type { Question } from '@/types/question';
 
 export function loadProductionQuestionsFromBank(raw: unknown, fileLabel = 'productionQuestionBank'): Question[] {
-  const result = validateQuestionBankFile(raw, { fileLabel, allowDevelopmentIds: false });
+  const result = validateProductionCatalogFile(raw, { fileLabel, allowDevelopmentIds: false });
   assertValidQuestionBank(result, fileLabel);
-  return mapSourceQuestions((raw as QuestionBankFile).questions);
+  return listQuestionBankFiles(raw).flatMap((bank) => mapSourceQuestions(bank.questions, bank));
 }
 
 export function mergeQuestionCatalog(

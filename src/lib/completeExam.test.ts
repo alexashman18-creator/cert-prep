@@ -7,6 +7,7 @@ import type { SessionAnswer } from '@/types/session';
 
 const question = (id: string, correct = 'b'): Question => ({
   id,
+  certificationId: 'az900',
   examVersion: 'AZ-900-2024',
   domain: 'cloud_concepts',
   objective: 'test',

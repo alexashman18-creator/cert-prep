@@ -1,5 +1,6 @@
+import { DEFAULT_CERTIFICATION_ID } from '@/certifications';
 import { fromJson } from '@/lib/json';
-import { isDomainId, type DomainId } from '@/types/domain';
+import type { DomainId } from '@/types/domain';
 import { isContentStatus, type AnswerOption, type ContentStatus, type Difficulty, type Question } from '@/types/question';
 import type {
   ExamSession,
@@ -15,6 +16,7 @@ import type {
 
 export type QuestionRow = {
   id: string;
+  certification_id?: string | null;
   exam_version: string;
   domain: string;
   objective: string;
@@ -35,6 +37,7 @@ export type QuestionRow = {
 
 export type PracticeSessionRow = {
   id: string;
+  certification_id?: string | null;
   domain_filter: string;
   question_count: number;
   question_ids_json: string;
@@ -48,6 +51,7 @@ export type PracticeSessionRow = {
 
 export type ExamSessionRow = {
   id: string;
+  certification_id?: string | null;
   question_ids_json: string;
   current_index: number;
   duration_seconds: number;
@@ -78,6 +82,7 @@ export type FlagRow = {
 };
 
 export type MistakeRow = {
+  certification_id?: string | null;
   question_id: string;
   times_missed: number;
   last_missed_at: string;
@@ -86,6 +91,7 @@ export type MistakeRow = {
 
 export type ProgressRow = {
   id: string;
+  certification_id?: string | null;
   questions_answered: number;
   questions_correct: number;
   mock_exam_best_percent: number | null;
@@ -103,8 +109,8 @@ function asContentStatus(value: string): ContentStatus {
 }
 
 function asDomain(value: string): DomainId {
-  if (!isDomainId(value)) {
-    throw new Error(`Unknown domain: ${value}`);
+  if (!value.trim()) {
+    throw new Error('Unknown domain: empty');
   }
   return value;
 }
@@ -124,6 +130,7 @@ export function mapQuestion(row: QuestionRow): Question {
 
   return {
     id: row.id,
+    certificationId: row.certification_id?.trim() || DEFAULT_CERTIFICATION_ID,
     examVersion: row.exam_version,
     domain: asDomain(row.domain),
     objective: row.objective,
@@ -145,6 +152,7 @@ export function mapQuestion(row: QuestionRow): Question {
 export function mapPracticeSession(row: PracticeSessionRow): PracticeSession {
   return {
     id: row.id,
+    certificationId: row.certification_id?.trim() || DEFAULT_CERTIFICATION_ID,
     domainFilter: asDomainFilter(row.domain_filter),
     questionCount: row.question_count,
     questionIds: fromJson<string[]>(row.question_ids_json),
@@ -160,6 +168,7 @@ export function mapPracticeSession(row: PracticeSessionRow): PracticeSession {
 export function mapExamSession(row: ExamSessionRow): ExamSession {
   return {
     id: row.id,
+    certificationId: row.certification_id?.trim() || DEFAULT_CERTIFICATION_ID,
     questionIds: fromJson<string[]>(row.question_ids_json),
     currentIndex: row.current_index,
     durationSeconds: row.duration_seconds,
@@ -196,6 +205,7 @@ export function mapFlag(row: FlagRow): FlaggedQuestion {
 
 export function mapMistake(row: MistakeRow): MistakeRecord {
   return {
+    certificationId: row.certification_id?.trim() || DEFAULT_CERTIFICATION_ID,
     questionId: row.question_id,
     timesMissed: row.times_missed,
     lastMissedAt: row.last_missed_at,
@@ -206,6 +216,7 @@ export function mapMistake(row: MistakeRow): MistakeRecord {
 export function mapProgress(row: ProgressRow): UserProgress {
   return {
     id: row.id,
+    certificationId: row.certification_id?.trim() || DEFAULT_CERTIFICATION_ID,
     questionsAnswered: row.questions_answered,
     questionsCorrect: row.questions_correct,
     mockExamBestPercent: row.mock_exam_best_percent,

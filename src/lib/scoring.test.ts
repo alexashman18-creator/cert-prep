@@ -6,6 +6,7 @@ import type { Question } from '@/types/question';
 
 const question = (id: string, domain: Question['domain'], correct = 'b'): Question => ({
   id,
+  certificationId: 'az900',
   examVersion: 'AZ-900-2024',
   domain,
   objective: 'test',

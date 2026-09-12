@@ -13,6 +13,7 @@ export interface AnswerOption {
 
 export interface Question {
   id: string;
+  certificationId: string;
   examVersion: string;
   domain: DomainId;
   objective: string;

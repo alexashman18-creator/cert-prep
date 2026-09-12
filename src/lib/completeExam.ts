@@ -1,3 +1,4 @@
+import { DEFAULT_CERTIFICATION_ID } from '@/certifications';
 import { buildSessionResults } from '@/lib/scoring';
 import type { Repositories } from '@/repositories/createRepositories';
 import type { Question } from '@/types/question';
@@ -41,14 +42,17 @@ export async function completeExamSession(
   });
 
   const { missedIds, correctIds } = classifyExamAnswers(input.questions, input.answers);
+  const session = await repos.exams.getById(input.sessionId);
+  const certificationId =
+    session?.certificationId ?? input.questions[0]?.certificationId ?? DEFAULT_CERTIFICATION_ID;
 
   await repos.transaction(async () => {
     await repos.exams.complete(input.sessionId, results.correct, input.status);
-    await repos.mistakes.recordMany(missedIds, input.sessionId);
+    await repos.mistakes.recordMany(certificationId, missedIds, input.sessionId);
     for (const questionId of correctIds) {
       await repos.mistakes.resolve(questionId);
     }
-    await repos.progress.recordExamCompletion({
+    await repos.progress.recordExamCompletion(certificationId, {
       questionsAnswered: results.correct + results.incorrect,
       questionsCorrect: results.correct,
       percent: results.percent,

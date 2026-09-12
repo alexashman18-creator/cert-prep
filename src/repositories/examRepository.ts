@@ -8,12 +8,14 @@ import type { ExamSession, SessionAnswer, SessionStatus } from '@/types/session'
 export function createExamRepository(db: SQLiteDatabase) {
   return {
     async create(input: {
+      certificationId: string;
       questionIds: string[];
       durationSeconds: number;
     }): Promise<ExamSession> {
       const now = nowIso();
       const session: ExamSession = {
         id: createId('exam'),
+        certificationId: input.certificationId,
         questionIds: input.questionIds,
         currentIndex: 0,
         durationSeconds: input.durationSeconds,
@@ -31,18 +33,20 @@ export function createExamRepository(db: SQLiteDatabase) {
           `
           UPDATE exam_sessions
           SET status = 'abandoned', updated_at = ?
-          WHERE status = 'in_progress'
+          WHERE status = 'in_progress' AND certification_id = ?
           `,
           now,
+          session.certificationId,
         );
         await db.runAsync(
           `
           INSERT INTO exam_sessions (
-            id, question_ids_json, current_index, duration_seconds, remaining_seconds,
+            id, certification_id, question_ids_json, current_index, duration_seconds, remaining_seconds,
             last_tick_at, status, started_at, completed_at, score, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           `,
           session.id,
+          session.certificationId,
           toJson(session.questionIds),
           session.currentIndex,
           session.durationSeconds,
@@ -67,14 +71,15 @@ export function createExamRepository(db: SQLiteDatabase) {
       return row ? mapExamSession(row) : null;
     },
 
-    async getInProgress(): Promise<ExamSession | null> {
+    async getInProgress(certificationId: string): Promise<ExamSession | null> {
       const row = await db.getFirstAsync<ExamSessionRow>(
         `
         SELECT * FROM exam_sessions
-        WHERE status = 'in_progress'
+        WHERE status = 'in_progress' AND certification_id = ?
         ORDER BY updated_at DESC
         LIMIT 1
         `,
+        certificationId,
       );
       return row ? mapExamSession(row) : null;
     },

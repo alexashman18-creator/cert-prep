@@ -2,11 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/AppText';
-import { DOMAIN_LABELS, DOMAIN_SUMMARIES, type DomainId } from '@/types/domain';
+import { DOMAIN_LABELS, DOMAIN_SUMMARIES, type Az900DomainId } from '@/types/domain';
 import type { PracticeDomainFilter } from '@/types/session';
-import { colors, domainThemes, radii, spacing } from '@/theme/tokens';
+import { colors, domainTheme, radii, spacing } from '@/theme/tokens';
 
-const ICONS: Record<PracticeDomainFilter, keyof typeof Ionicons.glyphMap> = {
+const ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
   all: 'apps-outline',
   cloud_concepts: 'cloud-outline',
   architecture_services: 'server-outline',
@@ -14,33 +14,41 @@ const ICONS: Record<PracticeDomainFilter, keyof typeof Ionicons.glyphMap> = {
 };
 
 interface DomainChoiceCardProps {
-  domain: PracticeDomainFilter;
+  domain: PracticeDomainFilter | string;
   selected: boolean;
   onPress: () => void;
+  title?: string;
+  summary?: string;
 }
 
-export function DomainChoiceCard({ domain, selected, onPress }: DomainChoiceCardProps) {
+export function DomainChoiceCard({ domain, selected, onPress, title, summary }: DomainChoiceCardProps) {
   const theme =
-    domain === 'all'
-      ? { fg: colors.navy, bg: colors.navySoft, border: colors.borderStrong }
-      : domainThemes[domain as DomainId];
-  const title = domain === 'all' ? 'All Domains' : DOMAIN_LABELS[domain];
+    domain === 'all' ? { fg: colors.navy, bg: colors.navySoft, border: colors.borderStrong } : domainTheme(domain);
+  const resolvedTitle =
+    title ?? (domain === 'all' ? 'All Domains' : (DOMAIN_LABELS[domain as Az900DomainId] ?? domain));
+  const resolvedSummary =
+    summary ??
+    (domain === 'all' || domain in DOMAIN_SUMMARIES
+      ? DOMAIN_SUMMARIES[domain as Az900DomainId | 'all']
+      : '');
 
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
       accessibilityState={{ selected }}
-      accessibilityLabel={`${title}. ${DOMAIN_SUMMARIES[domain]}`}
+      accessibilityLabel={`${resolvedTitle}. ${resolvedSummary}`}
       style={[styles.card, selected && { borderColor: theme.fg, backgroundColor: theme.bg }]}>
       <View style={[styles.icon, { backgroundColor: selected ? colors.surface : theme.bg }]}>
-        <Ionicons name={ICONS[domain]} size={20} color={theme.fg} />
+        <Ionicons name={ICONS[domain] ?? 'ellipse-outline'} size={20} color={theme.fg} />
       </View>
       <View style={styles.copy}>
-        <AppText variant="bodyStrong">{title}</AppText>
-        <AppText variant="caption" color={colors.inkSecondary}>
-          {DOMAIN_SUMMARIES[domain]}
-        </AppText>
+        <AppText variant="bodyStrong">{resolvedTitle}</AppText>
+        {resolvedSummary ? (
+          <AppText variant="caption" color={colors.inkSecondary}>
+            {resolvedSummary}
+          </AppText>
+        ) : null}
       </View>
       <View style={[styles.radio, selected && { borderColor: theme.fg, backgroundColor: theme.fg }]}>
         {selected ? <View style={styles.radioDot} /> : null}

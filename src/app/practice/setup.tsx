@@ -9,35 +9,44 @@ import { ChoiceChip } from '@/components/ui/ChoiceChip';
 import { DomainChoiceCard } from '@/components/ui/DomainChoiceCard';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { useSelectedCertification } from '@/hooks/useSelectedCertification';
 import { useRepositories } from '@/hooks/useRepositories';
 import { useStartPractice } from '@/hooks/usePracticeSession';
-import { DOMAIN_IDS, type DomainId } from '@/types/domain';
 import { PRACTICE_LENGTHS, type PracticeDomainFilter, type PracticeLength } from '@/types/session';
 import { colors, spacing } from '@/theme/tokens';
 
 export default function PracticeSetupScreen() {
   const repos = useRepositories();
+  const { certification } = useSelectedCertification();
   const startPractice = useStartPractice();
   const [domain, setDomain] = useState<PracticeDomainFilter>('all');
   const [length, setLength] = useState<PracticeLength>(10);
   const [available, setAvailable] = useState<number>(0);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const domains = certification?.domains ?? [];
 
   useEffect(() => {
+    if (!certification) {
+      return;
+    }
     void repos.questions
-      .countByDomain(domain === 'all' ? undefined : domain)
+      .countByDomain(certification.id, domain === 'all' ? undefined : domain)
       .then(setAvailable)
       .catch(() => setAvailable(0));
-  }, [domain, repos.questions]);
+  }, [certification, domain, repos.questions]);
 
   const actualCount = Math.min(length, available);
 
   const start = async () => {
+    if (!certification) {
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
       const session = await startPractice({
+        certificationId: certification.id,
         domainFilter: domain,
         requestedCount: length,
       });
@@ -56,15 +65,19 @@ export default function PracticeSetupScreen() {
         <View style={styles.choices}>
           <DomainChoiceCard
             domain="all"
+            title="All Domains"
+            summary="Questions from every domain in this certification"
             selected={domain === 'all'}
             onPress={() => setDomain('all')}
           />
-          {DOMAIN_IDS.map((id: DomainId) => (
+          {domains.map((item) => (
             <DomainChoiceCard
-              key={id}
-              domain={id}
-              selected={domain === id}
-              onPress={() => setDomain(id)}
+              key={item.id}
+              domain={item.id}
+              title={item.label}
+              summary={item.summary}
+              selected={domain === item.id}
+              onPress={() => setDomain(item.id)}
             />
           ))}
         </View>
@@ -107,7 +120,7 @@ export default function PracticeSetupScreen() {
         label="Start Practice"
         icon="play"
         onPress={() => void start()}
-        disabled={busy || actualCount === 0}
+        disabled={busy || actualCount === 0 || !certification}
       />
     </Screen>
   );

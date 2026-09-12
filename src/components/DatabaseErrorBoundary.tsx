@@ -55,8 +55,8 @@ export class DatabaseErrorBoundary extends Component<Props, State> {
         </AppText>
         <AppText variant="body" color={colors.inkSecondary} align="center">
           {retryable
-            ? 'Another tab or an earlier session still has the offline database open. Close other AZ-900 Prep windows and try again.'
-            : 'AZ-900 Prep could not initialise its offline database. Restart the app. Progress already saved on this device is not deleted.'}
+            ? 'Another tab or an earlier session still has the offline database open. Close other Cert Prep windows and try again.'
+            : 'Cert Prep could not initialise its offline database. Restart the app. Progress already saved on this device is not deleted.'}
         </AppText>
         <AppButton
           label="Try again"

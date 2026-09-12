@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { DEFAULT_CERTIFICATION_ID } from '@/certifications';
 import { useRepositories } from '@/hooks/useRepositories';
 import { missedQuestionIdsFromAnswers } from '@/lib/sessionMistakes';
 import { selectPracticeQuestionIds, alignSessionQuestions } from '@/lib/sessionIntegrity';
@@ -18,8 +19,13 @@ export function useStartPractice() {
   const repos = useRepositories();
 
   return useCallback(
-    async (input: { domainFilter: PracticeDomainFilter; requestedCount: number }) => {
-      const all = await repos.questions.getEligible();
+    async (input: {
+      certificationId?: string;
+      domainFilter: PracticeDomainFilter;
+      requestedCount: number;
+    }) => {
+      const certificationId = input.certificationId ?? DEFAULT_CERTIFICATION_ID;
+      const all = await repos.questions.getEligible({ certificationId });
       const pool =
         input.domainFilter === 'all'
           ? all
@@ -32,6 +38,7 @@ export function useStartPractice() {
         throw new Error('No questions are available for this selection.');
       }
       return repos.practice.create({
+        certificationId,
         domainFilter: input.domainFilter,
         questionIds,
       });
@@ -43,16 +50,20 @@ export function useStartPractice() {
 export function useStartMistakePractice() {
   const repos = useRepositories();
 
-  return useCallback(async () => {
-    const ids = await repos.mistakes.getQuestionIds();
-    if (ids.length === 0) {
-      throw new Error('You have no saved mistakes to review yet.');
-    }
-    return repos.practice.create({
-      domainFilter: 'all',
-      questionIds: ids,
-    });
-  }, [repos]);
+  return useCallback(
+    async (certificationId: string = DEFAULT_CERTIFICATION_ID) => {
+      const ids = await repos.mistakes.getQuestionIds(certificationId);
+      if (ids.length === 0) {
+        throw new Error('You have no saved mistakes to review yet.');
+      }
+      return repos.practice.create({
+        certificationId,
+        domainFilter: 'all',
+        questionIds: ids,
+      });
+    },
+    [repos],
+  );
 }
 
 export function useStartSessionMistakePractice() {
@@ -61,11 +72,13 @@ export function useStartSessionMistakePractice() {
   return useCallback(
     async (sessionId: string) => {
       const answers = await repos.practice.getAnswers(sessionId);
+      const session = await repos.practice.getById(sessionId);
       const uniqueIds = missedQuestionIdsFromAnswers(answers);
       if (uniqueIds.length === 0) {
         throw new Error('This session has no missed questions to review.');
       }
       return repos.practice.create({
+        certificationId: session?.certificationId ?? DEFAULT_CERTIFICATION_ID,
         domainFilter: 'all',
         questionIds: uniqueIds,
       });
@@ -151,11 +164,11 @@ export function usePracticeSession(sessionId: string | undefined) {
           selectedOptionId,
           isCorrect,
         });
-        await repos.progress.recordPracticeAnswer(isCorrect);
+        await repos.progress.recordPracticeAnswer(session.certificationId, isCorrect);
         if (isCorrect) {
           await repos.mistakes.resolve(currentQuestion.id);
         } else {
-          await repos.mistakes.record(currentQuestion.id, session.id);
+          await repos.mistakes.record(session.certificationId, currentQuestion.id, session.id);
         }
         return saved;
       });

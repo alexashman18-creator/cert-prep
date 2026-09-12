@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/Card';
 import { DomainBadge } from '@/components/ui/DomainBadge';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Screen } from '@/components/ui/Screen';
+import { useSelectedCertification } from '@/hooks/useSelectedCertification';
 import { useRepositories } from '@/hooks/useRepositories';
 import { useStartMistakePractice } from '@/hooks/usePracticeSession';
 import type { Question } from '@/types/question';
@@ -16,6 +17,7 @@ import { colors, spacing } from '@/theme/tokens';
 
 export default function ReviewMistakesScreen() {
   const repos = useRepositories();
+  const { certification } = useSelectedCertification();
   const startMistakes = useStartMistakePractice();
   const [items, setItems] = useState<{ mistake: MistakeRecord; question: Question }[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -23,7 +25,10 @@ export default function ReviewMistakesScreen() {
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
-    const mistakes = await repos.mistakes.list();
+    if (!certification) {
+      return;
+    }
+    const mistakes = await repos.mistakes.list(certification.id);
     const questions = await repos.questions.getByIds(mistakes.map((item) => item.questionId));
     const byId = new Map(questions.map((question) => [question.id, question]));
     setItems(
@@ -33,7 +38,7 @@ export default function ReviewMistakesScreen() {
       }),
     );
     setLoaded(true);
-  }, [repos]);
+  }, [certification, repos]);
 
   useEffect(() => {
     void load().catch((caught: unknown) => {
@@ -45,7 +50,7 @@ export default function ReviewMistakesScreen() {
   const start = async () => {
     setBusy(true);
     try {
-      const session = await startMistakes();
+      const session = await startMistakes(certification?.id);
       router.replace({ pathname: '/practice/session', params: { id: session.id } });
     } finally {
       setBusy(false);

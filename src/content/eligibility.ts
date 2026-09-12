@@ -28,3 +28,10 @@ export function filterEligibleQuestions<T extends Pick<Question, 'contentStatus'
     isEligibleForSessions(question.contentStatus, includeDevelopment),
   );
 }
+
+export function filterQuestionsByCertification<T extends Pick<Question, 'certificationId'>>(
+  questions: readonly T[],
+  certificationId: string,
+): T[] {
+  return questions.filter((question) => question.certificationId === certificationId);
+}

@@ -1,7 +1,27 @@
-import type { QuestionSourceRecord } from '@/content/types';
+import { DEFAULT_CERTIFICATION_ID, getCertificationByExamCode } from '@/certifications';
+import type { QuestionBankFile, QuestionSourceRecord } from '@/content/types';
 import type { AnswerOption, Question } from '@/types/question';
 
-export function mapSourceQuestion(record: QuestionSourceRecord): Question {
+export function resolveSourceCertificationId(
+  record: QuestionSourceRecord,
+  bank?: Pick<QuestionBankFile, 'exam' | 'certificationId'>,
+): string {
+  if (record.certificationId?.trim()) {
+    return record.certificationId;
+  }
+  if (bank?.certificationId?.trim()) {
+    return bank.certificationId;
+  }
+  if (bank?.exam) {
+    return getCertificationByExamCode(bank.exam)?.id ?? DEFAULT_CERTIFICATION_ID;
+  }
+  return DEFAULT_CERTIFICATION_ID;
+}
+
+export function mapSourceQuestion(
+  record: QuestionSourceRecord,
+  bank?: Pick<QuestionBankFile, 'exam' | 'certificationId'>,
+): Question {
   const options = record.options.map((option) => ({
     id: option.id,
     text: option.text,
@@ -9,6 +29,7 @@ export function mapSourceQuestion(record: QuestionSourceRecord): Question {
 
   return {
     id: record.id,
+    certificationId: resolveSourceCertificationId(record, bank),
     examVersion: record.examVersion,
     domain: record.domain,
     objective: record.objective,
@@ -27,6 +48,9 @@ export function mapSourceQuestion(record: QuestionSourceRecord): Question {
   };
 }
 
-export function mapSourceQuestions(records: readonly QuestionSourceRecord[]): Question[] {
-  return records.map(mapSourceQuestion);
+export function mapSourceQuestions(
+  records: readonly QuestionSourceRecord[],
+  bank?: Pick<QuestionBankFile, 'exam' | 'certificationId'>,
+): Question[] {
+  return records.map((record) => mapSourceQuestion(record, bank));
 }

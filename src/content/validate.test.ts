@@ -6,6 +6,7 @@ import { validateQuestionBankFile } from '@/content/validate';
 function validQuestion(overrides: Record<string, unknown> = {}) {
   return {
     id: 'az900-2024-cc-001',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'cloud_concepts',
     objective: 'Describe cloud concepts',
@@ -137,4 +138,28 @@ test('does not silently accept a malformed bank', () => {
   const result = validateQuestionBankFile({ exam: 'AZ-900', questions: [validQuestion()] });
   assert.equal(result.ok, false);
   assert.ok(result.issues.length > 0);
+});
+
+test('accepts an empty coming-soon bank and rejects questions before domains exist', () => {
+  assert.equal(
+    validateQuestionBankFile({
+      schemaVersion: 1,
+      exam: 'DP-900',
+      certificationId: 'dp900',
+      questions: [],
+    }).ok,
+    true,
+  );
+  assert.ok(
+    messages({
+      schemaVersion: 1,
+      exam: 'DP-900',
+      certificationId: 'dp900',
+      questions: [validQuestion({ id: 'dp900-001', certificationId: 'dp900' })],
+    }).some((item) => item.includes('domains have not been defined')),
+  );
+});
+
+test('rejects an unknown exam code', () => {
+  assert.ok(messages(bank([validQuestion()], { exam: 'MS-999' })).some((item) => item.includes('unknown exam')));
 });

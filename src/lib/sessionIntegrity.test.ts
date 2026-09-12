@@ -11,6 +11,7 @@ import type { Question } from '@/types/question';
 
 const question = (id: string): Question => ({
   id,
+  certificationId: 'az900',
   examVersion: 'AZ-900-2024',
   domain: 'cloud_concepts',
   objective: 'test',

@@ -1,13 +1,17 @@
 import {
-  DEVELOPMENT_QUESTION_ID_PREFIX,
-  QUESTION_BANK_EXAM,
+  developmentIdPrefix,
+  getCertification,
+  getCertificationByExamCode,
+  resolveCertificationId,
+  type Certification,
+} from '@/certifications';
+import {
   QUESTION_BANK_SCHEMA_VERSION,
   type QuestionBankFile,
   type QuestionSourceRecord,
   type ValidationIssue,
   type ValidationResult,
 } from '@/content/types';
-import { isDomainId } from '@/types/domain';
 import { CONTENT_STATUSES, isContentStatus, isDifficulty } from '@/types/question';
 
 function issue(path: string, message: string): ValidationIssue {
@@ -46,10 +50,23 @@ function isHttpUrl(value: string): boolean {
   }
 }
 
+function resolveBankCertification(exam: string | null, certificationId: string | null): Certification | null {
+  if (certificationId) {
+    const fromId = getCertification(certificationId);
+    if (fromId) {
+      return fromId;
+    }
+  }
+  if (exam) {
+    return getCertificationByExamCode(exam);
+  }
+  return null;
+}
+
 export function validateQuestionSource(
   raw: unknown,
   path: string,
-  options?: { allowDevelopmentIds?: boolean },
+  options?: { allowDevelopmentIds?: boolean; certification?: Certification | null },
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const record = asRecord(raw);
@@ -62,13 +79,16 @@ export function validateQuestionSource(
     issues.push(issue(`${path}.id`, 'id is required.'));
   } else if (id !== id.trim()) {
     issues.push(issue(`${path}.id`, 'id must not include leading or trailing whitespace.'));
-  } else if (!options?.allowDevelopmentIds && id.startsWith(DEVELOPMENT_QUESTION_ID_PREFIX)) {
-    issues.push(
-      issue(
-        `${path}.id`,
-        `IDs starting with ${DEVELOPMENT_QUESTION_ID_PREFIX} are reserved for bundled development samples.`,
-      ),
-    );
+  } else if (!options?.allowDevelopmentIds) {
+    const reservedPrefix = developmentIdPrefix(options?.certification?.id ?? 'az900');
+    if (id.startsWith(reservedPrefix)) {
+      issues.push(
+        issue(
+          `${path}.id`,
+          `IDs starting with ${reservedPrefix} are reserved for bundled development samples.`,
+        ),
+      );
+    }
   }
 
   const examVersion = readString(record.examVersion);
@@ -77,13 +97,31 @@ export function validateQuestionSource(
   }
 
   const domain = readString(record.domain);
+  const allowedDomains = options?.certification?.domains.map((item) => item.id) ?? [];
   if (!domain) {
     issues.push(issue(`${path}.domain`, 'domain is required.'));
-  } else if (!isDomainId(domain)) {
+  } else if (options?.certification && options.certification.domains.length === 0) {
     issues.push(
       issue(
         `${path}.domain`,
-        `invalid domain "${domain}". Use cloud_concepts, architecture_services, or management_governance.`,
+        `domains have not been defined for ${options.certification.examCode} yet. Do not add questions until the outline is configured.`,
+      ),
+    );
+  } else if (allowedDomains.length > 0 && !allowedDomains.includes(domain)) {
+    issues.push(
+      issue(
+        `${path}.domain`,
+        `invalid domain "${domain}" for ${options?.certification?.examCode ?? 'this certification'}. Use ${allowedDomains.join(', ')}.`,
+      ),
+    );
+  }
+
+  const questionCertificationId = readString(record.certificationId);
+  if (questionCertificationId && options?.certification && questionCertificationId !== options.certification.id) {
+    issues.push(
+      issue(
+        `${path}.certificationId`,
+        `certificationId "${questionCertificationId}" does not match ${options.certification.id}.`,
       ),
     );
   }
@@ -239,8 +277,22 @@ export function validateQuestionBankFile(
   }
 
   const exam = readString(file.exam);
-  if (!exam || exam !== QUESTION_BANK_EXAM) {
-    issues.push(issue(`${label}.exam`, `exam must be "${QUESTION_BANK_EXAM}".`));
+  const fileCertificationId = file.certificationId === undefined ? null : readString(file.certificationId);
+  if (file.certificationId !== undefined && (!fileCertificationId || !fileCertificationId.trim())) {
+    issues.push(issue(`${label}.certificationId`, 'certificationId must be a non-empty string when provided.'));
+  }
+  const certification = resolveBankCertification(exam, fileCertificationId);
+  if (!exam || !exam.trim()) {
+    issues.push(issue(`${label}.exam`, 'exam is required.'));
+  } else if (!certification) {
+    issues.push(issue(`${label}.exam`, `unknown exam "${exam}". Use a catalog exam code such as AZ-900.`));
+  } else if (fileCertificationId && resolveCertificationId(fileCertificationId) !== certification.id) {
+    issues.push(
+      issue(
+        `${label}.certificationId`,
+        `certificationId "${fileCertificationId}" does not match exam "${exam}".`,
+      ),
+    );
   }
 
   if (file.batchId !== undefined) {
@@ -258,7 +310,7 @@ export function validateQuestionBankFile(
   const seen = new Map<string, number>();
   file.questions.forEach((question, index) => {
     const path = `${label}.questions[${index}]`;
-    issues.push(...validateQuestionSource(question, path, options));
+    issues.push(...validateQuestionSource(question, path, { ...options, certification }));
     const id = asRecord(question) && readString(asRecord(question)?.id);
     if (id) {
       const previous = seen.get(id);
@@ -291,4 +343,42 @@ export function asQuestionBankFile(raw: unknown): QuestionBankFile {
 
 export function asQuestionSourceRecords(raw: unknown): QuestionSourceRecord[] {
   return asQuestionBankFile(raw).questions;
+}
+
+export function validateProductionCatalogFile(
+  raw: unknown,
+  options?: { fileLabel?: string; allowDevelopmentIds?: boolean },
+): ValidationResult {
+  const label = options?.fileLabel ?? 'catalog';
+  const file = asRecord(raw);
+  if (!file) {
+    return { ok: false, issues: [issue(label, 'Production catalog must be a JSON object.')] };
+  }
+
+  if (Array.isArray(file.banks)) {
+    const issues: ValidationIssue[] = [];
+    if (file.schemaVersion !== QUESTION_BANK_SCHEMA_VERSION) {
+      issues.push(
+        issue(`${label}.schemaVersion`, `schemaVersion must be ${QUESTION_BANK_SCHEMA_VERSION}.`),
+      );
+    }
+    file.banks.forEach((bank, index) => {
+      const result = validateQuestionBankFile(bank, {
+        fileLabel: `${label}.banks[${index}]`,
+        allowDevelopmentIds: options?.allowDevelopmentIds,
+      });
+      issues.push(...result.issues);
+    });
+    return { ok: issues.length === 0, issues };
+  }
+
+  return validateQuestionBankFile(raw, options);
+}
+
+export function listQuestionBankFiles(raw: unknown): QuestionBankFile[] {
+  const file = asRecord(raw);
+  if (file && Array.isArray(file.banks)) {
+    return file.banks as QuestionBankFile[];
+  }
+  return [raw as QuestionBankFile];
 }

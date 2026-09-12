@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { filterEligibleQuestions, isEligibleForSessions } from '@/content/eligibility';
+import {
+  filterEligibleQuestions,
+  filterQuestionsByCertification,
+  isEligibleForSessions,
+} from '@/content/eligibility';
 
 test('only development and verified questions are eligible for normal sessions', () => {
   assert.equal(isEligibleForSessions('verified', true), true);
@@ -24,5 +28,19 @@ test('production sessions exclude development questions', () => {
       false,
     ),
     [{ contentStatus: 'verified' }],
+  );
+});
+
+test('filterQuestionsByCertification keeps only the requested track', () => {
+  assert.deepEqual(
+    filterQuestionsByCertification(
+      [
+        { certificationId: 'az900' },
+        { certificationId: 'dp900' },
+        { certificationId: 'az900' },
+      ],
+      'az900',
+    ),
+    [{ certificationId: 'az900' }, { certificationId: 'az900' }],
   );
 });

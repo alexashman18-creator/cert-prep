@@ -8,12 +8,14 @@ import type { PracticeDomainFilter, PracticeSession, SessionAnswer } from '@/typ
 export function createPracticeRepository(db: SQLiteDatabase) {
   return {
     async create(input: {
+      certificationId: string;
       domainFilter: PracticeDomainFilter;
       questionIds: string[];
     }): Promise<PracticeSession> {
       const now = nowIso();
       const session: PracticeSession = {
         id: createId('practice'),
+        certificationId: input.certificationId,
         domainFilter: input.domainFilter,
         questionCount: input.questionIds.length,
         questionIds: input.questionIds,
@@ -30,18 +32,20 @@ export function createPracticeRepository(db: SQLiteDatabase) {
           `
           UPDATE practice_sessions
           SET status = 'abandoned', updated_at = ?
-          WHERE status = 'in_progress'
+          WHERE status = 'in_progress' AND certification_id = ?
           `,
           now,
+          session.certificationId,
         );
         await db.runAsync(
           `
           INSERT INTO practice_sessions (
-            id, domain_filter, question_count, question_ids_json, current_index,
+            id, certification_id, domain_filter, question_count, question_ids_json, current_index,
             status, started_at, completed_at, score, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           `,
           session.id,
+          session.certificationId,
           session.domainFilter,
           session.questionCount,
           toJson(session.questionIds),
@@ -65,14 +69,15 @@ export function createPracticeRepository(db: SQLiteDatabase) {
       return row ? mapPracticeSession(row) : null;
     },
 
-    async getInProgress(): Promise<PracticeSession | null> {
+    async getInProgress(certificationId: string): Promise<PracticeSession | null> {
       const row = await db.getFirstAsync<PracticeSessionRow>(
         `
         SELECT * FROM practice_sessions
-        WHERE status = 'in_progress'
+        WHERE status = 'in_progress' AND certification_id = ?
         ORDER BY updated_at DESC
         LIMIT 1
         `,
+        certificationId,
       );
       return row ? mapPracticeSession(row) : null;
     },

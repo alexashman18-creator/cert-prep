@@ -1,19 +1,22 @@
-import { DOMAIN_IDS, type DomainId } from '@/types/domain';
+import { AZ900_MOCK_EXAM, type MockExamConfig } from '@/certifications';
 import type { Question } from '@/types/question';
 import { shuffle, takeRandom } from '@/lib/shuffle';
 
-export const EXAM_QUESTION_TARGET = 40;
-export const EXAM_DURATION_SECONDS = 45 * 60;
+export const EXAM_QUESTION_TARGET = AZ900_MOCK_EXAM.targetQuestionCount;
+export const EXAM_DURATION_SECONDS = AZ900_MOCK_EXAM.examDurationMinutes * 60;
+export const DOMAIN_WEIGHTS = AZ900_MOCK_EXAM.domainWeights;
 
-export const DOMAIN_WEIGHTS: Record<DomainId, number> = {
-  cloud_concepts: 0.27,
-  architecture_services: 0.38,
-  management_governance: 0.35,
-};
+export function durationSecondsFromConfig(config: MockExamConfig): number {
+  return config.examDurationMinutes * 60;
+}
 
-export function allocateDomainCounts(total: number): Record<DomainId, number> {
-  const raw = DOMAIN_IDS.map((domain) => {
-    const exact = total * DOMAIN_WEIGHTS[domain];
+export function allocateDomainCounts(
+  total: number,
+  weights: Record<string, number> = DOMAIN_WEIGHTS,
+): Record<string, number> {
+  const domainIds = Object.keys(weights);
+  const raw = domainIds.map((domain) => {
+    const exact = total * (weights[domain] ?? 0);
     return {
       domain,
       exact,
@@ -22,10 +25,7 @@ export function allocateDomainCounts(total: number): Record<DomainId, number> {
     };
   });
 
-  const allocated = Object.fromEntries(DOMAIN_IDS.map((domain) => [domain, 0])) as Record<
-    DomainId,
-    number
-  >;
+  const allocated = Object.fromEntries(domainIds.map((domain) => [domain, 0]));
 
   let used = 0;
   for (const item of raw) {
@@ -45,31 +45,45 @@ export function allocateDomainCounts(total: number): Record<DomainId, number> {
   return allocated;
 }
 
+function resolveExamSelection(
+  targetOrConfig: number | MockExamConfig,
+): { target: number; weights: Record<string, number> } {
+  if (typeof targetOrConfig === 'number') {
+    return { target: targetOrConfig, weights: DOMAIN_WEIGHTS };
+  }
+  return {
+    target: targetOrConfig.targetQuestionCount,
+    weights: targetOrConfig.domainWeights,
+  };
+}
+
 export function selectExamQuestions(
   questions: Question[],
-  targetTotal: number = EXAM_QUESTION_TARGET,
+  targetOrConfig: number | MockExamConfig = EXAM_QUESTION_TARGET,
 ): Question[] {
-  const available = new Map<DomainId, Question[]>();
-  for (const domain of DOMAIN_IDS) {
+  const { target, weights } = resolveExamSelection(targetOrConfig);
+  const domainIds = Object.keys(weights);
+  const available = new Map<string, Question[]>();
+  for (const domain of domainIds) {
     available.set(
       domain,
       questions.filter((question) => question.domain === domain),
     );
   }
 
-  const desired = allocateDomainCounts(targetTotal);
+  const desired = allocateDomainCounts(target, weights);
   const selected: Question[] = [];
 
-  for (const domain of DOMAIN_IDS) {
+  for (const domain of domainIds) {
     const pool = available.get(domain) ?? [];
-    const take = Math.min(desired[domain], pool.length);
+    const take = Math.min(desired[domain] ?? 0, pool.length);
     selected.push(...takeRandom(pool, take));
   }
 
-  if (selected.length < targetTotal) {
+  if (selected.length < target) {
     const selectedIds = new Set(selected.map((question) => question.id));
     const leftovers = questions.filter((question) => !selectedIds.has(question.id));
-    selected.push(...takeRandom(leftovers, targetTotal - selected.length));
+    selected.push(...takeRandom(leftovers, target - selected.length));
   }
 
   return shuffle(selected);

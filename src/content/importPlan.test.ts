@@ -6,6 +6,7 @@ import type { Question } from '@/types/question';
 
 const question = (overrides: Partial<Question> = {}): Question => ({
   id: 'az900-2024-cc-001',
+  certificationId: 'az900',
   examVersion: 'AZ-900-2024',
   domain: 'cloud_concepts',
   objective: 'Describe cloud concepts',

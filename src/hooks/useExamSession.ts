@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, type AppStateStatus } from 'react-native';
 
+import { DEFAULT_CERTIFICATION_ID, requireMockExamConfig } from '@/certifications';
 import { useRepositories } from '@/hooks/useRepositories';
 import { completeExamSession } from '@/lib/completeExam';
-import { EXAM_DURATION_SECONDS, EXAM_QUESTION_TARGET, selectExamQuestions } from '@/lib/examBlueprint';
+import { durationSecondsFromConfig, selectExamQuestions } from '@/lib/examBlueprint';
 import { buildSessionResults } from '@/lib/scoring';
 import { alignSessionQuestions } from '@/lib/sessionIntegrity';
 import { remainingFromDeadline, shouldExpire } from '@/lib/timer';
@@ -15,20 +16,26 @@ export function useStartExam() {
   const repos = useRepositories();
 
   return useCallback(
-    async (options?: { forceNew?: boolean }) => {
+    async (options?: { certificationId?: string; forceNew?: boolean }) => {
+      const certificationId = options?.certificationId ?? DEFAULT_CERTIFICATION_ID;
+      const examConfig = requireMockExamConfig(certificationId);
       if (!options?.forceNew) {
-        const existing = await repos.exams.getInProgress();
+        const existing = await repos.exams.getInProgress(certificationId);
         if (existing) {
           return existing;
         }
       }
-      const questions = selectExamQuestions(await repos.questions.getEligible(), EXAM_QUESTION_TARGET);
+      const questions = selectExamQuestions(
+        await repos.questions.getEligible({ certificationId }),
+        examConfig,
+      );
       if (questions.length === 0) {
         throw new Error('No questions are available for a mock exam.');
       }
       return repos.exams.create({
+        certificationId,
         questionIds: questions.map((question) => question.id),
-        durationSeconds: EXAM_DURATION_SECONDS,
+        durationSeconds: durationSecondsFromConfig(examConfig),
       });
     },
     [repos],

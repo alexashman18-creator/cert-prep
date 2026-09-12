@@ -11,6 +11,7 @@ export type PracticeLength = (typeof PRACTICE_LENGTHS)[number];
 
 export interface PracticeSession {
   id: string;
+  certificationId: string;
   domainFilter: PracticeDomainFilter;
   questionCount: number;
   questionIds: string[];
@@ -24,6 +25,7 @@ export interface PracticeSession {
 
 export interface ExamSession {
   id: string;
+  certificationId: string;
   questionIds: string[];
   currentIndex: number;
   durationSeconds: number;
@@ -54,6 +56,7 @@ export interface FlaggedQuestion {
 }
 
 export interface MistakeRecord {
+  certificationId: string;
   questionId: string;
   timesMissed: number;
   lastMissedAt: string;
@@ -62,6 +65,7 @@ export interface MistakeRecord {
 
 export interface UserProgress {
   id: string;
+  certificationId: string;
   questionsAnswered: number;
   questionsCorrect: number;
   mockExamBestPercent: number | null;

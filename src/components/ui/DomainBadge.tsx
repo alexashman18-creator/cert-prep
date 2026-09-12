@@ -1,22 +1,23 @@
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/AppText';
-import { DOMAIN_LABELS, DOMAIN_SHORT_LABELS, type DomainId } from '@/types/domain';
-import { domainThemes, radii, spacing } from '@/theme/tokens';
+import { domainLabel, domainShortLabel, type DomainId } from '@/types/domain';
+import { domainTheme, radii, spacing } from '@/theme/tokens';
 
 interface DomainBadgeProps {
   domain: DomainId;
+  certificationId?: string;
 }
 
-export function DomainBadge({ domain }: DomainBadgeProps) {
-  const theme = domainThemes[domain];
+export function DomainBadge({ domain, certificationId }: DomainBadgeProps) {
+  const theme = domainTheme(domain);
   return (
     <View
       style={[styles.badge, { backgroundColor: theme.bg, borderColor: theme.border }]}
       accessibilityRole="text"
-      accessibilityLabel={DOMAIN_LABELS[domain]}>
+      accessibilityLabel={domainLabel(domain, certificationId)}>
       <AppText variant="label" color={theme.fg}>
-        {DOMAIN_SHORT_LABELS[domain].toUpperCase()}
+        {domainShortLabel(domain, certificationId).toUpperCase()}
       </AppText>
     </View>
   );

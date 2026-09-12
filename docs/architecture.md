@@ -1,6 +1,6 @@
-# AZ-900 Prep architecture
+# Cert Prep architecture
 
-AZ-900 Prep is a local-first React Native app built with Expo, Expo Router, TypeScript, Zustand, and Expo SQLite.
+Cert Prep is a local-first React Native app built with Expo, Expo Router, TypeScript, Zustand, and Expo SQLite. AZ-900 — Azure Fundamentals is the first available certification. The practice engine, mock-exam engine, and persistence layer are shared across tracks.
 
 The first version is designed so a learner can complete practice and mock exams with no network connection. Progress must survive navigation, backgrounding, process death, and device restart.
 
@@ -22,7 +22,8 @@ src/
 
 Routing is file-based under `src/app`:
 
-- `/` home dashboard
+- `/` home dashboard for the selected certification
+- `/certifications` catalog / selector
 - `/practice/setup` domain and length selection
 - `/practice/session` answered-then-revealed practice
 - `/practice/results` practice score and domain breakdown
@@ -58,9 +59,9 @@ Web preview uses Expo’s alpha SQLite/wasm build. The app is configured with `w
 
 `SQLiteProvider` opens the database and runs `initializeDatabase`:
 
-1. Apply versioned migrations via `PRAGMA user_version`. Schema version 2 remaps legacy `development_sample` rows to `development` and adds `questions.updated_at`.
+1. Apply versioned migrations via `PRAGMA user_version`. Schema version 2 remaps legacy `development_sample` rows to `development` and adds `questions.updated_at`. Schema version 3 scopes questions, sessions, mistakes, and progress by `certification_id` and adds `app_settings`. Existing AZ-900 rows are tagged `az900` without resetting counters.
 2. Validate and import the bundled question catalog (development samples plus any production batches). Existing rows update only when `questionVersion` is newer.
-3. Ensure a single `user_progress` row exists.
+3. Ensure a progress row exists for the selected certification (default `az900`).
 
 Schema version 1 creates:
 
@@ -80,6 +81,7 @@ Repositories receive a `SQLiteDatabase` and return typed domain objects. UI comp
 The question contract is sized for a 500+ item bank without structural change:
 
 - `id`
+- `certificationId`
 - `examVersion`
 - `domain`
 - `objective`
@@ -115,13 +117,15 @@ Exam:
 - `remaining_seconds` and `last_tick_at` are checkpoints only. Restore never trusts them as the source of remaining time.
 - The exam clock continues while the app is backgrounded or closed, matching a real timed exam.
 - If remaining time is already zero on restore, the exam is expired and scored. Extra time is not restored.
-- Home copy advertises `min(bankSize, 40)` unique questions. The engine still targets 40 once the bank is large enough and never duplicates items to pad a smaller bank.
-- Tapping Mock Exam while an unfinished exam exists offers Resume Exam, Start New Exam, or Cancel. Start New requires a second confirmation and abandons the previous in-progress exam.
+- Home copy advertises `min(bankSize, target)` unique questions from the selected certification’s mock-exam config. AZ-900 still targets 40. The engine never duplicates items to pad a smaller bank.
+- Tapping Mock Exam while an unfinished exam exists for that certification offers Resume Exam, Start New Exam, or Cancel. Start New requires a second confirmation and abandons the previous in-progress exam for the same certification only.
 - Practice Results → Review Mistakes reviews only that session’s incorrect `practice_answers`. Home → Review Mistakes still lists every outstanding saved mistake.
 
 Unexpected termination can lose at most a few unsaved timer seconds, not answers or flags.
 
-Starting a new practice session abandons any other in-progress practice session so Home never shows a stale resume card. The same applies to mock exams. Returning to Home also expires a timed-out in-progress exam and scores it instead of offering Resume.
+Starting a new practice session abandons any other in-progress practice session **for that certification** so Home never shows a stale resume card. The same applies to mock exams. Returning to Home also expires a timed-out in-progress exam and scores it instead of offering Resume.
+
+See `docs/certification-platform.md` for catalog fields, scoping, and how to enable another exam.
 
 Incorrect answers are stored once per question ID. A later correct answer removes that ID from Review Mistakes. Missing the same item again creates a single row, not a duplicate.
 

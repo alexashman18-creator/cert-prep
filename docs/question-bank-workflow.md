@@ -1,16 +1,16 @@
 # Question bank workflow
 
-This is the content infrastructure for AZ-900 Prep. Professionally written questions are supplied as JSON, validated, then version-upserted into the existing SQLite `questions` table. Do not edit application screens or seed loops to add items.
+This is the content infrastructure for Cert Prep. Professionally written questions are supplied as JSON, validated, then version-upserted into the existing SQLite `questions` table. Every production question belongs to a certification id. Do not edit application screens or seed loops to add items.
 
 ## Source-file format
 
 Use JSON. Put each batch in:
 
-`content/questions/batches/*.json`
+`content/questions/batches/<certificationId>/*.json`
 
 The first production batch file is:
 
-`content/questions/batches/az900-production.json`
+`content/questions/batches/az900/production.json`
 
 A JSON Schema lives at `content/questions/question-bank.schema.json` for editor validation.
 
@@ -18,10 +18,12 @@ A JSON Schema lives at `content/questions/question-bank.schema.json` for editor 
 {
   "schemaVersion": 1,
   "exam": "AZ-900",
+  "certificationId": "az900",
   "batchId": "az900-2026-09-verified",
   "questions": [
     {
       "id": "az900-2024-cc-001",
+      "certificationId": "az900",
       "examVersion": "AZ-900-2024",
       "domain": "cloud_concepts",
       "objective": "Describe cloud concepts",
@@ -55,8 +57,9 @@ A JSON Schema lives at `content/questions/question-bank.schema.json` for editor 
 Required fields on every question:
 
 - `id`
+- `certificationId` (optional on the question if the file already has it)
 - `examVersion`
-- `domain` — `cloud_concepts` | `architecture_services` | `management_governance`
+- `domain` — must match the certification’s configured domain ids (AZ-900: `cloud_concepts`, `architecture_services`, `management_governance`)
 - `objective`
 - `subobjective`
 - `difficulty` — `beginner` | `intermediate` | `advanced`
@@ -88,7 +91,7 @@ Production releases (`__DEV__ === false`) use **verified** questions only. Draft
 
 ```bash
 npm run questions:validate
-npm run questions:validate -- content/questions/batches/az900-production.json
+npm run questions:validate -- content/questions/batches/az900/production.json
 ```
 
 Validation **rejects** the file and prints every issue. It does not import a partial bank. Failures include:
@@ -112,7 +115,7 @@ npm run questions:import
 
 This command:
 
-1. Validates every `content/questions/batches/*.json` file.
+1. Validates every JSON file under `content/questions/batches/` (including per-certification folders).
 2. Refuses to continue if any file is malformed.
 3. Writes the combined production catalog to `src/data/generated/productionQuestionBank.json`.
 4. Leaves the 12 development samples untouched in `src/data/sampleQuestions.ts`.
@@ -154,6 +157,7 @@ Do not remove the JSON object if you still need the row updated on existing inst
 
 ```bash
 npm run questions:audit
+npm run questions:audit -- --cert=AZ-900
 npm run questions:audit -- --stale-days=90
 ```
 
@@ -172,7 +176,7 @@ Use this when Microsoft publishes an AZ-900 skills-outline update.
 ## How to add a new verified question batch
 
 1. Author original items against current Microsoft Learn. Do not use dumps.
-2. Save them as JSON matching this document. Either append to `content/questions/batches/az900-production.json` or add a new file such as `content/questions/batches/az900-2026-10-verified.json`.
+2. Save them as JSON matching this document. Either append to `content/questions/batches/az900/production.json` or add a new file such as `content/questions/batches/az900/2026-10-verified.json`.
 3. Set every shippable item to `"contentStatus": "verified"` with a Learn `sourceUrl`, `sourceTitle`, and `verifiedDate`.
 4. Keep unfinished work as `"contentStatus": "draft"` in a separate file if needed. Drafts are imported but never served in sessions.
 5. Run `npm run questions:validate`.
@@ -195,6 +199,6 @@ They are engineering fixtures, not verified production content. Release builds d
 
 Provide a single JSON file that matches the schema above. The drop-in path is:
 
-**`content/questions/batches/az900-production.json`**
+**`content/questions/batches/az900/production.json`**
 
 Replace the empty `questions` array with the verified items. Then run validate + import.

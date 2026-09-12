@@ -18,21 +18,24 @@ export interface HomeData {
   inProgressExam: ExamSession | null;
 }
 
-export function useHomeData() {
+export function useHomeData(certificationId: string | null) {
   const repos = useRepositories();
   const [data, setData] = useState<HomeData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
+    if (!certificationId) {
+      return;
+    }
     try {
       const [progress, mistakeIds, questionBankSize, statusCounts, inProgressPractice, maybeExam] =
         await Promise.all([
-          repos.progress.get(),
-          repos.mistakes.getQuestionIds(),
-          repos.questions.countEligible(),
-          repos.questions.countByStatus(),
-          repos.practice.getInProgress(),
-          repos.exams.getInProgress(),
+          repos.progress.get(certificationId),
+          repos.mistakes.getQuestionIds(certificationId),
+          repos.questions.countEligible({ certificationId }),
+          repos.questions.countByStatus(certificationId),
+          repos.practice.getInProgress(certificationId),
+          repos.exams.getInProgress(certificationId),
         ]);
 
       let inProgressExam = maybeExam;
@@ -69,7 +72,7 @@ export function useHomeData() {
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load progress.');
     }
-  }, [repos]);
+  }, [certificationId, repos]);
 
   useEffect(() => {
     void refresh();

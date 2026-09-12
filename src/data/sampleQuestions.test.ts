@@ -27,5 +27,6 @@ test('every sample question is marked as development content and has four explai
     assert.equal(question.contentStatus, 'development');
     assert.equal(question.verifiedDate, null);
     assert.match(question.id, /^az900-dev-/);
+    assert.equal(question.certificationId, 'az900');
   }
 });

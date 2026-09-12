@@ -1,8 +1,19 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-import { auditQuestionBank, formatQuestionBankAudit } from '@/content/audit';
+import {
+  listCertifications,
+  resolveCertificationId,
+  type Certification,
+} from '@/certifications';
+import {
+  auditQuestionBank,
+  auditQuestionBankByCertification,
+  formatPlatformQuestionBankAudit,
+  formatQuestionBankAudit,
+} from '@/content/audit';
 import { mergeQuestionCatalog } from '@/content/catalog';
+import { filterQuestionsByCertification } from '@/content/eligibility';
 import { mapSourceQuestions } from '@/content/mapSource';
 import type { QuestionBankFile } from '@/content/types';
 import { validateQuestionBankFile } from '@/content/validate';
@@ -27,12 +38,52 @@ async function readJson(filePath: string): Promise<unknown> {
   }
 }
 
-async function listBatchFiles(): Promise<string[]> {
-  const entries = await readdir(BATCH_DIR, { withFileTypes: true });
-  return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
-    .map((entry) => path.join(BATCH_DIR, entry.name))
-    .sort();
+async function listBatchFiles(dir: string = BATCH_DIR): Promise<string[]> {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files: string[] = [];
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await listBatchFiles(full)));
+    } else if (entry.isFile() && entry.name.endsWith('.json')) {
+      files.push(full);
+    }
+  }
+  return files.sort();
+}
+
+function readFlag(args: string[], name: string): string | undefined {
+  const paired = args.findIndex((item) => item === name);
+  if (paired >= 0) {
+    return args[paired + 1];
+  }
+  const inline = args.find((item) => item.startsWith(`${name}=`));
+  return inline ? inline.slice(`${name}=`.length) : undefined;
+}
+
+function readCertFilter(args: string[]): Certification | null {
+  const raw = readFlag(args, '--cert');
+  if (!raw) {
+    return null;
+  }
+  const id = resolveCertificationId(raw);
+  const match = listCertifications().find((item) => item.id === id);
+  if (!match) {
+    throw new Error(`Unknown certification "${raw}". Use an exam code such as AZ-900.`);
+  }
+  return match;
+}
+
+function readStaleDays(args: string[]): number {
+  const value = readFlag(args, '--stale-days');
+  if (!value) {
+    return 180;
+  }
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 1) {
+    throw new Error('--stale-days must be a positive integer.');
+  }
+  return parsed;
 }
 
 async function loadValidatedBatches(files: string[]): Promise<QuestionBankFile[]> {
@@ -88,18 +139,33 @@ async function validateCommand(fileArg?: string): Promise<void> {
 async function buildProductionCatalog() {
   const files = await listBatchFiles();
   const banks = await loadValidatedBatches(files);
-  const production = mapSourceQuestions(banks.flatMap((bank) => bank.questions));
+  const production = banks.flatMap((bank) => mapSourceQuestions(bank.questions, bank));
   const catalog = mergeQuestionCatalog(sampleQuestions, production);
   return { files, banks, production, catalog };
 }
 
 async function importCommand(): Promise<void> {
   const { files, banks, production, catalog } = await buildProductionCatalog();
-  const bundled: QuestionBankFile = {
+  const grouped = new Map<string, QuestionBankFile>();
+  for (const bank of banks) {
+    const key = bank.certificationId ?? bank.exam;
+    const existing = grouped.get(key);
+    if (existing) {
+      existing.questions.push(...bank.questions);
+    } else {
+      grouped.set(key, {
+        schemaVersion: 1,
+        exam: bank.exam,
+        certificationId: bank.certificationId,
+        questions: [...bank.questions],
+      });
+    }
+  }
+
+  const bundled = {
     schemaVersion: 1,
-    exam: 'AZ-900',
     batchId: 'bundled-production',
-    questions: banks.flatMap((bank) => bank.questions),
+    banks: [...grouped.values()],
   };
   await writeFile(GENERATED_PATH, `${JSON.stringify(bundled, null, 2)}\n`, 'utf8');
   console.log(`Imported ${production.length} production question${production.length === 1 ? '' : 's'} from ${files.length} batch file${files.length === 1 ? '' : 's'}.`);
@@ -108,42 +174,39 @@ async function importCommand(): Promise<void> {
   console.log('The next app launch will insert new IDs and update rows only when questionVersion is newer. Retired IDs are kept.');
 }
 
-async function auditCommand(staleDays: number): Promise<void> {
+async function auditCommand(args: string[]): Promise<void> {
   const { catalog } = await buildProductionCatalog();
-  console.log(formatQuestionBankAudit(auditQuestionBank(catalog, { staleDays })));
-}
+  const staleDays = readStaleDays(args);
+  const certification = readCertFilter(args);
 
-function readStaleDays(args: string[]): number {
-  const paired = args.findIndex((item) => item === '--stale-days');
-  if (paired >= 0) {
-    const value = Number(args[paired + 1]);
-    if (!Number.isInteger(value) || value < 1) {
-      throw new Error('--stale-days must be a positive integer.');
-    }
-    return value;
+  if (certification) {
+    const scoped = filterQuestionsByCertification(catalog, certification.id);
+    console.log(
+      formatQuestionBankAudit(
+        auditQuestionBank(scoped, {
+          staleDays,
+          certificationId: certification.id,
+          examCode: certification.examCode,
+        }),
+      ),
+    );
+    return;
   }
-  const inline = args.find((item) => item.startsWith('--stale-days='));
-  if (inline) {
-    const value = Number(inline.slice('--stale-days='.length));
-    if (!Number.isInteger(value) || value < 1) {
-      throw new Error('--stale-days must be a positive integer.');
-    }
-    return value;
-  }
-  return 180;
+
+  console.log(formatPlatformQuestionBankAudit(auditQuestionBankByCertification(catalog, { staleDays })));
 }
 
 function printHelp(): void {
-  console.log(`AZ-900 question-bank tools
+  console.log(`Cert Prep question-bank tools
 
 Usage:
   npm run questions:validate [-- path/to/file.json]
   npm run questions:import
-  npm run questions:audit [-- --stale-days=180]
+  npm run questions:audit [-- --cert=AZ-900] [-- --stale-days=180]
 
 validate  Reject malformed JSON banks. Reports every issue.
 import    Validate all files in content/questions/batches, then write the bundled catalog.
-audit     Report totals, domains, objectives, difficulty, missing sources, and stale verified dates.
+audit     Report totals by certification, domains, objectives, difficulty, missing sources, and stale dates.
 `);
 }
 
@@ -151,7 +214,8 @@ async function main(): Promise<void> {
   const [command, ...rest] = process.argv.slice(2);
   try {
     if (command === 'validate') {
-      await validateCommand(rest[0]);
+      const fileArg = rest.find((item) => !item.startsWith('--'));
+      await validateCommand(fileArg);
       return;
     }
     if (command === 'import') {
@@ -159,7 +223,7 @@ async function main(): Promise<void> {
       return;
     }
     if (command === 'audit') {
-      await auditCommand(readStaleDays(rest));
+      await auditCommand(rest);
       return;
     }
     printHelp();

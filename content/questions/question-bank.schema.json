@@ -1,13 +1,28 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://az900-prep.local/question-bank.schema.json",
-  "title": "AZ-900 Prep question bank file",
+  "$id": "https://cert-prep.local/question-bank.schema.json",
+  "title": "Cert Prep question bank file",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "exam", "questions"],
   "properties": {
     "schemaVersion": { "const": 1 },
-    "exam": { "const": "AZ-900" },
+    "exam": {
+      "enum": [
+        "AZ-900",
+        "DP-900",
+        "AI-901",
+        "AZ-104",
+        "AI-200",
+        "SC-500",
+        "DP-300",
+        "DP-700",
+        "AI-103",
+        "AZ-305",
+        "AZ-400"
+      ]
+    },
+    "certificationId": { "type": "string", "minLength": 1 },
     "batchId": { "type": "string", "minLength": 1 },
     "questions": {
       "type": "array",
@@ -38,10 +53,9 @@
       ],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
+        "certificationId": { "type": "string", "minLength": 1 },
         "examVersion": { "type": "string", "minLength": 1 },
-        "domain": {
-          "enum": ["cloud_concepts", "architecture_services", "management_governance"]
-        },
+        "domain": { "type": "string", "minLength": 1 },
         "objective": { "type": "string", "minLength": 1 },
         "subobjective": { "type": "string", "minLength": 1 },
         "difficulty": { "enum": ["beginner", "intermediate", "advanced"] },

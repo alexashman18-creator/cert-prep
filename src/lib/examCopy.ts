@@ -1,18 +1,23 @@
-import { EXAM_DURATION_SECONDS, EXAM_QUESTION_TARGET } from '@/lib/examBlueprint';
+import { AZ900_MOCK_EXAM, type MockExamConfig } from '@/certifications';
 
 export function availableExamQuestionCount(
   bankSize: number,
-  target: number = EXAM_QUESTION_TARGET,
+  target: number = AZ900_MOCK_EXAM.targetQuestionCount,
 ): number {
   return Math.max(0, Math.min(bankSize, target));
 }
 
 export function mockExamSubtitle(
   bankSize: number,
-  target: number = EXAM_QUESTION_TARGET,
+  targetOrConfig: number | Pick<MockExamConfig, 'targetQuestionCount' | 'examDurationMinutes'> = AZ900_MOCK_EXAM,
 ): string {
+  const target =
+    typeof targetOrConfig === 'number' ? targetOrConfig : targetOrConfig.targetQuestionCount;
+  const minutes =
+    typeof targetOrConfig === 'number'
+      ? AZ900_MOCK_EXAM.examDurationMinutes
+      : targetOrConfig.examDurationMinutes;
   const count = availableExamQuestionCount(bankSize, target);
-  const minutes = Math.round(EXAM_DURATION_SECONDS / 60);
   if (count <= 0) {
     return 'No questions available yet';
   }

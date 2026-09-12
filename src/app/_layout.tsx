@@ -10,6 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DatabaseErrorBoundary } from '@/components/DatabaseErrorBoundary';
 import { AppText } from '@/components/ui/AppText';
 import { initializeDatabase } from '@/db/initialize';
+import { DATABASE_NAME } from '@/constants/product';
 import { colors } from '@/theme/tokens';
 
 SplashScreen.preventAutoHideAsync();
@@ -35,7 +36,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <DatabaseErrorBoundary>
         <Suspense fallback={<BootScreen />}>
-          <SQLiteProvider databaseName="az900-prep.db" onInit={initializeDatabase} useSuspense>
+          <SQLiteProvider databaseName={DATABASE_NAME} onInit={initializeDatabase} useSuspense>
             <StatusBar style="dark" />
             <Stack
               screenOptions={{
@@ -47,6 +48,7 @@ export default function RootLayout() {
                 headerBackTitle: 'Back',
               }}>
               <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="certifications" options={{ title: 'Certifications' }} />
               <Stack.Screen name="practice/setup" options={{ title: 'Practice setup' }} />
               <Stack.Screen name="practice/session" options={{ title: 'Practice', headerBackVisible: false }} />
               <Stack.Screen name="practice/results" options={{ title: 'Practice results' }} />

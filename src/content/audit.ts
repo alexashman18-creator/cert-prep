@@ -1,16 +1,23 @@
 import type { Question } from '@/types/question';
 import { CONTENT_STATUSES, DIFFICULTIES } from '@/types/question';
-import { DOMAIN_IDS } from '@/types/domain';
 
 export interface QuestionBankAudit {
+  certificationId?: string;
+  examCode?: string;
   total: number;
   byStatus: Record<(typeof CONTENT_STATUSES)[number], number>;
-  byDomain: Record<(typeof DOMAIN_IDS)[number], number>;
+  byDomain: Record<string, number>;
   byObjective: Record<string, number>;
   byDifficulty: Record<(typeof DIFFICULTIES)[number], number>;
   missingSource: string[];
   staleVerifiedIds: string[];
   staleDays: number;
+}
+
+export interface PlatformQuestionBankAudit {
+  total: number;
+  byCertification: Record<string, number>;
+  audits: QuestionBankAudit[];
 }
 
 function increment(map: Record<string, number>, key: string): void {
@@ -31,13 +38,13 @@ function isOlderThan(verifiedDate: string, staleDays: number, nowMs: number): bo
 
 export function auditQuestionBank(
   questions: readonly Question[],
-  options?: { staleDays?: number; nowMs?: number },
+  options?: { staleDays?: number; nowMs?: number; certificationId?: string; examCode?: string },
 ): QuestionBankAudit {
   const staleDays = options?.staleDays ?? 180;
   const nowMs = options?.nowMs ?? Date.now();
 
   const byStatus = Object.fromEntries(CONTENT_STATUSES.map((status) => [status, 0])) as QuestionBankAudit['byStatus'];
-  const byDomain = Object.fromEntries(DOMAIN_IDS.map((domain) => [domain, 0])) as QuestionBankAudit['byDomain'];
+  const byDomain: Record<string, number> = {};
   const byDifficulty = Object.fromEntries(
     DIFFICULTIES.map((difficulty) => [difficulty, 0]),
   ) as QuestionBankAudit['byDifficulty'];
@@ -63,6 +70,8 @@ export function auditQuestionBank(
   }
 
   return {
+    certificationId: options?.certificationId,
+    examCode: options?.examCode,
     total: questions.length,
     byStatus,
     byDomain,
@@ -74,22 +83,54 @@ export function auditQuestionBank(
   };
 }
 
+export function auditQuestionBankByCertification(
+  questions: readonly Question[],
+  options?: { staleDays?: number; nowMs?: number },
+): PlatformQuestionBankAudit {
+  const byCertification: Record<string, number> = {};
+  const grouped = new Map<string, Question[]>();
+
+  for (const question of questions) {
+    const key = question.certificationId;
+    increment(byCertification, key);
+    const list = grouped.get(key) ?? [];
+    list.push(question);
+    grouped.set(key, list);
+  }
+
+  const audits = [...grouped.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([certificationId, items]) =>
+      auditQuestionBank(items, { ...options, certificationId }),
+    );
+
+  return {
+    total: questions.length,
+    byCertification,
+    audits,
+  };
+}
+
 export function formatQuestionBankAudit(audit: QuestionBankAudit): string {
+  const heading = audit.examCode ?? audit.certificationId;
+  const domainLines = Object.entries(audit.byDomain)
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([domain, count]) => `  ${domain}: ${count}`)
+    .join('\n');
   const objectiveLines = Object.entries(audit.byObjective)
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([objective, count]) => `  ${objective}: ${count}`)
     .join('\n');
 
   return [
+    heading ? `${heading}` : '',
     `Total questions: ${audit.total}`,
     `Verified: ${audit.byStatus.verified}`,
     `Draft: ${audit.byStatus.draft}`,
     `Development: ${audit.byStatus.development}`,
     `Retired: ${audit.byStatus.retired}`,
     'By domain:',
-    `  cloud_concepts: ${audit.byDomain.cloud_concepts}`,
-    `  architecture_services: ${audit.byDomain.architecture_services}`,
-    `  management_governance: ${audit.byDomain.management_governance}`,
+    domainLines || '  (none)',
     'By difficulty:',
     `  beginner: ${audit.byDifficulty.beginner}`,
     `  intermediate: ${audit.byDifficulty.intermediate}`,
@@ -100,6 +141,22 @@ export function formatQuestionBankAudit(audit: QuestionBankAudit): string {
     audit.missingSource.length ? `  ${audit.missingSource.join(', ')}` : '',
     `Verified dates older than ${audit.staleDays} days, or missing: ${audit.staleVerifiedIds.length}`,
     audit.staleVerifiedIds.length ? `  ${audit.staleVerifiedIds.join(', ')}` : '',
+  ]
+    .filter((line) => line !== '')
+    .join('\n');
+}
+
+export function formatPlatformQuestionBankAudit(platform: PlatformQuestionBankAudit): string {
+  const certLines = Object.entries(platform.byCertification)
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([id, count]) => `  ${id}: ${count}`)
+    .join('\n');
+  const sections = platform.audits.map((audit) => formatQuestionBankAudit(audit)).join('\n\n');
+  return [
+    `Platform total: ${platform.total}`,
+    'By certification:',
+    certLines || '  (none)',
+    sections ? `\n${sections}` : '',
   ]
     .filter((line) => line !== '')
     .join('\n');

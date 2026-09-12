@@ -1,5 +1,3 @@
-import type { DomainId } from '@/types/domain';
-import { DOMAIN_IDS } from '@/types/domain';
 import type { DomainPerformance, SessionResults } from '@/types/session';
 import type { Question } from '@/types/question';
 
@@ -16,10 +14,14 @@ export function buildSessionResults(params: {
   answersByQuestionId: Record<string, string | null | undefined>;
 }): SessionResults {
   const { sessionId, questions, answersByQuestionId } = params;
-  const domainTotals = new Map<DomainId, { answered: number; correct: number }>();
+  const domainTotals = new Map<string, { answered: number; correct: number }>();
+  const domainOrder: string[] = [];
 
-  for (const domain of DOMAIN_IDS) {
-    domainTotals.set(domain, { answered: 0, correct: 0 });
+  for (const question of questions) {
+    if (!domainTotals.has(question.domain)) {
+      domainTotals.set(question.domain, { answered: 0, correct: 0 });
+      domainOrder.push(question.domain);
+    }
   }
 
   let correct = 0;
@@ -46,9 +48,7 @@ export function buildSessionResults(params: {
     domainTotals.set(question.domain, bucket);
   }
 
-  const domainPerformance: DomainPerformance[] = DOMAIN_IDS.filter((domain) => {
-    return questions.some((question) => question.domain === domain);
-  }).map((domain) => {
+  const domainPerformance: DomainPerformance[] = domainOrder.map((domain) => {
     const stats = domainTotals.get(domain) ?? { answered: 0, correct: 0 };
     return {
       domain,

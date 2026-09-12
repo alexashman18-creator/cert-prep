@@ -13,6 +13,7 @@ export const SAMPLE_CONTENT_NOTICE =
 export const sampleQuestions: Question[] = [
   {
     id: 'az900-dev-cc-001',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'cloud_concepts',
     objective: 'Describe cloud computing',
@@ -43,6 +44,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-cc-002',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'cloud_concepts',
     objective: 'Describe cloud computing',
@@ -73,6 +75,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-cc-003',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'cloud_concepts',
     objective: 'Describe the shared responsibility model',
@@ -103,6 +106,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-cc-004',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'cloud_concepts',
     objective: 'Describe cloud service types',
@@ -133,6 +137,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-as-001',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'architecture_services',
     objective: 'Describe the core architectural components of Azure',
@@ -162,6 +167,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-as-002',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'architecture_services',
     objective: 'Describe the core architectural components of Azure',
@@ -191,6 +197,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-as-003',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'architecture_services',
     objective: 'Describe Azure storage services',
@@ -221,6 +228,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-as-004',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'architecture_services',
     objective: 'Describe Azure networking services',
@@ -250,6 +258,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-mg-001',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'management_governance',
     objective: 'Describe identity, access, and security',
@@ -280,6 +289,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-mg-002',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'management_governance',
     objective: 'Describe Azure governance features',
@@ -310,6 +320,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-mg-003',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'management_governance',
     objective: 'Describe Azure management and governance',
@@ -339,6 +350,7 @@ export const sampleQuestions: Question[] = [
   },
   {
     id: 'az900-dev-mg-004',
+    certificationId: 'az900',
     examVersion: 'AZ-900-2024',
     domain: 'management_governance',
     objective: 'Describe cost management in Azure',

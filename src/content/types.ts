@@ -14,6 +14,7 @@ export interface QuestionSourceOption {
 
 export interface QuestionSourceRecord {
   id: string;
+  certificationId?: string;
   examVersion: string;
   domain: DomainId;
   objective: string;
@@ -34,8 +35,18 @@ export interface QuestionSourceRecord {
 export interface QuestionBankFile {
   schemaVersion: number;
   exam: string;
+  certificationId?: string;
   batchId?: string;
   questions: QuestionSourceRecord[];
+}
+
+export interface ProductionCatalogFile {
+  schemaVersion: number;
+  batchId?: string;
+  exam?: string;
+  certificationId?: string;
+  questions?: QuestionSourceRecord[];
+  banks?: QuestionBankFile[];
 }
 
 export interface ValidationIssue {

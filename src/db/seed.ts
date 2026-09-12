@@ -1,5 +1,6 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
+import { DEFAULT_CERTIFICATION_ID } from '@/certifications';
 import { loadBundledQuestionCatalog } from '@/content/catalog';
 import { planQuestionImport } from '@/content/importPlan';
 import { nowIso } from '@/lib/ids';
@@ -17,12 +18,13 @@ async function writeQuestion(db: SQLiteDatabase, question: Question, createdAt: 
   await db.runAsync(
     `
     INSERT INTO questions (
-      id, exam_version, domain, objective, subobjective, difficulty,
+      id, certification_id, exam_version, domain, objective, subobjective, difficulty,
       question_text, options_json, correct_answer_id, explanation,
       option_explanations_json, source_url, source_title, verified_date,
       question_version, content_status, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
+      certification_id = excluded.certification_id,
       exam_version = excluded.exam_version,
       domain = excluded.domain,
       objective = excluded.objective,
@@ -42,6 +44,7 @@ async function writeQuestion(db: SQLiteDatabase, question: Question, createdAt: 
     WHERE excluded.question_version > questions.question_version
     `,
     question.id,
+    question.certificationId,
     question.examVersion,
     question.domain,
     question.objective,
@@ -82,14 +85,35 @@ export async function seedSampleQuestions(db: SQLiteDatabase): Promise<void> {
   await seedQuestionBank(db);
 }
 
-export async function ensureUserProgress(db: SQLiteDatabase): Promise<void> {
+export async function ensureUserProgress(
+  db: SQLiteDatabase,
+  certificationId: string = DEFAULT_CERTIFICATION_ID,
+): Promise<void> {
   await db.runAsync(
     `
     INSERT INTO user_progress (
-      id, questions_answered, questions_correct, mock_exam_best_percent, updated_at
-    ) VALUES ('default', 0, 0, NULL, ?)
-    ON CONFLICT(id) DO NOTHING
+      id, certification_id, questions_answered, questions_correct, mock_exam_best_percent, updated_at
+    )
+    SELECT ?, ?, 0, 0, NULL, ?
+    WHERE NOT EXISTS (
+      SELECT 1 FROM user_progress WHERE certification_id = ?
+    )
     `,
+    certificationId === DEFAULT_CERTIFICATION_ID ? 'default' : certificationId,
+    certificationId,
+    nowIso(),
+    certificationId,
+  );
+}
+
+export async function ensureAppSettings(db: SQLiteDatabase): Promise<void> {
+  await db.runAsync(
+    `
+    INSERT INTO app_settings (key, value, updated_at)
+    VALUES ('selected_certification_id', ?, ?)
+    ON CONFLICT(key) DO NOTHING
+    `,
+    DEFAULT_CERTIFICATION_ID,
     nowIso(),
   );
 }

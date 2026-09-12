@@ -1,7 +1,5 @@
 import { Platform, type ViewStyle } from 'react-native';
 
-import type { DomainId } from '@/types/domain';
-
 export const colors = {
   background: '#E8EEF5',
   backgroundWarm: '#F4F7FA',
@@ -33,10 +31,15 @@ export const colors = {
   heroOrbLight: 'rgba(255, 255, 255, 0.08)',
 } as const;
 
-export const domainThemes: Record<
-  DomainId,
-  { fg: string; bg: string; border: string }
-> = {
+export type DomainTheme = { fg: string; bg: string; border: string };
+
+export const defaultDomainTheme: DomainTheme = {
+  fg: '#0B2A4A',
+  bg: '#E4EAF1',
+  border: '#B7C7D6',
+};
+
+export const domainThemes: Record<string, DomainTheme> = {
   cloud_concepts: {
     fg: '#0A6CBD',
     bg: '#D9EAF8',
@@ -53,6 +56,10 @@ export const domainThemes: Record<
     border: '#D0C8E4',
   },
 };
+
+export function domainTheme(domainId: string): DomainTheme {
+  return domainThemes[domainId] ?? defaultDomainTheme;
+}
 
 export const spacing = {
   xs: 4,

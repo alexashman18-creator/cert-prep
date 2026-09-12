@@ -1,6 +1,7 @@
 import { sessionEligibleStatuses, shouldIncludeDevelopmentQuestions } from '@/content/eligibility';
 import type { SQLiteDatabase } from 'expo-sqlite';
 
+import { DEFAULT_CERTIFICATION_ID } from '@/certifications';
 import { mapQuestion, type QuestionRow } from '@/db/mappers';
 import type { DomainId } from '@/types/domain';
 import type { Question } from '@/types/question';
@@ -11,21 +12,26 @@ function inList(values: string[]): string {
 
 export function createQuestionRepository(db: SQLiteDatabase) {
   return {
-    async getAll(): Promise<Question[]> {
-      const rows = await db.getAllAsync<QuestionRow>(
-        'SELECT * FROM questions ORDER BY domain, id',
-      );
+    async getAll(certificationId?: string): Promise<Question[]> {
+      const rows = certificationId
+        ? await db.getAllAsync<QuestionRow>(
+            'SELECT * FROM questions WHERE certification_id = ? ORDER BY domain, id',
+            certificationId,
+          )
+        : await db.getAllAsync<QuestionRow>('SELECT * FROM questions ORDER BY domain, id');
       return rows.map(mapQuestion);
     },
 
     async getEligible(options?: {
+      certificationId?: string;
       domain?: DomainId;
       includeDevelopment?: boolean;
     }): Promise<Question[]> {
       const includeDevelopment = options?.includeDevelopment ?? shouldIncludeDevelopmentQuestions();
       const statuses = sessionEligibleStatuses(includeDevelopment);
-      const params: string[] = [...statuses];
-      let sql = `SELECT * FROM questions WHERE content_status IN (${inList(statuses)})`;
+      const certificationId = options?.certificationId ?? DEFAULT_CERTIFICATION_ID;
+      const params: string[] = [certificationId, ...statuses];
+      let sql = `SELECT * FROM questions WHERE certification_id = ? AND content_status IN (${inList(statuses)})`;
       if (options?.domain) {
         sql += ' AND domain = ?';
         params.push(options.domain);
@@ -51,13 +57,15 @@ export function createQuestionRepository(db: SQLiteDatabase) {
     },
 
     async countEligible(options?: {
+      certificationId?: string;
       domain?: DomainId;
       includeDevelopment?: boolean;
     }): Promise<number> {
       const includeDevelopment = options?.includeDevelopment ?? shouldIncludeDevelopmentQuestions();
       const statuses = sessionEligibleStatuses(includeDevelopment);
-      const params: string[] = [...statuses];
-      let sql = `SELECT COUNT(*) as count FROM questions WHERE content_status IN (${inList(statuses)})`;
+      const certificationId = options?.certificationId ?? DEFAULT_CERTIFICATION_ID;
+      const params: string[] = [certificationId, ...statuses];
+      let sql = `SELECT COUNT(*) as count FROM questions WHERE certification_id = ? AND content_status IN (${inList(statuses)})`;
       if (options?.domain) {
         sql += ' AND domain = ?';
         params.push(options.domain);
@@ -66,13 +74,14 @@ export function createQuestionRepository(db: SQLiteDatabase) {
       return row?.count ?? 0;
     },
 
-    async countByDomain(domain?: DomainId): Promise<number> {
-      return this.countEligible({ domain });
+    async countByDomain(certificationId: string, domain?: DomainId): Promise<number> {
+      return this.countEligible({ certificationId, domain });
     },
 
-    async countByStatus(): Promise<Record<string, number>> {
+    async countByStatus(certificationId: string = DEFAULT_CERTIFICATION_ID): Promise<Record<string, number>> {
       const rows = await db.getAllAsync<{ content_status: string; count: number }>(
-        'SELECT content_status, COUNT(*) as count FROM questions GROUP BY content_status',
+        'SELECT content_status, COUNT(*) as count FROM questions WHERE certification_id = ? GROUP BY content_status',
+        certificationId,
       );
       return Object.fromEntries(rows.map((row) => [row.content_status, row.count]));
     },

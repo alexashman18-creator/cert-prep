@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { StatTile } from '@/components/ui/StatTile';
 import { formatPercent } from '@/lib/format';
-import { DOMAIN_LABELS } from '@/types/domain';
+import { domainLabel } from '@/types/domain';
 import type { SessionResults } from '@/types/session';
 import { colors, spacing } from '@/theme/tokens';
 
@@ -41,7 +41,7 @@ export function ResultsSummary({ results, caption }: ResultsSummaryProps) {
             <View key={item.domain} style={styles.domainRow}>
               <View style={styles.domainHead}>
                 <View style={styles.domainCopy}>
-                  <AppText variant="bodyStrong">{DOMAIN_LABELS[item.domain]}</AppText>
+                  <AppText variant="bodyStrong">{domainLabel(item.domain)}</AppText>
                   <AppText variant="caption" color={colors.inkSecondary}>
                     {item.correct}/{item.answered} answered correctly
                   </AppText>

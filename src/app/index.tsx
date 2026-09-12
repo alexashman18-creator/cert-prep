@@ -11,15 +11,19 @@ import { HeroPanel } from '@/components/ui/HeroPanel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { StatTile } from '@/components/ui/StatTile';
+import { certificationTitle } from '@/certifications';
+import { PRODUCT_NAME } from '@/constants/product';
 import { SAMPLE_CONTENT_NOTICE } from '@/data/sampleQuestions';
 import { useHomeData, type HomeData } from '@/hooks/useHomeData';
+import { useSelectedCertification } from '@/hooks/useSelectedCertification';
 import { useStartExam } from '@/hooks/useExamSession';
 import { mockExamSubtitle } from '@/lib/examCopy';
 import { formatCount, formatPercent } from '@/lib/format';
 import { colors, radii, spacing } from '@/theme/tokens';
 
 export default function HomeScreen() {
-  const { data, error, refresh } = useHomeData();
+  const { certification, error: certificationError } = useSelectedCertification();
+  const { data, error, refresh } = useHomeData(certification?.id ?? null);
   const startExam = useStartExam();
   const [startingExam, setStartingExam] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
@@ -40,7 +44,10 @@ export default function HomeScreen() {
         setActionError('No questions are available for a mock exam yet.');
         return;
       }
-      const session = await startExam({ forceNew });
+      const session = await startExam({
+        certificationId: certification?.id,
+        forceNew,
+      });
       router.push({ pathname: '/exam/session', params: { id: session.id } });
     } catch (caught) {
       setActionError(caught instanceof Error ? caught.message : 'Unable to start a mock exam.');
@@ -74,16 +81,27 @@ export default function HomeScreen() {
   return (
     <Screen>
       <HeroPanel style={styles.hero}>
-        <View style={styles.heroBadge}>
-          <AppText variant="label" color={colors.inkOnAccent}>
-            AZ-900
-          </AppText>
+        <View style={styles.heroTop}>
+          <View style={styles.heroBadge}>
+            <AppText variant="label" color={colors.inkOnAccent}>
+              {certification?.examCode ?? PRODUCT_NAME}
+            </AppText>
+          </View>
+          <Pressable
+            onPress={() => router.push('/certifications')}
+            accessibilityRole="button"
+            accessibilityLabel="Browse certifications"
+            style={styles.changeCert}>
+            <AppText variant="label" color={colors.inkOnAccent}>
+              CHANGE
+            </AppText>
+          </Pressable>
         </View>
         <AppText variant="display" color={colors.inkOnAccent}>
-          AZ-900 Prep
+          {certification ? certificationTitle(certification) : PRODUCT_NAME}
         </AppText>
         <AppText variant="body" color="rgba(247, 251, 255, 0.82)">
-          Master Microsoft Azure Fundamentals with offline practice and timed mock exams.
+          {certification?.description ?? 'Offline practice and timed mock exams, stored on this device.'}
         </AppText>
       </HeroPanel>
 
@@ -161,11 +179,15 @@ export default function HomeScreen() {
             icon="timer-outline"
             title="Mock Exam"
             subtitle={
-              data ? mockExamSubtitle(data.questionBankSize) : 'Loading available questions…'
+              data && certification?.mockExam
+                ? mockExamSubtitle(data.questionBankSize, certification.mockExam)
+                : certification && !certification.mockExam
+                  ? 'Mock exam configuration is not available yet'
+                  : 'Loading available questions…'
             }
             tone="exam"
             onPress={openExam}
-            disabled={startingExam || !data}
+            disabled={startingExam || !data || !certification?.mockExam}
           />
           <ActionCard
             icon="refresh-outline"
@@ -190,9 +212,9 @@ export default function HomeScreen() {
           {data ? questionBankNotice(data) : ''}
         </AppText>
       </Card>
-      {error || actionError ? (
+      {error || actionError || certificationError ? (
         <AppText variant="caption" color={colors.danger} style={styles.error}>
-          {actionError ?? error}
+          {actionError ?? error ?? certificationError}
         </AppText>
       ) : null}
 
@@ -312,13 +334,24 @@ const styles = StyleSheet.create({
   hero: {
     marginBottom: spacing.xxl,
   },
+  heroTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.md,
+    marginBottom: spacing.xs,
+  },
   heroBadge: {
     alignSelf: 'flex-start',
     backgroundColor: 'rgba(255, 255, 255, 0.12)',
     borderRadius: radii.full,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
-    marginBottom: spacing.xs,
+  },
+  changeCert: {
+    minHeight: 32,
+    justifyContent: 'center',
+    paddingHorizontal: spacing.sm,
   },
   section: {
     gap: spacing.md,

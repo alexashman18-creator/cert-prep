@@ -1,8 +1,8 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
 
-const MIGRATION_V1 = `
+export const SCHEMA_V1_SQL = `
 PRAGMA journal_mode = WAL;
 PRAGMA foreign_keys = ON;
 
@@ -122,7 +122,7 @@ export async function runMigrations(db: SQLiteDatabase): Promise<void> {
   }
 
   if (current === 0) {
-    await db.execAsync(MIGRATION_V1);
+    await db.execAsync(SCHEMA_V1_SQL);
     current = 1;
   }
 
@@ -135,6 +135,35 @@ export async function runMigrations(db: SQLiteDatabase): Promise<void> {
       CREATE INDEX IF NOT EXISTS idx_questions_difficulty ON questions(difficulty);
     `);
     current = 2;
+  }
+
+  if (current === 2) {
+    await db.execAsync(`
+      ALTER TABLE questions ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
+      CREATE INDEX IF NOT EXISTS idx_questions_certification ON questions(certification_id);
+
+      ALTER TABLE practice_sessions ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
+      CREATE INDEX IF NOT EXISTS idx_practice_sessions_certification ON practice_sessions(certification_id);
+
+      ALTER TABLE exam_sessions ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
+      CREATE INDEX IF NOT EXISTS idx_exam_sessions_certification ON exam_sessions(certification_id);
+
+      ALTER TABLE mistakes ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
+      CREATE INDEX IF NOT EXISTS idx_mistakes_certification ON mistakes(certification_id);
+
+      ALTER TABLE user_progress ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
+      UPDATE user_progress SET certification_id = 'az900' WHERE id = 'default' OR certification_id IS NULL OR certification_id = '';
+      CREATE UNIQUE INDEX IF NOT EXISTS idx_user_progress_certification ON user_progress(certification_id);
+
+      CREATE TABLE IF NOT EXISTS app_settings (
+        key TEXT PRIMARY KEY NOT NULL,
+        value TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+      );
+      INSERT OR IGNORE INTO app_settings (key, value, updated_at)
+      VALUES ('selected_certification_id', 'az900', datetime('now'));
+    `);
+    current = 3;
   }
 
   await db.execAsync(`PRAGMA user_version = ${SCHEMA_VERSION}`);
