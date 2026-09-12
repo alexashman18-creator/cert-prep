@@ -10,6 +10,7 @@ import { FlagControl } from '@/components/ui/FlagControl';
 import { Screen } from '@/components/ui/Screen';
 import { usePracticeSession } from '@/hooks/usePracticeSession';
 import { firstParam } from '@/lib/searchParams';
+import { spacing } from '@/theme/tokens';
 
 export default function PracticeSessionScreen() {
   const params = useLocalSearchParams<{ id?: string | string[] }>();
