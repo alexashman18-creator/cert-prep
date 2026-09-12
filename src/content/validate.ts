@@ -5,6 +5,7 @@ import {
   resolveCertificationId,
   type Certification,
 } from '@/certifications';
+import { officialDomainIdsFor } from '@/content/blueprints/officialDomainIds';
 import {
   QUESTION_BANK_SCHEMA_VERSION,
   type QuestionBankFile,
@@ -97,10 +98,12 @@ export function validateQuestionSource(
   }
 
   const domain = readString(record.domain);
-  const allowedDomains = options?.certification?.domains.map((item) => item.id) ?? [];
+  const catalogDomains = options?.certification?.domains.map((item) => item.id) ?? [];
+  const allowedDomains =
+    catalogDomains.length > 0 ? catalogDomains : officialDomainIdsFor(options?.certification?.id);
   if (!domain) {
     issues.push(issue(`${path}.domain`, 'domain is required.'));
-  } else if (options?.certification && options.certification.domains.length === 0) {
+  } else if (options?.certification && allowedDomains.length === 0) {
     issues.push(
       issue(
         `${path}.domain`,

@@ -1254,7 +1254,7 @@ const SPECS: CertSpec[] = [
     officialExamDurationMinutes: 120,
     notes: [
       'Skills outline taken from the official AI-103 study guide heading “Skills measured as of April 16, 2026”.',
-      'Official certification name is Microsoft Certified: Azure AI Apps and Agents Developer Associate. Exam title is Developing AI Apps and Agents on Azure. The product catalog still uses the shorter “Azure AI Engineer” label.',
+      'Official certification name is Microsoft Certified: Azure AI Apps and Agents Developer Associate. Exam title is Developing AI Apps and Agents on Azure.',
       'Official certification page states 120 minutes to complete the assessment.',
       TYPICAL_QUESTION_RANGE_NOTE,
     ],

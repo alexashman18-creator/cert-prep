@@ -12,7 +12,7 @@ Catalog entries live in `src/certifications/catalog.ts`. Each certification has:
 | --- | --- |
 | `id` | Stable internal key, for example `az900` |
 | `examCode` | Display / content exam code, for example `AZ-900` |
-| `displayName` | Short title, for example `Azure Fundamentals` |
+| `displayName` | Official credential name, for example `Azure Fundamentals` or `Azure Administrator Associate`. This is not a Microsoft endorsement. |
 | `shortName` | Compact label, usually the exam code |
 | `description` | One-line study description |
 | `difficultyLevel` | `fundamentals`, `associate`, `expert`, or `specialty` |
@@ -70,7 +70,7 @@ When a verified skills outline is available:
 1. Fill `domains` with stable ids, labels, and summaries.
 2. Set `mockExam` with `examDurationMinutes`, `targetQuestionCount`, and `domainWeights` that sum to 1.
 3. Copy duration / count onto `examDurationMinutes` and `targetMockQuestionCount`.
-4. Update validation will then accept those domain ids in that certification’s JSON batches.
+4. Update validation will then accept those catalog domain ids in that certification’s JSON batches. Coming Soon tracks can already accept official domain ids from the verified blueprint without flipping `status` to `available`.
 
 The shared `selectExamQuestions` helper reads this config. It does not contain AZ-900-only weights.
 

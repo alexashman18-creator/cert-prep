@@ -102,7 +102,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'az104',
     examCode: 'AZ-104',
-    displayName: 'Azure Administrator',
+    displayName: 'Azure Administrator Associate',
     difficultyLevel: 'associate',
     description: 'Administer Azure identities, compute, storage, and networking. Question bank not added yet.',
     studyGuideUrl: 'https://learn.microsoft.com/credentials/certifications/azure-administrator/',
@@ -110,7 +110,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'ai200',
     examCode: 'AI-200',
-    displayName: 'Azure AI Cloud Developer',
+    displayName: 'Azure AI Cloud Developer Associate',
     difficultyLevel: 'associate',
     description: 'Build AI-powered Azure solutions. Exam specification and question bank are pending.',
     studyGuideUrl: null,
@@ -118,7 +118,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'sc500',
     examCode: 'SC-500',
-    displayName: 'Cloud and AI Security Engineer',
+    displayName: 'Cloud and AI Security Engineer Associate',
     difficultyLevel: 'associate',
     description: 'Secure cloud and AI workloads. Exam specification and question bank are pending.',
     studyGuideUrl: null,
@@ -126,7 +126,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'dp300',
     examCode: 'DP-300',
-    displayName: 'Azure Database Administrator',
+    displayName: 'Azure Database Administrator Associate',
     difficultyLevel: 'associate',
     description: 'Operate relational databases on Azure. Question bank not added yet.',
     studyGuideUrl:
@@ -135,7 +135,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'dp700',
     examCode: 'DP-700',
-    displayName: 'Fabric Data Engineer',
+    displayName: 'Fabric Data Engineer Associate',
     difficultyLevel: 'associate',
     description: 'Implement data engineering workloads in Microsoft Fabric. Question bank not added yet.',
     studyGuideUrl: 'https://learn.microsoft.com/credentials/certifications/fabric-data-engineer-associate/',
@@ -143,7 +143,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'ai103',
     examCode: 'AI-103',
-    displayName: 'Azure AI Engineer',
+    displayName: 'Azure AI Apps and Agents Developer Associate',
     difficultyLevel: 'associate',
     description: 'Design and implement Azure AI solutions. Exam specification and question bank are pending.',
     studyGuideUrl: null,
@@ -151,7 +151,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'az305',
     examCode: 'AZ-305',
-    displayName: 'Azure Solutions Architect',
+    displayName: 'Azure Solutions Architect Expert',
     difficultyLevel: 'expert',
     description: 'Design Azure infrastructure, applications, and governance. Question bank not added yet.',
     studyGuideUrl: 'https://learn.microsoft.com/credentials/certifications/azure-solutions-architect/',
@@ -159,7 +159,7 @@ export const CERTIFICATIONS: Certification[] = [
   comingSoon({
     id: 'az400',
     examCode: 'AZ-400',
-    displayName: 'DevOps Engineer',
+    displayName: 'DevOps Engineer Expert',
     difficultyLevel: 'expert',
     description: 'Design and implement DevOps practices on Azure. Question bank not added yet.',
     studyGuideUrl: 'https://learn.microsoft.com/credentials/certifications/devops-engineer/',

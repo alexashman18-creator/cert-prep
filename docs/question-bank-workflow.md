@@ -8,9 +8,11 @@ Use JSON. Put each batch in:
 
 `content/questions/batches/<certificationId>/*.json`
 
-The first production batch file is:
+Production batch files:
 
-`content/questions/batches/az900/batch-001.json`
+- `content/questions/batches/az900/batch-001.json` — 50 verified AZ-900 items (do not overwrite)
+- `content/questions/batches/az900/batch-002.json` — empty wrapper for the next 50 AZ-900 items
+- `content/questions/batches/<certificationId>/batch-001.json` — empty wrappers for the other ten tracks
 
 A JSON Schema lives at `content/questions/question-bank.schema.json` for editor validation.
 
@@ -59,9 +61,9 @@ Required fields on every question:
 - `id`
 - `certificationId` (optional on the question if the file already has it)
 - `examVersion`
-- `domain` — must match the certification’s configured domain ids (AZ-900: `cloud_concepts`, `architecture_services`, `management_governance`)
-- `objective`
-- `subobjective`
+- `domain` — must match a verified blueprint domain id (AZ-900 catalog ids: `cloud_concepts`, `architecture_services`, `management_governance`; other tracks use ids from `content/blueprints/<id>.json`)
+- `objective` — exact official blueprint objective label
+- `subobjective` — exact official blueprint subobjective label
 - `difficulty` — `beginner` | `intermediate` | `advanced`
 - `questionText`
 - exactly four `options` (`id` + `text`)
@@ -179,15 +181,20 @@ For content targets, official-outline coverage, launch readiness, and the next-b
 
 ## How to add a new verified question batch
 
-1. Author original items against current Microsoft Learn. Do not use dumps.
-2. Save them as JSON matching this document. For the first verified AZ-900 set, fill `content/questions/batches/az900/batch-001.json`. Later sets can be new files such as `content/questions/batches/az900/2026-10-verified.json`.
-3. Set every shippable item to `"contentStatus": "verified"` with a Learn `sourceUrl`, `sourceTitle`, and `verifiedDate`.
-4. Keep unfinished work as `"contentStatus": "draft"` in a separate file if needed. Drafts are imported but never served in sessions.
-5. Run `npm run questions:validate`.
-6. Run `npm run questions:import`.
-7. Run `npm run questions:audit` and fix missing sources or stale verification dates.
-8. Commit the batch file **and** `src/data/generated/productionQuestionBank.json`.
-9. Launch the app once so SQLite picks up the new versions.
+1. Author original items against current Microsoft Learn. Do not use dumps. Do not generate questions.
+2. Map every item to the exact `domain` id, objective label, and subobjective label in `content/blueprints/<certificationId>.json`.
+3. Fill the empty wrapper for that batch. Next files to supply:
+   - AZ-900 Batch 002: `content/questions/batches/az900/batch-002.json`
+   - DP-900 Batch 001: `content/questions/batches/dp900/batch-001.json`
+4. Set every shippable item to `"contentStatus": "verified"` with a Learn `sourceUrl`, `sourceTitle`, and `verifiedDate`.
+5. Keep unfinished work as `"contentStatus": "draft"` in a separate file if needed. Drafts are imported but never served in sessions.
+6. Run `npm run questions:validate`.
+7. Run `npm run questions:import`.
+8. Run `npm run questions:audit` and `npm run questions:coverage`.
+9. Commit the batch file **and** `src/data/generated/productionQuestionBank.json`.
+10. Launch the app once so SQLite picks up the new versions.
+
+A filled batch does not enable a Coming Soon certification. Catalog `status` stays gated until the launch bank and QA requirements are met.
 
 ## Development samples
 
@@ -199,10 +206,12 @@ The original 12 items stay in `src/data/sampleQuestions.ts` with:
 
 They are engineering fixtures, not verified production content. Release builds do not select them for new sessions.
 
-## What to supply for the first verified batch
+## What to supply next
 
-Provide a single JSON file that matches the schema above. The drop-in path is:
+Provide JSON that matches the schema above. Do not overwrite AZ-900 Batch 001.
 
-**`content/questions/batches/az900/batch-001.json`**
+**`content/questions/batches/az900/batch-002.json`** — next 50 AZ-900 items, chosen from `npm run questions:coverage -- --cert=AZ-900 --batch-size=50`.
 
-Replace the empty `questions` array with the verified items. Then run validate + import. See `docs/az900-production-batch-checklist.md`.
+**`content/questions/batches/dp900/batch-001.json`** — first 50 DP-900 items, chosen from `npm run questions:coverage -- --cert=DP-900 --batch-size=50`.
+
+Then run validate + import. See `docs/az900-production-batch-checklist.md` for the AZ-900 question shape. Use official DP-900 labels from `content/blueprints/dp900.json`.

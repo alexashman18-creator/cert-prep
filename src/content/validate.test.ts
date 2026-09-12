@@ -140,7 +140,7 @@ test('does not silently accept a malformed bank', () => {
   assert.ok(result.issues.length > 0);
 });
 
-test('accepts an empty coming-soon bank and rejects questions before domains exist', () => {
+test('accepts an empty coming-soon bank and official blueprint domain ids', () => {
   assert.equal(
     validateQuestionBankFile({
       schemaVersion: 1,
@@ -150,13 +150,28 @@ test('accepts an empty coming-soon bank and rejects questions before domains exi
     }).ok,
     true,
   );
+  assert.equal(
+    validateQuestionBankFile({
+      schemaVersion: 1,
+      exam: 'DP-900',
+      certificationId: 'dp900',
+      questions: [
+        validQuestion({
+          id: 'dp900-001',
+          certificationId: 'dp900',
+          domain: 'describe_core_data_concepts',
+        }),
+      ],
+    }).ok,
+    true,
+  );
   assert.ok(
     messages({
       schemaVersion: 1,
       exam: 'DP-900',
       certificationId: 'dp900',
-      questions: [validQuestion({ id: 'dp900-001', certificationId: 'dp900' })],
-    }).some((item) => item.includes('domains have not been defined')),
+      questions: [validQuestion({ id: 'dp900-001', certificationId: 'dp900', domain: 'cloud_concepts' })],
+    }).some((item) => item.includes('invalid domain')),
   );
 });
 

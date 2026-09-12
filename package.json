@@ -44,7 +44,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/scoring.test.ts src/lib/timer.test.ts src/lib/examCopy.test.ts src/lib/sessionMistakes.test.ts src/lib/examBlueprint.test.ts src/data/sampleQuestions.test.ts src/lib/sessionIntegrity.test.ts src/lib/searchParams.test.ts src/lib/completeExam.test.ts src/content/validate.test.ts src/content/importPlan.test.ts src/content/eligibility.test.ts src/content/audit.test.ts src/content/catalog.test.ts src/content/coverage.test.ts src/content/readiness.test.ts src/content/blueprints/validate.test.ts src/certifications/catalog.test.ts src/db/certificationMigration.test.ts",
+    "test": "tsx --test src/lib/scoring.test.ts src/lib/timer.test.ts src/lib/examCopy.test.ts src/lib/sessionMistakes.test.ts src/lib/examBlueprint.test.ts src/data/sampleQuestions.test.ts src/lib/sessionIntegrity.test.ts src/lib/searchParams.test.ts src/lib/completeExam.test.ts src/content/validate.test.ts src/content/importPlan.test.ts src/content/eligibility.test.ts src/content/audit.test.ts src/content/catalog.test.ts src/content/coverage.test.ts src/content/readiness.test.ts src/content/blueprints/validate.test.ts src/content/blueprints/officialDomainIds.test.ts src/certifications/catalog.test.ts src/db/certificationMigration.test.ts",
     "questions:validate": "tsx scripts/questions-cli.ts validate",
     "questions:import": "tsx scripts/questions-cli.ts import",
     "questions:audit": "tsx scripts/questions-cli.ts audit",

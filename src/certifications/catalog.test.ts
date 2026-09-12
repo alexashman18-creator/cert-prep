@@ -49,6 +49,25 @@ test('AZ-900 keeps the current mock-exam configuration', () => {
   assert.equal(az900.domains.length, 3);
 });
 
+test('catalog display names match current official credential names', () => {
+  assert.deepEqual(
+    Object.fromEntries(CERTIFICATIONS.map((item) => [item.examCode, item.displayName])),
+    {
+      'AZ-900': 'Azure Fundamentals',
+      'DP-900': 'Azure Data Fundamentals',
+      'AI-901': 'Azure AI Fundamentals',
+      'AZ-104': 'Azure Administrator Associate',
+      'AI-200': 'Azure AI Cloud Developer Associate',
+      'SC-500': 'Cloud and AI Security Engineer Associate',
+      'DP-300': 'Azure Database Administrator Associate',
+      'DP-700': 'Fabric Data Engineer Associate',
+      'AI-103': 'Azure AI Apps and Agents Developer Associate',
+      'AZ-305': 'Azure Solutions Architect Expert',
+      'AZ-400': 'DevOps Engineer Expert',
+    },
+  );
+});
+
 test('coming-soon certifications do not invent mock-exam parameters', () => {
   for (const item of CERTIFICATIONS.filter((cert) => cert.id !== 'az900')) {
     assert.equal(item.status, 'coming_soon');

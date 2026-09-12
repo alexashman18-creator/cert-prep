@@ -156,15 +156,65 @@ Statuses:
 
 A raw question count never produces `launch_ready` while major official objectives are uncovered. This report never flips `catalog.ts` to `available`.
 
+## Immediate production sequence
+
+Empty batch wrappers are in place. Do not generate questions. Fill these files with original verified items.
+
+### Round 1
+
+| File | Planned verified count |
+| --- | ---: |
+| `content/questions/batches/az900/batch-002.json` | 50 |
+| `content/questions/batches/dp900/batch-001.json` | 50 |
+| `content/questions/batches/ai901/batch-001.json` | 50 |
+| `content/questions/batches/az104/batch-001.json` | 50 |
+| `content/questions/batches/ai200/batch-001.json` | 50 |
+| `content/questions/batches/sc500/batch-001.json` | 50 |
+| `content/questions/batches/dp300/batch-001.json` | 50 |
+| `content/questions/batches/dp700/batch-001.json` | 50 |
+| `content/questions/batches/ai103/batch-001.json` | 50 |
+| `content/questions/batches/az305/batch-001.json` | 50 |
+| `content/questions/batches/az400/batch-001.json` | 50 |
+
+After Round 1, every certification should have at least 50 verified production questions, and AZ-900 should have 100 (`batch-001` already has 50).
+
+Fifty verified questions does **not** make a certification launch-ready or user-available. Catalog `status` stays `coming_soon` until the launch bank and QA requirements are satisfied.
+
+### Later rounds
+
+Do not copy the Round 1 domain split. Run:
+
+```bash
+npm run questions:coverage -- --cert=DP-900 --batch-size=50
+```
+
+Author the recommended official topics (ZERO first, then LOW). Use exact objective and subobjective labels from `content/blueprints/<id>.json`. Do not simplify or invent labels.
+
+## Production question rules
+
+Every production question must be:
+
+- original
+- not copied from exam dumps
+- mapped to the verified blueprint (`domain` id, official `objective`, official `subobjective`)
+- cited to a current Microsoft Learn page (`sourceUrl`, `sourceTitle`)
+- verified against that cited source
+- versioned (`questionVersion`, starting at 1)
+- dated (`verifiedDate` as `YYYY-MM-DD` when `contentStatus` is `verified`)
+- accompanied by exactly four plausible options
+- accompanied by an explanation for every option, plus `overallExplanation`
+
+This app is not a Microsoft product and does not imply Microsoft endorsement.
+
 ## Author the next question bank after AZ-900
 
 DP-900 is next in the production order. Its blueprint is already verified.
 
 1. Run `npm run questions:coverage -- --cert=DP-900` to see official ZERO-coverage topics.
-2. Author original verified JSON under `content/questions/batches/dp900/`. Do not generate items.
+2. Fill `content/questions/batches/dp900/batch-001.json`. Do not generate items. Do not overwrite AZ-900 `batch-001.json`.
 3. Use the official objective/subobjective labels from `content/blueprints/dp900.json`.
 4. Validate, import, audit, and re-run coverage.
-5. Only after a sufficient bank exists, set DP-900 `status: "available"` in `src/certifications/catalog.ts` and add mock-exam duration, unique question count, and domain weights. Do not guess those exam parameters. Do not treat Microsoft’s official exam duration as this app’s mock duration.
+5. Only after the launch bank and QA requirements are met, set that track `status: "available"` in `src/certifications/catalog.ts` and add mock-exam duration, unique question count, and domain weights. Do not guess those exam parameters. Do not treat Microsoft’s official exam duration as this app’s mock duration. Fifty questions is not enough to flip the catalog.
 
 If Microsoft updates a study guide, edit that certification’s blueprint (or regenerate from `scripts/build-verified-blueprints.ts` for the ten non-AZ-900 tracks) and keep parent/child `targetCount` sums exact.
 
@@ -203,4 +253,5 @@ Coverage never loads every certification’s questions at once. Platform mode wa
 - Domain weights already used by the mock exam: 27% / 38% / 35%
 - Domain targets: 108 Cloud Concepts, 152 Architecture & Services, 140 Management & Governance
 - First production batch (`batch-001.json`) is 50 verified items: 15 / 20 / 15
+- Next AZ-900 file: `content/questions/batches/az900/batch-002.json` (empty wrapper)
 - Development samples remain stored and are excluded from coverage and from new sessions by default
