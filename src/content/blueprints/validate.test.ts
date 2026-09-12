@@ -32,19 +32,56 @@ test('AZ-900 target count is 400 and the verified blueprint sums correctly', () 
   );
 });
 
-test('every configured certification has a blueprint and pending tracks do not invent objectives', () => {
+test('every configured certification has a verified blueprint and official domains', () => {
+  let configuredTarget = 0;
   for (const id of CONTENT_PRODUCTION_ORDER) {
     const blueprint = loadBlueprint(id);
     assert.equal(blueprint.certificationId, id);
+    assert.equal(blueprint.examCode.replaceAll('-', '').toLowerCase(), id);
+    assert.equal(blueprint.blueprintStatus, 'verified');
     assert.equal(blueprint.contentTargetCount, LAUNCH_CONTENT_TARGETS[id]);
-    if (id === 'az900') {
-      assert.equal(blueprint.blueprintStatus, 'verified');
-      assert.ok(blueprint.domains.length > 0);
-    } else {
-      assert.equal(blueprint.blueprintStatus, 'pending_verification');
-      assert.deepEqual(blueprint.domains, []);
+    assert.ok(blueprint.domains.length > 0, `${id} must include official domains`);
+    assert.equal(
+      blueprint.domains.reduce((sum, domain) => sum + domain.targetCount, 0),
+      blueprint.contentTargetCount,
+    );
+    configuredTarget += blueprint.contentTargetCount;
+    for (const domain of blueprint.domains) {
+      assert.ok(domain.label.length > 0);
+      assert.ok(domain.objectives.length > 0, `${id} domain ${domain.id} must have official objectives`);
+      for (const objective of domain.objectives) {
+        assert.ok(
+          objective.subobjectives.length > 0,
+          `${id} objective ${objective.id} must have official subobjectives`,
+        );
+      }
     }
   }
+  assert.equal(configuredTarget, 4950);
+});
+
+test('official objectives stay inside a single certification blueprint', () => {
+  const owners = new Map<string, string>();
+  for (const id of CONTENT_PRODUCTION_ORDER) {
+    const blueprint = loadBlueprint(id);
+    for (const domain of blueprint.domains) {
+      for (const objective of domain.objectives) {
+        const existing = owners.get(objective.label);
+        assert.ok(
+          !existing || existing === blueprint.examCode,
+          `Objective "${objective.label}" belongs to both ${existing} and ${blueprint.examCode}`,
+        );
+        owners.set(objective.label, blueprint.examCode);
+      }
+    }
+  }
+  const az900 = loadBlueprint('az900');
+  assert.equal(az900.skillsOutlineEffectiveDate, '2026-07-20');
+  assert.equal(
+    az900.studyGuideUrl,
+    'https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-900',
+  );
+  assert.equal(az900.domains.length, 3);
 });
 
 test('pending_verification blueprints reject invented domains', () => {

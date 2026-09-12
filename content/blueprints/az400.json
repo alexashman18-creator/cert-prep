@@ -2,10 +2,15 @@
   "schemaVersion": 1,
   "certificationId": "az400",
   "examCode": "AZ-400",
-  "displayName": "DevOps Engineer",
-  "blueprintStatus": "pending_verification",
-  "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/devops-engineer/",
+  "displayName": "DevOps Engineer Expert",
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-07-27",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-400",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/az-400/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/devops-engineer/",
+  "officialExamDurationMinutes": null,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 500,
   "difficultyMix": {
     "beginner": 0.15,
@@ -14,5 +19,609 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-400",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/az-400/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/devops-engineer/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": "2026-07-27",
+    "officialExamDurationMinutes": null,
+    "officialQuestionRange": null,
+    "notes": [
+      "Skills outline taken from the official AZ-400 study guide heading “Skills measured as of July 27, 2026”.",
+      "Official certification name is Microsoft Certified: DevOps Engineer Expert. Exam title is Designing and Implementing Microsoft DevOps Solutions.",
+      "The fetched AZ-400 exam and certification pages did not state a per-exam duration. Microsoft’s generic associate/expert table lists 100 or 120 minutes depending on labs; that table is not recorded here as an AZ-400-specific official value.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "design_and_implement_processes_and_communications",
+      "label": "Design and implement processes and communications",
+      "weight": 0.128205,
+      "weightRange": "10–15%",
+      "targetCount": 64,
+      "objectives": [
+        {
+          "id": "design_and_implement_traceability_and_flow_of_work",
+          "label": "Design and implement traceability and flow of work",
+          "targetCount": 15,
+          "subobjectives": [
+            {
+              "id": "design_and_implement_a_structure_for_the_flow_of_work_including_github_f",
+              "label": "Design and implement a structure for the flow of work, including GitHub Flow",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_a_strategy_for_feedback_cycles_including_notificati",
+              "label": "Design and implement a strategy for feedback cycles, including notifications and GitHub Issues",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_integration_for_tracking_work_including_github_proj",
+              "label": "Design and implement integration for tracking work, including GitHub projects, Azure Boards, and repositories",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_source_bug_and_quality_traceability",
+              "label": "Design and implement source, bug, and quality traceability",
+              "targetCount": 3
+            }
+          ]
+        },
+        {
+          "id": "design_and_implement_appropriate_metrics_and_queries_for_devops",
+          "label": "Design and implement appropriate metrics and queries for DevOps",
+          "targetCount": 26,
+          "subobjectives": [
+            {
+              "id": "design_and_implement_a_dashboard_including_flow_of_work_such_as_cycle_ti",
+              "label": "Design and implement a dashboard, including flow of work, such as cycle times, time to recovery, and lead time",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_appropriate_metrics_and_queries_for_project_plannin",
+              "label": "Design and implement appropriate metrics and queries for project planning",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_appropriate_metrics_and_queries_for_development",
+              "label": "Design and implement appropriate metrics and queries for development",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_appropriate_metrics_and_queries_for_testing",
+              "label": "Design and implement appropriate metrics and queries for testing",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_appropriate_metrics_and_queries_for_security",
+              "label": "Design and implement appropriate metrics and queries for security",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_appropriate_metrics_and_queries_for_delivery",
+              "label": "Design and implement appropriate metrics and queries for delivery",
+              "targetCount": 3
+            },
+            {
+              "id": "design_and_implement_appropriate_metrics_and_queries_for_operations",
+              "label": "Design and implement appropriate metrics and queries for operations",
+              "targetCount": 3
+            }
+          ]
+        },
+        {
+          "id": "configure_collaboration_and_communication",
+          "label": "Configure collaboration and communication",
+          "targetCount": 23,
+          "subobjectives": [
+            {
+              "id": "document_a_project_by_configuring_wikis_and_process_diagrams_including_m",
+              "label": "Document a project by configuring wikis and process diagrams, including Markdown and Mermaid syntax",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_release_documentation_including_release_notes_and_api_document",
+              "label": "Configure release documentation, including release notes and API documentation",
+              "targetCount": 4
+            },
+            {
+              "id": "automate_creation_of_documentation_from_git_history",
+              "label": "Automate creation of documentation from Git history",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_integration_by_using_webhooks",
+              "label": "Configure integration by using webhooks",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_integration_between_azure_boards_and_github_repositories",
+              "label": "Configure integration between Azure Boards and GitHub repositories",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_integration_between_github_or_azure_devops_and_microsoft_teams",
+              "label": "Configure integration between GitHub or Azure DevOps and Microsoft Teams",
+              "targetCount": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design_and_implement_a_source_control_strategy",
+      "label": "Design and implement a source control strategy",
+      "weight": 0.128205,
+      "weightRange": "10–15%",
+      "targetCount": 64,
+      "objectives": [
+        {
+          "id": "design_and_implement_branching_strategies_for_the_source_code",
+          "label": "Design and implement branching strategies for the source code",
+          "targetCount": 21,
+          "subobjectives": [
+            {
+              "id": "design_a_branch_strategy_including_trunk_based_feature_branch_and_releas",
+              "label": "Design a branch strategy, including trunk-based, feature branch, and release branch",
+              "targetCount": 7
+            },
+            {
+              "id": "design_and_implement_a_pull_request_workflow_by_using_branch_policies_an",
+              "label": "Design and implement a pull request workflow by using branch policies and branch protection rules",
+              "targetCount": 7
+            },
+            {
+              "id": "implement_branch_merging_restrictions_by_using_branch_policies_and_branc",
+              "label": "Implement branch merging restrictions by using branch policies and branch protection rules",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "configure_and_manage_repositories",
+          "label": "Configure and manage repositories",
+          "targetCount": 43,
+          "subobjectives": [
+            {
+              "id": "design_and_implement_a_strategy_for_managing_large_files_including_git_l",
+              "label": "Design and implement a strategy for managing large files, including Git Large File Storage (LFS) and git-fat",
+              "targetCount": 8
+            },
+            {
+              "id": "design_a_strategy_for_scaling_and_optimizing_a_git_repository_including",
+              "label": "Design a strategy for scaling and optimizing a Git repository, including Scalar and cross-repository sharing",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_permissions_in_the_source_control_repository",
+              "label": "Configure permissions in the source control repository",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_tags_to_organize_the_source_control_repository",
+              "label": "Configure tags to organize the source control repository",
+              "targetCount": 7
+            },
+            {
+              "id": "recover_specific_data_by_using_git_commands",
+              "label": "Recover specific data by using Git commands",
+              "targetCount": 7
+            },
+            {
+              "id": "remove_specific_data_from_source_control",
+              "label": "Remove specific data from source control",
+              "targetCount": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design_and_implement_build_and_release_pipelines",
+      "label": "Design and implement build and release pipelines",
+      "weight": 0.538462,
+      "weightRange": "50–55%",
+      "targetCount": 269,
+      "objectives": [
+        {
+          "id": "design_and_implement_a_package_management_strategy",
+          "label": "Design and implement a package management strategy",
+          "targetCount": 31,
+          "subobjectives": [
+            {
+              "id": "recommend_package_management_tools_including_github_packages_and_azure_a",
+              "label": "Recommend package management tools including GitHub Packages and Azure Artifacts",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_package_feeds_and_views_for_local_and_upstream_pack",
+              "label": "Design and implement package feeds and views for local and upstream packages",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_a_dependency_versioning_strategy_for_code_assets_an",
+              "label": "Design and implement a dependency versioning strategy for code assets and packages, including semantic versioning (SemVer) and date-based (CalVer)",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_a_versioning_strategy_for_pipeline_artifacts",
+              "label": "Design and implement a versioning strategy for pipeline artifacts",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "design_and_implement_a_testing_strategy_for_pipelines",
+          "label": "Design and implement a testing strategy for pipelines",
+          "targetCount": 31,
+          "subobjectives": [
+            {
+              "id": "design_and_implement_quality_and_release_gates_including_security_and_go",
+              "label": "Design and implement quality and release gates, including security and governance",
+              "targetCount": 8
+            },
+            {
+              "id": "design_a_comprehensive_testing_strategy_including_local_tests_unit_tests",
+              "label": "Design a comprehensive testing strategy, including local tests, unit tests, integration tests, and load tests",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_tests_in_a_pipeline_including_configuring_test_tasks_configuri",
+              "label": "Implement tests in a pipeline, including configuring test tasks, configuring test agents, and integration of test results",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_code_coverage_analysis",
+              "label": "Implement code coverage analysis",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "design_and_implement_pipelines",
+          "label": "Design and implement pipelines",
+          "targetCount": 69,
+          "subobjectives": [
+            {
+              "id": "select_a_deployment_automation_solution_including_github_actions_and_azu",
+              "label": "Select a deployment automation solution, including GitHub Actions and Azure Pipelines",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_a_github_runner_or_azure_devops_agent_infrastructur",
+              "label": "Design and implement a GitHub runner or Azure DevOps agent infrastructure, including cost, tool selection, licenses, connectivity, and maintainability",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_integration_between_github_repositories_and_azure_p",
+              "label": "Design and implement integration between GitHub repositories and Azure Pipelines",
+              "targetCount": 8
+            },
+            {
+              "id": "develop_and_implement_pipeline_trigger_rules",
+              "label": "Develop and implement pipeline trigger rules",
+              "targetCount": 8
+            },
+            {
+              "id": "develop_pipelines_by_using_yaml",
+              "label": "Develop pipelines by using YAML",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_a_strategy_for_job_execution_order_including_parall",
+              "label": "Design and implement a strategy for job execution order, including parallelism and multi-stage pipelines",
+              "targetCount": 8
+            },
+            {
+              "id": "develop_and_implement_complex_pipeline_scenarios_such_as_hybrid_pipeline",
+              "label": "Develop and implement complex pipeline scenarios, such as hybrid pipelines, VM templates, and self-hosted runners or agents",
+              "targetCount": 7
+            },
+            {
+              "id": "create_reusable_pipeline_elements_including_yaml_templates_task_groups_v",
+              "label": "Create reusable pipeline elements, including YAML templates, task groups, variables, and variable groups",
+              "targetCount": 7
+            },
+            {
+              "id": "design_and_implement_checks_and_approvals_by_using_yaml_based_environmen",
+              "label": "Design and implement checks and approvals by using YAML-based environments",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "design_and_implement_deployments",
+          "label": "Design and implement deployments",
+          "targetCount": 62,
+          "subobjectives": [
+            {
+              "id": "design_a_deployment_strategy_including_blue_green_canary_ring_progressiv",
+              "label": "Design a deployment strategy, including blue-green, canary, ring, progressive exposure, feature flags, and A/B testing",
+              "targetCount": 8
+            },
+            {
+              "id": "design_a_pipeline_to_ensure_that_dependency_deployments_are_reliably_ord",
+              "label": "Design a pipeline to ensure that dependency deployments are reliably ordered",
+              "targetCount": 8
+            },
+            {
+              "id": "plan_for_minimizing_downtime_during_deployments_by_using_load_balancing",
+              "label": "Plan for minimizing downtime during deployments by using load balancing, rolling deployments, and deployment slot usage and swap",
+              "targetCount": 8
+            },
+            {
+              "id": "design_a_hotfix_path_plan_for_responding_to_high_priority_code_fixes",
+              "label": "Design a hotfix path plan for responding to high-priority code fixes",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_a_resiliency_strategy_for_deployment",
+              "label": "Design and implement a resiliency strategy for deployment",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_feature_flags_by_using_azure_app_configuration_feature_manager",
+              "label": "Implement feature flags by using Azure App Configuration Feature Manager",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_application_deployment_by_using_containers_binaries_and_script",
+              "label": "Implement application deployment by using containers, binaries, and scripts",
+              "targetCount": 7
+            },
+            {
+              "id": "implement_a_deployment_that_includes_database_tasks",
+              "label": "Implement a deployment that includes database tasks",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "design_and_implement_infrastructure_as_code_iac",
+          "label": "Design and implement infrastructure as code (IaC)",
+          "targetCount": 38,
+          "subobjectives": [
+            {
+              "id": "recommend_a_configuration_management_technology_for_application_infrastr",
+              "label": "Recommend a configuration management technology for application infrastructure",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_a_configuration_management_strategy_for_application_infrastruc",
+              "label": "Implement a configuration management strategy for application infrastructure",
+              "targetCount": 8
+            },
+            {
+              "id": "define_an_iac_strategy_including_source_control_and_automation_of_testin",
+              "label": "Define an IaC strategy, including source control and automation of testing and deployment",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_desired_state_configuration_for_environments_includ",
+              "label": "Design and implement desired state configuration for environments, including Azure Automation State Configuration, Azure Resource Manager, Bicep, and Azure Machine Configuration",
+              "targetCount": 7
+            },
+            {
+              "id": "design_and_implement_azure_deployment_environments_for_on_demand_self_de",
+              "label": "Design and implement Azure Deployment Environments for on-demand self-deployment",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "maintain_pipelines",
+          "label": "Maintain pipelines",
+          "targetCount": 38,
+          "subobjectives": [
+            {
+              "id": "monitor_pipeline_health_including_failure_rate_duration_and_flaky_tests",
+              "label": "Monitor pipeline health, including failure rate, duration, and flaky tests",
+              "targetCount": 8
+            },
+            {
+              "id": "optimize_a_pipeline_for_cost_time_performance_and_reliability",
+              "label": "Optimize a pipeline for cost, time, performance, and reliability",
+              "targetCount": 8
+            },
+            {
+              "id": "optimize_pipeline_concurrency_for_performance_and_cost",
+              "label": "Optimize pipeline concurrency for performance and cost",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_a_retention_strategy_for_pipeline_artifacts_and_dep",
+              "label": "Design and implement a retention strategy for pipeline artifacts and dependencies",
+              "targetCount": 7
+            },
+            {
+              "id": "migrate_a_pipeline_from_classic_to_yaml_in_azure_pipelines",
+              "label": "Migrate a pipeline from classic to YAML in Azure Pipelines",
+              "targetCount": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "develop_a_security_and_compliance_plan",
+      "label": "Develop a security and compliance plan",
+      "weight": 0.128205,
+      "weightRange": "10–15%",
+      "targetCount": 64,
+      "objectives": [
+        {
+          "id": "design_and_implement_authentication_and_authorization_methods",
+          "label": "Design and implement authentication and authorization methods",
+          "targetCount": 26,
+          "subobjectives": [
+            {
+              "id": "choose_between_microsoft_entra_service_principals_and_managed_identities",
+              "label": "Choose between Microsoft Entra service principals and managed identities for Azure resources (system-assigned and user-assigned)",
+              "targetCount": 4
+            },
+            {
+              "id": "implement_and_manage_github_authentication_including_github_apps_github",
+              "label": "Implement and manage GitHub authentication, including GitHub Apps, GITHUB_TOKEN, and personal access tokens",
+              "targetCount": 4
+            },
+            {
+              "id": "implement_and_manage_azure_devops_service_connections_and_personal_acces",
+              "label": "Implement and manage Azure DevOps service connections and personal access tokens",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_permissions_and_roles_in_github",
+              "label": "Design and implement permissions and roles in GitHub",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_permissions_and_security_groups_in_azure_devops",
+              "label": "Design and implement permissions and security groups in Azure DevOps",
+              "targetCount": 4
+            },
+            {
+              "id": "recommend_appropriate_access_levels_including_stakeholder_access_in_azur",
+              "label": "Recommend appropriate access levels, including stakeholder access in Azure DevOps and outside collaborator access in GitHub",
+              "targetCount": 3
+            },
+            {
+              "id": "configure_projects_and_teams_in_azure_devops",
+              "label": "Configure projects and teams in Azure DevOps",
+              "targetCount": 3
+            }
+          ]
+        },
+        {
+          "id": "design_and_implement_a_strategy_for_managing_sensitive_information_in_au",
+          "label": "Design and implement a strategy for managing sensitive information in automation",
+          "targetCount": 15,
+          "subobjectives": [
+            {
+              "id": "implement_and_manage_secrets_keys_and_certificates_by_using_azure_key_va",
+              "label": "Implement and manage secrets, keys, and certificates by using Azure Key Vault",
+              "targetCount": 4
+            },
+            {
+              "id": "implement_and_manage_secrets_and_secretless_authentication_for_example_w",
+              "label": "Implement and manage secrets and secretless authentication (for example, workload identity federation/OpenID Connect) in GitHub Actions and Azure Pipelines",
+              "targetCount": 4
+            },
+            {
+              "id": "design_and_implement_a_strategy_for_managing_sensitive_files_during_depl",
+              "label": "Design and implement a strategy for managing sensitive files during deployment, including Azure Pipelines secure files",
+              "targetCount": 4
+            },
+            {
+              "id": "design_pipelines_to_prevent_leakage_of_sensitive_information",
+              "label": "Design pipelines to prevent leakage of sensitive information",
+              "targetCount": 3
+            }
+          ]
+        },
+        {
+          "id": "automate_security_and_compliance_scanning",
+          "label": "Automate security and compliance scanning",
+          "targetCount": 23,
+          "subobjectives": [
+            {
+              "id": "design_a_strategy_for_security_and_compliance_scanning_including_depende",
+              "label": "Design a strategy for security and compliance scanning, including dependency, code, secret, and licensing scanning",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_microsoft_defender_for_cloud_devops_security",
+              "label": "Configure Microsoft Defender for Cloud DevOps Security",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_github_advanced_security_for_github_and_github_advanced_securi",
+              "label": "Configure GitHub Advanced Security for GitHub and GitHub Advanced Security for Azure DevOps",
+              "targetCount": 4
+            },
+            {
+              "id": "integrate_github_advanced_security_with_microsoft_defender_for_cloud",
+              "label": "Integrate GitHub Advanced Security with Microsoft Defender for Cloud",
+              "targetCount": 4
+            },
+            {
+              "id": "automate_container_scanning_including_scanning_container_images_and_conf",
+              "label": "Automate container scanning, including scanning container images and configuring an action to run CodeQL analysis in a container",
+              "targetCount": 4
+            },
+            {
+              "id": "automate_analysis_of_vulnerabilities_of_open_source_components_by_using",
+              "label": "Automate analysis of vulnerabilities of open-source components by using Dependabot alerts",
+              "targetCount": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "implement_an_instrumentation_strategy",
+      "label": "Implement an instrumentation strategy",
+      "weight": 0.076923,
+      "weightRange": "5–10%",
+      "targetCount": 39,
+      "objectives": [
+        {
+          "id": "configure_monitoring_for_a_devops_environment",
+          "label": "Configure monitoring for a DevOps environment",
+          "targetCount": 20,
+          "subobjectives": [
+            {
+              "id": "configure_azure_monitor_and_azure_monitor_logs_to_integrate_with_devops",
+              "label": "Configure Azure Monitor and Azure Monitor Logs to integrate with DevOps tools",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_collection_of_telemetry_by_using_azure_monitor_application_ins",
+              "label": "Configure collection of telemetry by using Azure Monitor Application Insights, Azure VM Insights, Azure Container Insights, Azure Monitor for Storage, and Azure Monitor for Networks",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_monitoring_in_github_including_enabling_insights_and_creating",
+              "label": "Configure monitoring in GitHub, including enabling insights and creating and configuring charts",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_alerts_for_events_in_github_actions_and_azure_pipelines",
+              "label": "Configure alerts for events in GitHub Actions and Azure Pipelines",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "analyze_metrics_from_instrumentation",
+          "label": "Analyze metrics from instrumentation",
+          "targetCount": 19,
+          "subobjectives": [
+            {
+              "id": "inspect_infrastructure_performance_indicators_including_cpu_memory_disk",
+              "label": "Inspect infrastructure performance indicators, including CPU, memory, disk, and network",
+              "targetCount": 5
+            },
+            {
+              "id": "analyze_metrics_by_using_collected_telemetry_including_usage_and_applica",
+              "label": "Analyze metrics by using collected telemetry, including usage and application performance",
+              "targetCount": 5
+            },
+            {
+              "id": "inspect_distributed_tracing_by_using_azure_monitor_application_insights",
+              "label": "Inspect distributed tracing by using Azure Monitor Application Insights",
+              "targetCount": 5
+            },
+            {
+              "id": "interrogate_logs_using_basic_kusto_query_language_kql_queries",
+              "label": "Interrogate logs using basic Kusto Query Language (KQL) queries",
+              "targetCount": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

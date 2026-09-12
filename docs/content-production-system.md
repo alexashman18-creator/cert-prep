@@ -38,7 +38,27 @@ Provisional launch-bank targets (content totals, not mock-exam lengths):
 | AZ-305 | 450 |
 | AZ-400 | 500 |
 
-Those constants live in `src/content/blueprints/launchTargets.ts` and in each blueprint file.
+Those constants live in `src/content/blueprints/launchTargets.ts` and in each blueprint file. They are internal content-bank targets, not Microsoft exam question counts.
+
+## Verified official blueprints
+
+All 11 planned tracks now have `blueprintStatus: "verified"` files sourced from current Microsoft Learn study guides (checked 12 September 2026). Domain `weight` values are normalized midpoints of Microsoft’s published ranges so they sum to 1. The official range is stored on each domain as `weightRange`.
+
+| Exam | Official certification name | Skills-outline effective date | Official source URL | Bank target | Blueprint status |
+| --- | --- | --- | --- | ---: | --- |
+| AZ-900 | Azure Fundamentals | 20 July 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-900 | 400 | verified |
+| DP-900 | Azure Data Fundamentals | 21 July 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-900 | 350 | verified |
+| AI-901 | Azure AI Fundamentals | 15 April 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-901 | 350 | verified |
+| AZ-104 | Azure Administrator Associate | 17 April 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-104 | 500 | verified |
+| AI-200 | Azure AI Cloud Developer Associate | Not dated on the study guide | https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-200 | 500 | verified |
+| SC-500 | Cloud and AI Security Engineer Associate | Not dated on the study guide | https://learn.microsoft.com/credentials/certifications/resources/study-guides/sc-500 | 500 | verified |
+| DP-300 | Azure Database Administrator Associate | 24 April 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-300 | 450 | verified |
+| DP-700 | Fabric Data Engineer Associate | 21 July 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-700 | 450 | verified |
+| AI-103 | Azure AI Apps and Agents Developer Associate | 16 April 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/AI-103 | 500 | verified |
+| AZ-305 | Azure Solutions Architect Expert | 17 April 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-305 | 450 | verified |
+| AZ-400 | DevOps Engineer Expert | 27 July 2026 | https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-400 | 500 | verified |
+
+A verified blueprint does **not** make that certification available in the user catalog. Home and `/certifications` still use `catalog.ts` `status`. Coming Soon tracks stay hidden from practice until a sufficient verified question bank exists.
 
 ## Where blueprints live
 
@@ -50,8 +70,6 @@ content/blueprints/dp900.json
 ...
 ```
 
-AZ-900 is `blueprintStatus: "verified"` and contains the official 20 July 2026 skills outline. Every other file is `pending_verification` with an empty `domains` array. Do not invent official objectives for those tracks.
-
 ## Blueprint shape
 
 Each file records:
@@ -59,15 +77,21 @@ Each file records:
 - `certificationId`, `examCode`, `displayName`
 - `blueprintStatus`: `pending_verification` | `verified` | `retired`
 - `skillsOutlineEffectiveDate`
-- `studyGuideUrl`
+- `studyGuideUrl`, plus optional `examUrl` and `certificationUrl`
+- optional `officialExamDurationMinutes` only when a Microsoft certification/exam page states it
+- `officialQuestionRange` is null unless Microsoft publishes a per-exam count (the generic 40–60 typical range is documented, not copied as an official per-exam number)
+- `contentTargetKind`: `internal_content_bank` on the newly verified files
 - `contentTargetCount`
 - `difficultyMix` (`beginner` / `intermediate` / `advanced`, sums to 1)
 - `underCoveredRatio` / `overCoveredRatio`
-- `domains[]` with official ids, labels, weights, and targets
-- `objectives[]` and `subobjectives[]` with targets
+- optional `source` metadata (verification date, official URLs, notes)
+- `domains[]` with official ids, labels, normalized `weight`, official `weightRange`, and targets
+- `objectives[]` and `subobjectives[]` with official wording and targets
 - optional `aliases` so existing question strings can map onto official labels
 
 Do not copy questions into blueprint files. Counts are computed from `content/questions/batches/<certificationId>/`.
+
+Official Microsoft exam duration is not the same as this app’s internal mock-exam duration. Mock length stays an internal simulation setting and is not enabled for Coming Soon tracks.
 
 ## Difficulty mixes
 
@@ -132,20 +156,17 @@ Statuses:
 
 A raw question count never produces `launch_ready` while major official objectives are uncovered. This report never flips `catalog.ts` to `available`.
 
-## Verify and enable the next certification blueprint
+## Author the next question bank after AZ-900
 
-Example: DP-900, next in the production order.
+DP-900 is next in the production order. Its blueprint is already verified.
 
-1. Open the current Microsoft study guide. Do not reuse AZ-900 domains.
-2. Confirm the skills-outline effective date and official domain weights.
-3. Replace `content/blueprints/dp900.json` `domains` with those official ids, labels, objectives, and subobjectives.
-4. Set `blueprintStatus` to `verified` and fill `skillsOutlineEffectiveDate` and `studyGuideUrl`.
-5. Split `contentTargetCount` (350) across domains using official weights. Objective/subobjective targets must sum to the parent.
-6. Choose a difficulty mix for that exam’s level. Do not copy AZ-900’s mix unless the outline supports it.
-7. Run `npm run questions:coverage -- --cert=DP-900`. The report should be `blueprint_ready` until questions exist.
-8. Author original verified JSON under `content/questions/batches/dp900/`. Do not generate items.
-9. Validate, import, audit, and re-run coverage.
-10. Only after the blueprint is verified **and** a sufficient bank exists, set DP-900 `status: "available"` in `src/certifications/catalog.ts` and add mock-exam duration, unique question count, and domain weights. Do not guess those exam parameters.
+1. Run `npm run questions:coverage -- --cert=DP-900` to see official ZERO-coverage topics.
+2. Author original verified JSON under `content/questions/batches/dp900/`. Do not generate items.
+3. Use the official objective/subobjective labels from `content/blueprints/dp900.json`.
+4. Validate, import, audit, and re-run coverage.
+5. Only after a sufficient bank exists, set DP-900 `status: "available"` in `src/certifications/catalog.ts` and add mock-exam duration, unique question count, and domain weights. Do not guess those exam parameters. Do not treat Microsoft’s official exam duration as this app’s mock duration.
+
+If Microsoft updates a study guide, edit that certification’s blueprint (or regenerate from `scripts/build-verified-blueprints.ts` for the ten non-AZ-900 tracks) and keep parent/child `targetCount` sums exact.
 
 ## Add objectives or subobjectives
 

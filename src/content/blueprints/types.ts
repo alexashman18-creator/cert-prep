@@ -38,8 +38,22 @@ export interface BlueprintDomain {
   id: string;
   label: string;
   weight: number;
+  /** Official Microsoft study-guide weighting range, e.g. "25–30%". */
+  weightRange?: string;
   targetCount: number;
   objectives: BlueprintObjective[];
+}
+
+export interface BlueprintSourceMetadata {
+  verifiedDate: string;
+  studyGuideUrl: string;
+  examUrl?: string | null;
+  certificationUrl?: string | null;
+  examDurationDocumentationUrl?: string;
+  skillsOutlineQuotedAsOf: string | null;
+  officialExamDurationMinutes?: number | null;
+  officialQuestionRange?: string | null;
+  notes?: string[];
 }
 
 export interface CertificationBlueprint {
@@ -50,10 +64,17 @@ export interface CertificationBlueprint {
   blueprintStatus: BlueprintStatus;
   skillsOutlineEffectiveDate: string | null;
   studyGuideUrl: string | null;
+  examUrl?: string | null;
+  certificationUrl?: string | null;
+  officialExamDurationMinutes?: number | null;
+  officialQuestionRange?: string | null;
+  /** Clarifies that contentTargetCount is our bank target, not Microsoft's exam length. */
+  contentTargetKind?: 'internal_content_bank';
   contentTargetCount: number;
   difficultyMix: DifficultyMix;
   underCoveredRatio: number;
   overCoveredRatio: number;
+  source?: BlueprintSourceMetadata;
   domains: BlueprintDomain[];
 }
 

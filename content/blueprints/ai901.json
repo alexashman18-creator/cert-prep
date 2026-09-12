@@ -3,9 +3,14 @@
   "certificationId": "ai901",
   "examCode": "AI-901",
   "displayName": "Azure AI Fundamentals",
-  "blueprintStatus": "pending_verification",
-  "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": null,
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-04-15",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-901",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/ai-901/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-ai-fundamentals/",
+  "officialExamDurationMinutes": null,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 350,
   "difficultyMix": {
     "beginner": 0.55,
@@ -14,5 +19,234 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-901",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/ai-901/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-ai-fundamentals/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": "2026-04-15",
+    "officialExamDurationMinutes": null,
+    "officialQuestionRange": null,
+    "notes": [
+      "Skills outline taken from the official AI-901 study guide heading “Skills measured as of April 15, 2026”.",
+      "AI-900 is the prior Azure AI Fundamentals exam. This blueprint uses the current AI-901 exam only.",
+      "The fetched AI-901 exam and certification pages did not state a per-exam duration. Microsoft’s generic fundamentals table lists 45 minutes exam duration / 65 minutes seat duration; that table is not recorded here as an AI-901-specific official value.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "identify_ai_concepts_and_capabilities",
+      "label": "Identify AI concepts and capabilities",
+      "weight": 0.425,
+      "weightRange": "40–45%",
+      "targetCount": 149,
+      "objectives": [
+        {
+          "id": "describe_principles_of_responsible_ai",
+          "label": "Describe principles of responsible AI",
+          "targetCount": 64,
+          "subobjectives": [
+            {
+              "id": "describe_considerations_for_fairness_in_an_ai_solution",
+              "label": "Describe considerations for fairness in an AI solution",
+              "targetCount": 11
+            },
+            {
+              "id": "describe_considerations_for_reliability_and_safety_in_an_ai_solution",
+              "label": "Describe considerations for reliability and safety in an AI solution",
+              "targetCount": 11
+            },
+            {
+              "id": "describe_considerations_for_privacy_and_security_in_an_ai_solution",
+              "label": "Describe considerations for privacy and security in an AI solution",
+              "targetCount": 11
+            },
+            {
+              "id": "describe_considerations_for_inclusiveness_in_an_ai_solution",
+              "label": "Describe considerations for inclusiveness in an AI solution",
+              "targetCount": 11
+            },
+            {
+              "id": "describe_considerations_for_transparency_in_an_ai_solution",
+              "label": "Describe considerations for transparency in an AI solution",
+              "targetCount": 10
+            },
+            {
+              "id": "describe_considerations_for_accountability_in_an_ai_solution",
+              "label": "Describe considerations for accountability in an AI solution",
+              "targetCount": 10
+            }
+          ]
+        },
+        {
+          "id": "identify_ai_model_components_and_configurations",
+          "label": "Identify AI model components and configurations",
+          "targetCount": 32,
+          "subobjectives": [
+            {
+              "id": "describe_how_generative_ai_models_work",
+              "label": "Describe how generative AI models work",
+              "targetCount": 11
+            },
+            {
+              "id": "identify_an_appropriate_ai_model_based_on_capabilities",
+              "label": "Identify an appropriate AI model, based on capabilities",
+              "targetCount": 11
+            },
+            {
+              "id": "identify_appropriate_model_deployment_options_and_configuration_paramete",
+              "label": "Identify appropriate model deployment options and configuration parameters",
+              "targetCount": 10
+            }
+          ]
+        },
+        {
+          "id": "identify_ai_workloads",
+          "label": "Identify AI workloads",
+          "targetCount": 53,
+          "subobjectives": [
+            {
+              "id": "identify_scenarios_for_common_ai_workloads_including_generative_and_agen",
+              "label": "Identify scenarios for common AI workloads, including generative and agentic AI, text analysis, speech, computer vision, and information extraction",
+              "targetCount": 11
+            },
+            {
+              "id": "describe_common_text_analysis_techniques_including_keyword_extraction_en",
+              "label": "Describe common text analysis techniques, including keyword extraction, entity detection, sentiment analysis, and summarization",
+              "targetCount": 11
+            },
+            {
+              "id": "identify_features_and_capabilities_of_speech_recognition_and_speech_synt",
+              "label": "Identify features and capabilities of speech recognition and speech synthesis",
+              "targetCount": 11
+            },
+            {
+              "id": "identify_features_and_capabilities_of_computer_vision_and_image_generati",
+              "label": "Identify features and capabilities of computer vision and image-generation models",
+              "targetCount": 10
+            },
+            {
+              "id": "identify_techniques_to_extract_information_from_text_images_audio_and_vi",
+              "label": "Identify techniques to extract information from text, images, audio, and videos",
+              "targetCount": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "implement_ai_solutions_by_using_microsoft_foundry",
+      "label": "Implement AI solutions by using Microsoft Foundry",
+      "weight": 0.575,
+      "weightRange": "55–60%",
+      "targetCount": 201,
+      "objectives": [
+        {
+          "id": "implement_generative_ai_apps_and_agents_by_using_foundry",
+          "label": "Implement generative AI apps and agents by using Foundry",
+          "targetCount": 67,
+          "subobjectives": [
+            {
+              "id": "create_effective_system_and_user_prompts_for_generative_ai_models",
+              "label": "Create effective system and user prompts for generative AI models",
+              "targetCount": 14
+            },
+            {
+              "id": "deploy_a_model_and_interact_with_it_in_the_foundry_portal",
+              "label": "Deploy a model and interact with it in the Foundry portal",
+              "targetCount": 14
+            },
+            {
+              "id": "create_a_lightweight_chat_client_application_by_using_the_foundry_sdk",
+              "label": "Create a lightweight chat client application by using the Foundry SDK",
+              "targetCount": 13
+            },
+            {
+              "id": "create_and_test_a_single_agent_solution_in_the_foundry_portal",
+              "label": "Create and test a single-agent solution in the Foundry portal",
+              "targetCount": 13
+            },
+            {
+              "id": "create_a_lightweight_client_application_for_an_agent",
+              "label": "Create a lightweight client application for an agent",
+              "targetCount": 13
+            }
+          ]
+        },
+        {
+          "id": "implement_ai_solutions_for_text_and_speech_by_using_foundry",
+          "label": "Implement AI solutions for text and speech by using Foundry",
+          "targetCount": 40,
+          "subobjectives": [
+            {
+              "id": "build_a_lightweight_application_that_includes_text_analysis",
+              "label": "Build a lightweight application that includes text analysis",
+              "targetCount": 14
+            },
+            {
+              "id": "respond_to_spoken_prompts_by_using_a_deployed_multimodal_model",
+              "label": "Respond to spoken prompts by using a deployed multimodal model",
+              "targetCount": 13
+            },
+            {
+              "id": "build_a_lightweight_application_by_using_azure_speech_in_foundry_tools",
+              "label": "Build a lightweight application by using Azure Speech in Foundry Tools",
+              "targetCount": 13
+            }
+          ]
+        },
+        {
+          "id": "implement_ai_solutions_with_computer_vision_and_image_generation_capabil",
+          "label": "Implement AI solutions with computer vision and image-generation capabilities by using Foundry",
+          "targetCount": 40,
+          "subobjectives": [
+            {
+              "id": "interpret_visual_input_in_prompts_by_using_a_deployed_multimodal_model",
+              "label": "Interpret visual input in prompts by using a deployed multimodal model",
+              "targetCount": 14
+            },
+            {
+              "id": "create_new_visual_outputs_by_using_generative_models",
+              "label": "Create new visual outputs by using generative models",
+              "targetCount": 13
+            },
+            {
+              "id": "build_a_lightweight_application_that_includes_vision_capabilities",
+              "label": "Build a lightweight application that includes vision capabilities",
+              "targetCount": 13
+            }
+          ]
+        },
+        {
+          "id": "implement_ai_solutions_for_information_extraction_by_using_foundry",
+          "label": "Implement AI solutions for information extraction by using Foundry",
+          "targetCount": 54,
+          "subobjectives": [
+            {
+              "id": "extract_information_from_documents_and_forms_by_using_azure_content_unde",
+              "label": "Extract information from documents and forms by using Azure Content Understanding in Foundry Tools",
+              "targetCount": 14
+            },
+            {
+              "id": "extract_information_from_images_by_using_content_understanding",
+              "label": "Extract information from images by using Content Understanding",
+              "targetCount": 14
+            },
+            {
+              "id": "extract_information_from_audio_and_video_by_using_content_understanding",
+              "label": "Extract information from audio and video by using Content Understanding",
+              "targetCount": 13
+            },
+            {
+              "id": "build_a_lightweight_application_with_information_extraction_capabilities",
+              "label": "Build a lightweight application with information extraction capabilities by using Content Understanding",
+              "targetCount": 13
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

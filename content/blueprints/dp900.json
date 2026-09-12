@@ -3,9 +3,14 @@
   "certificationId": "dp900",
   "examCode": "DP-900",
   "displayName": "Azure Data Fundamentals",
-  "blueprintStatus": "pending_verification",
-  "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/azure-data-fundamentals/",
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-07-21",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-900",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/dp-900/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-data-fundamentals/",
+  "officialExamDurationMinutes": 45,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 350,
   "difficultyMix": {
     "beginner": 0.55,
@@ -14,5 +19,285 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-900",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/dp-900/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-data-fundamentals/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": "2026-07-21",
+    "officialExamDurationMinutes": 45,
+    "officialQuestionRange": null,
+    "notes": [
+      "Skills outline taken from the official DP-900 study guide heading “Skills measured as of July 21, 2026”.",
+      "Domain 4 glance title is “Describe an analytics workload on Azure”; the later H2 omits “on Azure”. The glance/skills-at-a-glance wording is stored as the domain label.",
+      "Official certification page states 45 minutes to complete the assessment.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "describe_core_data_concepts",
+      "label": "Describe core data concepts",
+      "weight": 0.289474,
+      "weightRange": "25–30%",
+      "targetCount": 101,
+      "objectives": [
+        {
+          "id": "describe_ways_to_represent_data",
+          "label": "Describe ways to represent data",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "describe_the_features_of_structured_data",
+              "label": "Describe the features of structured data",
+              "targetCount": 10
+            },
+            {
+              "id": "describe_the_features_of_semi_structured_data",
+              "label": "Describe the features of semi-structured data",
+              "targetCount": 9
+            },
+            {
+              "id": "describe_the_features_of_unstructured_data",
+              "label": "Describe the features of unstructured data",
+              "targetCount": 9
+            }
+          ]
+        },
+        {
+          "id": "identify_options_for_data_storage",
+          "label": "Identify options for data storage",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "describe_common_formats_for_data_files",
+              "label": "Describe common formats for data files",
+              "targetCount": 10
+            },
+            {
+              "id": "describe_features_of_common_data_stores_including_databases",
+              "label": "Describe features of common data stores including databases",
+              "targetCount": 9
+            },
+            {
+              "id": "identify_azure_datastores_for_common_use_cases",
+              "label": "Identify Azure datastores for common use cases",
+              "targetCount": 9
+            }
+          ]
+        },
+        {
+          "id": "describe_common_data_workloads",
+          "label": "Describe common data workloads",
+          "targetCount": 18,
+          "subobjectives": [
+            {
+              "id": "describe_features_of_transactional_workloads",
+              "label": "Describe features of transactional workloads",
+              "targetCount": 9
+            },
+            {
+              "id": "describe_features_of_analytical_workloads",
+              "label": "Describe features of analytical workloads",
+              "targetCount": 9
+            }
+          ]
+        },
+        {
+          "id": "identify_roles_and_responsibilities_for_data_workloads",
+          "label": "Identify roles and responsibilities for data workloads",
+          "targetCount": 27,
+          "subobjectives": [
+            {
+              "id": "describe_responsibilities_for_database_administrators",
+              "label": "Describe responsibilities for database administrators",
+              "targetCount": 9
+            },
+            {
+              "id": "describe_responsibilities_for_data_engineers",
+              "label": "Describe responsibilities for data engineers",
+              "targetCount": 9
+            },
+            {
+              "id": "describe_responsibilities_for_data_analysts",
+              "label": "Describe responsibilities for data analysts",
+              "targetCount": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "identify_considerations_for_relational_data_on_azure",
+      "label": "Identify considerations for relational data on Azure",
+      "weight": 0.236842,
+      "weightRange": "20–25%",
+      "targetCount": 83,
+      "objectives": [
+        {
+          "id": "describe_relational_concepts",
+          "label": "Describe relational concepts",
+          "targetCount": 55,
+          "subobjectives": [
+            {
+              "id": "identify_features_of_relational_data",
+              "label": "Identify features of relational data",
+              "targetCount": 14
+            },
+            {
+              "id": "describe_normalization_and_why_it_is_used",
+              "label": "Describe normalization and why it is used",
+              "targetCount": 14
+            },
+            {
+              "id": "identify_common_structured_query_language_sql_statements",
+              "label": "Identify common structured query language (SQL) statements",
+              "targetCount": 14
+            },
+            {
+              "id": "identify_common_database_objects",
+              "label": "Identify common database objects",
+              "targetCount": 13
+            }
+          ]
+        },
+        {
+          "id": "describe_relational_azure_data_services",
+          "label": "Describe relational Azure data services",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "describe_the_azure_sql_family_of_products_including_azure_sql_database_a",
+              "label": "Describe the Azure SQL family of products, including Azure SQL Database, Azure SQL Managed Instance, and SQL Server on Azure Virtual Machines",
+              "targetCount": 14
+            },
+            {
+              "id": "identify_azure_database_services_for_open_source_database_systems",
+              "label": "Identify Azure database services for open-source database systems",
+              "targetCount": 14
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "describe_considerations_for_working_with_non_relational_data_on_azure",
+      "label": "Describe considerations for working with non-relational data on Azure",
+      "weight": 0.184211,
+      "weightRange": "15–20%",
+      "targetCount": 65,
+      "objectives": [
+        {
+          "id": "describe_the_capabilities_of_azure_storage",
+          "label": "Describe the capabilities of Azure storage",
+          "targetCount": 39,
+          "subobjectives": [
+            {
+              "id": "describe_features_of_azure_blob_storage",
+              "label": "Describe features of Azure Blob storage",
+              "targetCount": 13
+            },
+            {
+              "id": "describe_features_of_azure_files",
+              "label": "Describe features of Azure Files",
+              "targetCount": 13
+            },
+            {
+              "id": "describe_features_of_azure_table_storage",
+              "label": "Describe features of Azure Table storage",
+              "targetCount": 13
+            }
+          ]
+        },
+        {
+          "id": "describe_the_capabilities_and_features_of_azure_cosmos_db",
+          "label": "Describe the capabilities and features of Azure Cosmos DB",
+          "targetCount": 26,
+          "subobjectives": [
+            {
+              "id": "identify_use_cases_for_azure_cosmos_db",
+              "label": "Identify use cases for Azure Cosmos DB",
+              "targetCount": 13
+            },
+            {
+              "id": "describe_azure_cosmos_db_apis",
+              "label": "Describe Azure Cosmos DB APIs",
+              "targetCount": 13
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "describe_an_analytics_workload_on_azure",
+      "label": "Describe an analytics workload on Azure",
+      "weight": 0.289473,
+      "weightRange": "25–30%",
+      "targetCount": 101,
+      "objectives": [
+        {
+          "id": "describe_common_elements_of_large_scale_analytics",
+          "label": "Describe common elements of large-scale analytics",
+          "targetCount": 38,
+          "subobjectives": [
+            {
+              "id": "describe_considerations_for_data_ingestion_and_processing",
+              "label": "Describe considerations for data ingestion and processing",
+              "targetCount": 13
+            },
+            {
+              "id": "describe_options_for_analytical_data_stores",
+              "label": "Describe options for analytical data stores",
+              "targetCount": 13
+            },
+            {
+              "id": "describe_microsoft_cloud_services_for_large_scale_analytics_including_az",
+              "label": "Describe Microsoft cloud services for large-scale analytics, including Azure Databricks and Microsoft Fabric",
+              "targetCount": 12
+            }
+          ]
+        },
+        {
+          "id": "describe_considerations_for_real_time_data_analytics",
+          "label": "Describe considerations for real-time data analytics",
+          "targetCount": 25,
+          "subobjectives": [
+            {
+              "id": "describe_the_difference_between_batch_and_streaming_data",
+              "label": "Describe the difference between batch and streaming data",
+              "targetCount": 13
+            },
+            {
+              "id": "identify_microsoft_cloud_services_for_real_time_analytics",
+              "label": "Identify Microsoft cloud services for real-time analytics",
+              "targetCount": 12
+            }
+          ]
+        },
+        {
+          "id": "describe_data_visualization_in_microsoft_power_bi",
+          "label": "Describe data visualization in Microsoft Power BI",
+          "targetCount": 38,
+          "subobjectives": [
+            {
+              "id": "identify_the_capabilities_of_power_bi",
+              "label": "Identify the capabilities of Power BI",
+              "targetCount": 13
+            },
+            {
+              "id": "describe_features_of_data_models_in_power_bi",
+              "label": "Describe features of data models in Power BI",
+              "targetCount": 13
+            },
+            {
+              "id": "identify_appropriate_visualizations_for_data",
+              "label": "Identify appropriate visualizations for data",
+              "targetCount": 12
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

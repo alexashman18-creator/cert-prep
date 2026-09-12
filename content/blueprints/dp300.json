@@ -2,10 +2,15 @@
   "schemaVersion": 1,
   "certificationId": "dp300",
   "examCode": "DP-300",
-  "displayName": "Azure Database Administrator",
-  "blueprintStatus": "pending_verification",
-  "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/azure-database-administrator-associate/",
+  "displayName": "Azure Database Administrator Associate",
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-04-24",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-300",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/dp-300/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-database-administrator-associate/",
+  "officialExamDurationMinutes": 100,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 450,
   "difficultyMix": {
     "beginner": 0.25,
@@ -14,5 +19,642 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-300",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/dp-300/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-database-administrator-associate/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": "2026-04-24",
+    "officialExamDurationMinutes": 100,
+    "officialQuestionRange": null,
+    "notes": [
+      "Skills outline taken from the official DP-300 study guide heading “Skills measured as of April 24, 2026”.",
+      "Official exam title is Administering Microsoft Azure SQL Solutions.",
+      "Official certification page states 100 minutes to complete the assessment.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "plan_and_implement_data_platform_resources",
+      "label": "Plan and implement data platform resources",
+      "weight": 0.170732,
+      "weightRange": "15–20%",
+      "targetCount": 77,
+      "objectives": [
+        {
+          "id": "plan_and_deploy_azure_sql_solutions",
+          "label": "Plan and deploy Azure SQL solutions",
+          "targetCount": 32,
+          "subobjectives": [
+            {
+              "id": "recommend_a_database_offering_based_on_specific_requirements",
+              "label": "Recommend a database offering based on specific requirements",
+              "targetCount": 4
+            },
+            {
+              "id": "choose_an_automated_deployment_method",
+              "label": "Choose an automated deployment method",
+              "targetCount": 4
+            },
+            {
+              "id": "identify_use_cases_for_azure_arc_enabled_sql_services",
+              "label": "Identify use cases for Azure Arc-enabled SQL services",
+              "targetCount": 4
+            },
+            {
+              "id": "identify_use_cases_for_azure_sql_database_in_microsoft_fabric",
+              "label": "Identify use cases for Azure SQL Database in Microsoft Fabric",
+              "targetCount": 4
+            },
+            {
+              "id": "plan_for_table_partitioning",
+              "label": "Plan for table partitioning",
+              "targetCount": 4
+            },
+            {
+              "id": "recommend_a_database_sharding_solution",
+              "label": "Recommend a database sharding solution",
+              "targetCount": 3
+            },
+            {
+              "id": "deploy_database_offerings_on_selected_platforms",
+              "label": "Deploy database offerings on selected platforms",
+              "targetCount": 3
+            },
+            {
+              "id": "deploy_hybrid_sql_server_solutions",
+              "label": "Deploy hybrid SQL Server solutions",
+              "targetCount": 3
+            },
+            {
+              "id": "apply_patches_and_updates_for_hybrid_and_infrastructure_as_a_service_iaa",
+              "label": "Apply patches and updates for hybrid and infrastructure as a service (IaaS) deployment",
+              "targetCount": 3
+            }
+          ]
+        },
+        {
+          "id": "configure_resources_for_scale_and_performance",
+          "label": "Configure resources for scale and performance",
+          "targetCount": 17,
+          "subobjectives": [
+            {
+              "id": "configure_azure_sql_database_for_scale_and_performance",
+              "label": "Configure Azure SQL Database for scale and performance",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_azure_sql_managed_instance_for_scale_and_performance",
+              "label": "Configure Azure SQL Managed Instance for scale and performance",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_sql_server_on_azure_virtual_machines_for_scale_and_performance",
+              "label": "Configure SQL Server on Azure Virtual Machines for scale and performance",
+              "targetCount": 3
+            },
+            {
+              "id": "configure_table_partitioning",
+              "label": "Configure table partitioning",
+              "targetCount": 3
+            },
+            {
+              "id": "configure_data_compression",
+              "label": "Configure data compression",
+              "targetCount": 3
+            }
+          ]
+        },
+        {
+          "id": "plan_and_implement_a_migration_strategy",
+          "label": "Plan and implement a migration strategy",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "evaluate_requirements_for_a_migration",
+              "label": "Evaluate requirements for a migration",
+              "targetCount": 4
+            },
+            {
+              "id": "evaluate_offline_or_online_migration_strategies",
+              "label": "Evaluate offline or online migration strategies",
+              "targetCount": 4
+            },
+            {
+              "id": "implement_an_online_migration_strategy",
+              "label": "Implement an online migration strategy",
+              "targetCount": 4
+            },
+            {
+              "id": "implement_an_offline_migration_strategy",
+              "label": "Implement an offline migration strategy",
+              "targetCount": 4
+            },
+            {
+              "id": "implement_a_migration_to_azure",
+              "label": "Implement a migration to Azure",
+              "targetCount": 3
+            },
+            {
+              "id": "implement_a_migration_between_azure_sql_services",
+              "label": "Implement a migration between Azure SQL services",
+              "targetCount": 3
+            },
+            {
+              "id": "implement_azure_sql_managed_instance_database_copy_and_move",
+              "label": "Implement Azure SQL Managed Instance database copy and move",
+              "targetCount": 3
+            },
+            {
+              "id": "troubleshoot_a_migration",
+              "label": "Troubleshoot a migration",
+              "targetCount": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "implement_a_secure_environment",
+      "label": "Implement a secure environment",
+      "weight": 0.219512,
+      "weightRange": "20–25%",
+      "targetCount": 99,
+      "objectives": [
+        {
+          "id": "configure_database_authentication_and_authorization",
+          "label": "Configure database authentication and authorization",
+          "targetCount": 39,
+          "subobjectives": [
+            {
+              "id": "configure_microsoft_entra_id_authentication_for_azure_sql_database_azure",
+              "label": "Configure Microsoft Entra ID authentication for Azure SQL Database, Azure SQL Managed Instance, and SQL Server",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_authentication_for_sql_on_azure_vms_and_azure_sql_managed_inst",
+              "label": "Configure authentication for SQL on Azure VMs and Azure SQL Managed Instance",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_security_principals",
+              "label": "Configure security principals",
+              "targetCount": 5
+            },
+            {
+              "id": "create_users_from_microsoft_entra_identities",
+              "label": "Create users from Microsoft Entra identities",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_database_and_object_level_permissions_using_graphical_tools",
+              "label": "Configure database and object-level permissions using graphical tools",
+              "targetCount": 5
+            },
+            {
+              "id": "apply_the_principle_of_least_privilege_for_all_securables",
+              "label": "Apply the principle of least privilege for all securables",
+              "targetCount": 5
+            },
+            {
+              "id": "troubleshoot_authentication_and_authorization_issues",
+              "label": "Troubleshoot authentication and authorization issues",
+              "targetCount": 5
+            },
+            {
+              "id": "manage_authentication_and_authorization_by_using_t_sql",
+              "label": "Manage authentication and authorization by using T-SQL",
+              "targetCount": 4
+            }
+          ]
+        },
+        {
+          "id": "implement_security_for_data_at_rest_and_data_in_transit",
+          "label": "Implement security for data at rest and data in transit",
+          "targetCount": 30,
+          "subobjectives": [
+            {
+              "id": "implement_transparent_data_encryption_tde",
+              "label": "Implement transparent data encryption (TDE)",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_object_level_encryption",
+              "label": "Implement object-level encryption",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_server_and_database_level_firewall_rules",
+              "label": "Configure server- and database-level firewall rules",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_always_encrypted",
+              "label": "Implement Always Encrypted",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_always_encrypted_with_vbs_enclaves",
+              "label": "Implement Always Encrypted with VBS enclaves",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_private_links_and_service_endpoints",
+              "label": "Configure private links and service endpoints",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "implement_compliance_controls_for_sensitive_data",
+          "label": "Implement compliance controls for sensitive data",
+          "targetCount": 30,
+          "subobjectives": [
+            {
+              "id": "apply_a_data_classification_strategy",
+              "label": "Apply a data classification strategy",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_server_and_database_audits",
+              "label": "Configure server and database audits",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_change_data_tracking",
+              "label": "Implement change data tracking",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_dynamic_data_masking",
+              "label": "Implement dynamic data masking",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_ledger_in_azure_sql",
+              "label": "Implement ledger in Azure SQL",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_row_level_security",
+              "label": "Implement row-level security",
+              "targetCount": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monitor_configure_and_optimize_database_resources",
+      "label": "Monitor, configure, and optimize database resources",
+      "weight": 0.219512,
+      "weightRange": "20–25%",
+      "targetCount": 99,
+      "objectives": [
+        {
+          "id": "monitor_resource_activity_and_performance",
+          "label": "Monitor resource activity and performance",
+          "targetCount": 26,
+          "subobjectives": [
+            {
+              "id": "prepare_an_operational_performance_baseline",
+              "label": "Prepare an operational performance baseline",
+              "targetCount": 5
+            },
+            {
+              "id": "determine_sources_for_performance_metrics",
+              "label": "Determine sources for performance metrics",
+              "targetCount": 5
+            },
+            {
+              "id": "interpret_performance_metrics",
+              "label": "Interpret performance metrics",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_and_monitor_activity_and_performance",
+              "label": "Configure and monitor activity and performance",
+              "targetCount": 4
+            },
+            {
+              "id": "monitor_by_using_database_watcher",
+              "label": "Monitor by using database watcher",
+              "targetCount": 4
+            },
+            {
+              "id": "monitor_by_using_extended_events",
+              "label": "Monitor by using Extended Events",
+              "targetCount": 4
+            }
+          ]
+        },
+        {
+          "id": "monitor_and_optimize_query_performance",
+          "label": "Monitor and optimize query performance",
+          "targetCount": 34,
+          "subobjectives": [
+            {
+              "id": "configure_query_store",
+              "label": "Configure Query Store",
+              "targetCount": 5
+            },
+            {
+              "id": "monitor_by_using_query_store",
+              "label": "Monitor by using Query Store",
+              "targetCount": 5
+            },
+            {
+              "id": "identify_and_resolve_session_blocking",
+              "label": "Identify and resolve session blocking",
+              "targetCount": 4
+            },
+            {
+              "id": "identify_performance_issues_using_dynamic_management_views_dmvs",
+              "label": "Identify performance issues using dynamic management views (DMVs)",
+              "targetCount": 4
+            },
+            {
+              "id": "identify_and_implement_index_changes_for_queries",
+              "label": "Identify and implement index changes for queries",
+              "targetCount": 4
+            },
+            {
+              "id": "recommend_query_construct_modifications_based_on_resource_usage",
+              "label": "Recommend query construct modifications based on resource usage",
+              "targetCount": 4
+            },
+            {
+              "id": "review_execution_plans",
+              "label": "Review execution plans",
+              "targetCount": 4
+            },
+            {
+              "id": "monitor_by_using_intelligent_insights",
+              "label": "Monitor by using Intelligent Insights",
+              "targetCount": 4
+            }
+          ]
+        },
+        {
+          "id": "configure_database_solutions_for_optimal_performance",
+          "label": "Configure database solutions for optimal performance",
+          "targetCount": 39,
+          "subobjectives": [
+            {
+              "id": "implement_index_maintenance_tasks",
+              "label": "Implement index maintenance tasks",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_statistics_maintenance_tasks",
+              "label": "Implement statistics maintenance tasks",
+              "targetCount": 5
+            },
+            {
+              "id": "implement_database_integrity_checks",
+              "label": "Implement database integrity checks",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_database_automatic_tuning",
+              "label": "Configure database automatic tuning",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_server_settings_for_performance",
+              "label": "Configure server settings for performance",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_resource_governor_for_performance",
+              "label": "Configure Resource Governor for performance",
+              "targetCount": 4
+            },
+            {
+              "id": "implement_database_scoped_configuration",
+              "label": "Implement database-scoped configuration",
+              "targetCount": 4
+            },
+            {
+              "id": "configure_compute_and_storage_resources_for_scaling",
+              "label": "Configure compute and storage resources for scaling",
+              "targetCount": 4
+            },
+            {
+              "id": "identify_use_cases_for_intelligent_query_processing_iqp_features",
+              "label": "Identify use cases for intelligent query processing (IQP) features",
+              "targetCount": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "configure_and_manage_automation_of_tasks",
+      "label": "Configure and manage automation of tasks",
+      "weight": 0.170732,
+      "weightRange": "15–20%",
+      "targetCount": 77,
+      "objectives": [
+        {
+          "id": "create_and_manage_sql_server_agent_jobs",
+          "label": "Create and manage SQL Server Agent jobs",
+          "targetCount": 21,
+          "subobjectives": [
+            {
+              "id": "manage_schedules_for_regular_maintenance_jobs",
+              "label": "Manage schedules for regular maintenance jobs",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_job_alerts_and_notifications",
+              "label": "Configure job alerts and notifications",
+              "targetCount": 7
+            },
+            {
+              "id": "troubleshoot_sql_server_agent_jobs",
+              "label": "Troubleshoot SQL Server Agent jobs",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "automate_deployment_of_database_resources",
+          "label": "Automate deployment of database resources",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "automate_deployment_by_using_azure_resource_manager_arm_and_bicep_templa",
+              "label": "Automate deployment by using Azure Resource Manager (ARM) and Bicep templates",
+              "targetCount": 7
+            },
+            {
+              "id": "automate_deployment_by_using_azure_powershell",
+              "label": "Automate deployment by using Azure PowerShell",
+              "targetCount": 7
+            },
+            {
+              "id": "automate_deployment_by_using_azure_cli",
+              "label": "Automate deployment by using Azure CLI",
+              "targetCount": 7
+            },
+            {
+              "id": "monitor_and_troubleshoot_deployments",
+              "label": "Monitor and troubleshoot deployments",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "create_and_manage_database_tasks_in_azure",
+          "label": "Create and manage database tasks in Azure",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "create_and_configure_elastic_jobs",
+              "label": "Create and configure elastic jobs",
+              "targetCount": 7
+            },
+            {
+              "id": "create_and_configure_database_tasks_by_using_automation",
+              "label": "Create and configure database tasks by using automation",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_alerts_and_notifications_on_database_tasks",
+              "label": "Configure alerts and notifications on database tasks",
+              "targetCount": 7
+            },
+            {
+              "id": "troubleshoot_automated_database_tasks",
+              "label": "Troubleshoot automated database tasks",
+              "targetCount": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plan_and_configure_a_high_availability_and_disaster_recovery_ha_dr_envir",
+      "label": "Plan and configure a high availability and disaster recovery (HA/DR) environment",
+      "weight": 0.219512,
+      "weightRange": "20–25%",
+      "targetCount": 98,
+      "objectives": [
+        {
+          "id": "plan_an_ha_dr_strategy_for_database_solutions",
+          "label": "Plan an HA/DR strategy for database solutions",
+          "targetCount": 22,
+          "subobjectives": [
+            {
+              "id": "recommend_ha_dr_strategy_based_on_recovery_point_objective_recovery_time",
+              "label": "Recommend HA/DR strategy based on Recovery Point Objective/Recovery Time Objective (RPO/RTO) requirements",
+              "targetCount": 6
+            },
+            {
+              "id": "evaluate_ha_dr_for_hybrid_deployments",
+              "label": "Evaluate HA/DR for hybrid deployments",
+              "targetCount": 6
+            },
+            {
+              "id": "evaluate_azure_specific_ha_dr_solutions",
+              "label": "Evaluate Azure-specific HA/DR solutions",
+              "targetCount": 5
+            },
+            {
+              "id": "plan_a_testing_procedure_for_an_ha_dr_solution",
+              "label": "Plan a testing procedure for an HA/DR solution",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "plan_and_perform_backup_and_restore_of_a_database",
+          "label": "Plan and perform backup and restore of a database",
+          "targetCount": 38,
+          "subobjectives": [
+            {
+              "id": "recommend_a_database_backup_and_restore_strategy",
+              "label": "Recommend a database backup and restore strategy",
+              "targetCount": 6
+            },
+            {
+              "id": "perform_a_database_backup_by_using_native_tools",
+              "label": "Perform a database backup by using native tools",
+              "targetCount": 6
+            },
+            {
+              "id": "perform_a_database_restore_by_using_native_tools",
+              "label": "Perform a database restore by using native tools",
+              "targetCount": 6
+            },
+            {
+              "id": "perform_a_database_restore_to_a_point_in_time",
+              "label": "Perform a database restore to a point in time",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_long_term_backup_retention",
+              "label": "Configure long-term backup retention",
+              "targetCount": 5
+            },
+            {
+              "id": "backup_and_restore_a_database_by_using_t_sql",
+              "label": "Backup and restore a database by using T-SQL",
+              "targetCount": 5
+            },
+            {
+              "id": "backup_to_and_restore_from_cloud_storage",
+              "label": "Backup to and restore from cloud storage",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "configure_ha_dr_for_database_solutions",
+          "label": "Configure HA/DR for database solutions",
+          "targetCount": 38,
+          "subobjectives": [
+            {
+              "id": "configure_active_geo_replication",
+              "label": "Configure active geo-replication",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_always_on_availability_groups_on_sql_managed_instance_and_azur",
+              "label": "Configure Always On availability groups on SQL Managed Instance and Azure virtual machines",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_failover_groups",
+              "label": "Configure failover groups",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_always_on_failover_cluster_instances_on_azure_virtual_machines",
+              "label": "Configure Always On Failover Cluster Instances on Azure virtual machines",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_log_shipping",
+              "label": "Configure log shipping",
+              "targetCount": 5
+            },
+            {
+              "id": "monitor_an_ha_dr_solution",
+              "label": "Monitor an HA/DR solution",
+              "targetCount": 5
+            },
+            {
+              "id": "troubleshoot_an_ha_dr_solution",
+              "label": "Troubleshoot an HA/DR solution",
+              "targetCount": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

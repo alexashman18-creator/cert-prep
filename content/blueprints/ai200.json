@@ -2,10 +2,15 @@
   "schemaVersion": 1,
   "certificationId": "ai200",
   "examCode": "AI-200",
-  "displayName": "Azure AI Cloud Developer",
-  "blueprintStatus": "pending_verification",
+  "displayName": "Azure AI Cloud Developer Associate",
+  "blueprintStatus": "verified",
   "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": null,
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-200",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/ai-200/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-ai-cloud-developer-associate/",
+  "officialExamDurationMinutes": 120,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 500,
   "difficultyMix": {
     "beginner": 0.25,
@@ -14,5 +19,257 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-200",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/ai-200/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-ai-cloud-developer-associate/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": null,
+    "officialExamDurationMinutes": 120,
+    "officialQuestionRange": null,
+    "notes": [
+      "The official AI-200 study guide uses a “Skills measured” heading with no “Skills measured as of DATE” line. skillsOutlineEffectiveDate is therefore null.",
+      "Skills-at-a-glance lists “Secure, monitor, troubleshoot Azure solutions”; the later official skills heading is “Secure, monitor, and troubleshoot Azure solutions”. The later official heading is stored as the domain label.",
+      "Official certification name is Microsoft Certified: Azure AI Cloud Developer Associate. Exam title is Developing AI Cloud Solutions on Azure.",
+      "Official certification page states 120 minutes to complete the assessment.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "develop_containerized_solutions_on_azure",
+      "label": "Develop containerized solutions on Azure",
+      "weight": 0.236842,
+      "weightRange": "20–25%",
+      "targetCount": 119,
+      "objectives": [
+        {
+          "id": "implement_container_application_hosting",
+          "label": "Implement container application hosting",
+          "targetCount": 51,
+          "subobjectives": [
+            {
+              "id": "build_store_version_and_manage_container_images_by_using_azure_container",
+              "label": "Build, store, version, and manage container images by using Azure Container Registry",
+              "targetCount": 17
+            },
+            {
+              "id": "build_and_run_images_by_using_azure_container_registry_tasks",
+              "label": "Build and run images by using Azure Container Registry Tasks",
+              "targetCount": 17
+            },
+            {
+              "id": "deploy_containers_to_azure_app_service_including_configuring_app_service",
+              "label": "Deploy containers to Azure App Service, including configuring App Service to supply environment variables and secrets",
+              "targetCount": 17
+            }
+          ]
+        },
+        {
+          "id": "implement_container_orchestrated_solutions",
+          "label": "Implement container-orchestrated solutions",
+          "targetCount": 68,
+          "subobjectives": [
+            {
+              "id": "deploy_applications_to_azure_container_apps_including_environment_config",
+              "label": "Deploy applications to Azure Container Apps, including environment configuration and revision management",
+              "targetCount": 17
+            },
+            {
+              "id": "implement_event_driven_scaling_by_using_kubernetes_event_driven_autoscal",
+              "label": "Implement event-driven scaling by using Kubernetes Event-driven Autoscaling (KEDA) in Container Apps",
+              "targetCount": 17
+            },
+            {
+              "id": "deploy_and_manage_applications_to_azure_kubernetes_service_aks_by_using",
+              "label": "Deploy and manage applications to Azure Kubernetes Service (AKS) by using manifest files",
+              "targetCount": 17
+            },
+            {
+              "id": "monitor_and_troubleshoot_solutions_on_aks_and_container_apps_by_inspecti",
+              "label": "Monitor and troubleshoot solutions on AKS and Container Apps by inspecting logs, events, and end-to-end connectivity",
+              "targetCount": 17
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "develop_ai_solutions_by_using_azure_data_management_services",
+      "label": "Develop AI solutions by using Azure data management services",
+      "weight": 0.289474,
+      "weightRange": "25–30%",
+      "targetCount": 145,
+      "objectives": [
+        {
+          "id": "develop_ai_solutions_by_using_azure_cosmos_db_for_nosql",
+          "label": "Develop AI solutions by using Azure Cosmos DB for NoSQL",
+          "targetCount": 48,
+          "subobjectives": [
+            {
+              "id": "connect_to_azure_cosmos_db_for_nosql_by_using_the_sdk_and_run_queries",
+              "label": "Connect to Azure Cosmos DB for NoSQL by using the SDK and run queries",
+              "targetCount": 12
+            },
+            {
+              "id": "optimize_query_performance_and_request_units_rus_consumption_by_using_in",
+              "label": "Optimize query performance and Request Units (RUs) consumption by using indexing policies and consistency levels",
+              "targetCount": 12
+            },
+            {
+              "id": "store_and_retrieve_embeddings_and_execute_vector_similarity_search_for_s",
+              "label": "Store and retrieve embeddings and execute vector similarity search for semantic retrieval",
+              "targetCount": 12
+            },
+            {
+              "id": "implement_a_change_feed_processor_to_detect_and_handle_new_or_updated_it",
+              "label": "Implement a change feed processor to detect and handle new or updated items",
+              "targetCount": 12
+            }
+          ]
+        },
+        {
+          "id": "develop_ai_solutions_by_using_azure_database_for_postgresql",
+          "label": "Develop AI solutions by using Azure Database for PostgreSQL",
+          "targetCount": 73,
+          "subobjectives": [
+            {
+              "id": "connect_and_query_azure_database_for_postgresql_by_using_sdks",
+              "label": "Connect and query Azure Database for PostgreSQL by using SDKs",
+              "targetCount": 13
+            },
+            {
+              "id": "model_schemas_and_implement_indexing_strategies_including_designing_tabl",
+              "label": "Model schemas and implement indexing strategies, including designing tables and choosing appropriate data types",
+              "targetCount": 12
+            },
+            {
+              "id": "implement_indexing_strategies_including_optimizing_query_latency_and_red",
+              "label": "Implement indexing strategies, including optimizing query latency and reducing pgvector compute overhead",
+              "targetCount": 12
+            },
+            {
+              "id": "configure_compute_memory_and_storage_resources_to_support_vector_workloa",
+              "label": "Configure compute, memory, and storage resources to support vector workloads",
+              "targetCount": 12
+            },
+            {
+              "id": "run_vector_similarity_search_including_storing_embeddings_semantic_retri",
+              "label": "Run vector similarity search, including storing embeddings, semantic retrieval, and implementing retrieval-augmented generation (RAG) patterns by using metadata filter",
+              "targetCount": 12
+            },
+            {
+              "id": "implement_connection_optimization_to_improve_throughput_and_minimize_lat",
+              "label": "Implement connection optimization to improve throughput and minimize latency",
+              "targetCount": 12
+            }
+          ]
+        },
+        {
+          "id": "integrate_azure_managed_redis_in_ai_solutions",
+          "label": "Integrate Azure Managed Redis in AI solutions",
+          "targetCount": 24,
+          "subobjectives": [
+            {
+              "id": "implement_azure_managed_redis_data_operations_including_caching_expirati",
+              "label": "Implement Azure Managed Redis data operations, including caching, expiration, and invalidation",
+              "targetCount": 12
+            },
+            {
+              "id": "implement_vector_indexing_to_enable_similarity_search",
+              "label": "Implement vector indexing to enable similarity search",
+              "targetCount": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "connect_to_and_consume_azure_services",
+      "label": "Connect to and consume Azure services",
+      "weight": 0.236842,
+      "weightRange": "20–25%",
+      "targetCount": 118,
+      "objectives": [
+        {
+          "id": "develop_event_and_message_based_ai_solutions",
+          "label": "Develop event- and message-based AI solutions",
+          "targetCount": 59,
+          "subobjectives": [
+            {
+              "id": "queue_and_process_back_end_operations_by_using_azure_service_bus_includi",
+              "label": "Queue and process back-end operations by using Azure Service Bus, including dead-letter queue handling, messages, topics, and subscriptions",
+              "targetCount": 30
+            },
+            {
+              "id": "implement_event_driven_workflows_by_using_azure_event_grid_including_fil",
+              "label": "Implement event-driven workflows by using Azure Event Grid, including filters, custom events, and retries",
+              "targetCount": 29
+            }
+          ]
+        },
+        {
+          "id": "develop_and_implement_azure_functions",
+          "label": "Develop and implement Azure Functions",
+          "targetCount": 59,
+          "subobjectives": [
+            {
+              "id": "build_serverless_apis_including_implementing_triggers_and_bindings",
+              "label": "Build serverless APIs, including implementing triggers and bindings",
+              "targetCount": 30
+            },
+            {
+              "id": "configure_and_deploy_function_apps",
+              "label": "Configure and deploy function apps",
+              "targetCount": 29
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "secure_monitor_and_troubleshoot_azure_solutions",
+      "label": "Secure, monitor, and troubleshoot Azure solutions",
+      "weight": 0.236842,
+      "weightRange": "20–25%",
+      "targetCount": 118,
+      "objectives": [
+        {
+          "id": "implement_secure_azure_solutions",
+          "label": "Implement secure Azure solutions",
+          "targetCount": 59,
+          "subobjectives": [
+            {
+              "id": "secure_secrets_by_using_azure_key_vault_including_rotation_and_retrieval",
+              "label": "Secure secrets by using Azure Key Vault, including rotation and retrieval",
+              "targetCount": 30
+            },
+            {
+              "id": "store_and_retrieve_app_configuration_information_by_using_azure_app_conf",
+              "label": "Store and retrieve app configuration information by using Azure App Configuration",
+              "targetCount": 29
+            }
+          ]
+        },
+        {
+          "id": "monitor_and_troubleshoot_azure_solutions",
+          "label": "Monitor and troubleshoot Azure solutions",
+          "targetCount": 59,
+          "subobjectives": [
+            {
+              "id": "trace_distributed_systems_by_using_opentelemetry_sdks",
+              "label": "Trace distributed systems by using OpenTelemetry SDKs",
+              "targetCount": 30
+            },
+            {
+              "id": "write_kql_queries_to_analyze_logs_and_metrics",
+              "label": "Write KQL queries to analyze logs and metrics",
+              "targetCount": 29
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -2,10 +2,15 @@
   "schemaVersion": 1,
   "certificationId": "az305",
   "examCode": "AZ-305",
-  "displayName": "Azure Solutions Architect",
-  "blueprintStatus": "pending_verification",
-  "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/azure-solutions-architect/",
+  "displayName": "Azure Solutions Architect Expert",
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-04-17",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-305",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/az-305/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-solutions-architect/",
+  "officialExamDurationMinutes": null,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 450,
   "difficultyMix": {
     "beginner": 0.15,
@@ -14,5 +19,387 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-305",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/az-305/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-solutions-architect/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": "2026-04-17",
+    "officialExamDurationMinutes": null,
+    "officialQuestionRange": null,
+    "notes": [
+      "Skills outline taken from the official AZ-305 study guide heading “Skills measured as of April 17, 2026”.",
+      "Official certification name is Microsoft Certified: Azure Solutions Architect Expert. Exam title is Designing Microsoft Azure Infrastructure Solutions.",
+      "The fetched AZ-305 exam and certification pages did not state a per-exam duration. Microsoft’s generic associate/expert table lists 100 or 120 minutes depending on labs; that table is not recorded here as an AZ-305-specific official value.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "design_identity_governance_and_monitoring_solutions",
+      "label": "Design identity, governance, and monitoring solutions",
+      "weight": 0.275,
+      "weightRange": "25–30%",
+      "targetCount": 124,
+      "objectives": [
+        {
+          "id": "design_solutions_for_logging_and_monitoring",
+          "label": "Design solutions for logging and monitoring",
+          "targetCount": 34,
+          "subobjectives": [
+            {
+              "id": "recommend_a_logging_solution",
+              "label": "Recommend a logging solution",
+              "targetCount": 12
+            },
+            {
+              "id": "recommend_a_solution_for_routing_logs",
+              "label": "Recommend a solution for routing logs",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_monitoring_solution",
+              "label": "Recommend a monitoring solution",
+              "targetCount": 11
+            }
+          ]
+        },
+        {
+          "id": "design_authentication_and_authorization_solutions",
+          "label": "Design authentication and authorization solutions",
+          "targetCount": 56,
+          "subobjectives": [
+            {
+              "id": "recommend_an_authentication_solution",
+              "label": "Recommend an authentication solution",
+              "targetCount": 12
+            },
+            {
+              "id": "recommend_an_identity_management_solution",
+              "label": "Recommend an identity management solution",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_solution_for_authorizing_access_to_azure_resources",
+              "label": "Recommend a solution for authorizing access to Azure resources",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_solution_for_authorizing_access_to_on_premises_resources",
+              "label": "Recommend a solution for authorizing access to on-premises resources",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_solution_to_manage_secrets_certificates_and_keys",
+              "label": "Recommend a solution to manage secrets, certificates, and keys",
+              "targetCount": 11
+            }
+          ]
+        },
+        {
+          "id": "design_governance",
+          "label": "Design governance",
+          "targetCount": 34,
+          "subobjectives": [
+            {
+              "id": "recommend_a_structure_for_management_groups_subscriptions_and_resource_g",
+              "label": "Recommend a structure for management groups, subscriptions, and resource groups, and a strategy for resource tagging",
+              "targetCount": 12
+            },
+            {
+              "id": "recommend_a_solution_for_managing_compliance",
+              "label": "Recommend a solution for managing compliance",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_solution_for_identity_governance",
+              "label": "Recommend a solution for identity governance",
+              "targetCount": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design_data_storage_solutions",
+      "label": "Design data storage solutions",
+      "weight": 0.225,
+      "weightRange": "20–25%",
+      "targetCount": 101,
+      "objectives": [
+        {
+          "id": "design_data_storage_solutions_for_relational_data",
+          "label": "Design data storage solutions for relational data",
+          "targetCount": 41,
+          "subobjectives": [
+            {
+              "id": "recommend_a_solution_for_storing_relational_data",
+              "label": "Recommend a solution for storing relational data",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_database_service_tier_and_compute_tier",
+              "label": "Recommend a database service tier and compute tier",
+              "targetCount": 10
+            },
+            {
+              "id": "recommend_a_solution_for_database_scalability",
+              "label": "Recommend a solution for database scalability",
+              "targetCount": 10
+            },
+            {
+              "id": "recommend_a_solution_for_data_protection",
+              "label": "Recommend a solution for data protection",
+              "targetCount": 10
+            }
+          ]
+        },
+        {
+          "id": "design_data_storage_solutions_for_semi_structured_and_unstructured_data",
+          "label": "Design data storage solutions for semi-structured and unstructured data",
+          "targetCount": 40,
+          "subobjectives": [
+            {
+              "id": "recommend_a_solution_for_storing_semi_structured_data",
+              "label": "Recommend a solution for storing semi-structured data",
+              "targetCount": 10
+            },
+            {
+              "id": "recommend_a_solution_for_storing_unstructured_data",
+              "label": "Recommend a solution for storing unstructured data",
+              "targetCount": 10
+            },
+            {
+              "id": "recommend_a_data_storage_solution_to_balance_features_performance_and_co",
+              "label": "Recommend a data storage solution to balance features, performance, and costs",
+              "targetCount": 10
+            },
+            {
+              "id": "recommend_a_data_solution_for_protection_and_durability",
+              "label": "Recommend a data solution for protection and durability",
+              "targetCount": 10
+            }
+          ]
+        },
+        {
+          "id": "design_data_integration",
+          "label": "Design data integration",
+          "targetCount": 20,
+          "subobjectives": [
+            {
+              "id": "recommend_a_solution_for_data_integration",
+              "label": "Recommend a solution for data integration",
+              "targetCount": 10
+            },
+            {
+              "id": "recommend_a_solution_for_data_analysis",
+              "label": "Recommend a solution for data analysis",
+              "targetCount": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design_business_continuity_solutions",
+      "label": "Design business continuity solutions",
+      "weight": 0.175,
+      "weightRange": "15–20%",
+      "targetCount": 79,
+      "objectives": [
+        {
+          "id": "design_solutions_for_backup_and_disaster_recovery",
+          "label": "Design solutions for backup and disaster recovery",
+          "targetCount": 45,
+          "subobjectives": [
+            {
+              "id": "recommend_a_recovery_solution_for_azure_and_hybrid_workloads_that_meets",
+              "label": "Recommend a recovery solution for Azure and hybrid workloads that meets recovery objectives",
+              "targetCount": 12
+            },
+            {
+              "id": "recommend_a_backup_and_recovery_solution_for_compute",
+              "label": "Recommend a backup and recovery solution for compute",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_backup_and_recovery_solution_for_databases",
+              "label": "Recommend a backup and recovery solution for databases",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_backup_and_recovery_solution_for_unstructured_data",
+              "label": "Recommend a backup and recovery solution for unstructured data",
+              "targetCount": 11
+            }
+          ]
+        },
+        {
+          "id": "design_for_high_availability",
+          "label": "Design for high availability",
+          "targetCount": 34,
+          "subobjectives": [
+            {
+              "id": "recommend_a_high_availability_solution_for_compute",
+              "label": "Recommend a high availability solution for compute",
+              "targetCount": 12
+            },
+            {
+              "id": "recommend_a_high_availability_solution_for_relational_data",
+              "label": "Recommend a high availability solution for relational data",
+              "targetCount": 11
+            },
+            {
+              "id": "recommend_a_high_availability_solution_for_semi_structured_and_unstructu",
+              "label": "Recommend a high availability solution for semi-structured and unstructured data",
+              "targetCount": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design_infrastructure_solutions",
+      "label": "Design infrastructure solutions",
+      "weight": 0.325,
+      "weightRange": "30–35%",
+      "targetCount": 146,
+      "objectives": [
+        {
+          "id": "design_compute_solutions",
+          "label": "Design compute solutions",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "specify_components_of_a_compute_solution_based_on_workload_requirements",
+              "label": "Specify components of a compute solution based on workload requirements",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_virtual_machine_based_solution",
+              "label": "Recommend a virtual machine-based solution",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_container_based_solution",
+              "label": "Recommend a container-based solution",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_serverless_based_solution",
+              "label": "Recommend a serverless-based solution",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_compute_solution_for_batch_processing",
+              "label": "Recommend a compute solution for batch processing",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "design_an_application_architecture",
+          "label": "Design an application architecture",
+          "targetCount": 41,
+          "subobjectives": [
+            {
+              "id": "recommend_a_messaging_architecture",
+              "label": "Recommend a messaging architecture",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_an_event_driven_architecture",
+              "label": "Recommend an event-driven architecture",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_solution_for_api_integration",
+              "label": "Recommend a solution for API integration",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_caching_solution_for_applications",
+              "label": "Recommend a caching solution for applications",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_an_application_configuration_management_solution",
+              "label": "Recommend an application configuration management solution",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_an_automated_deployment_solution_for_applications",
+              "label": "Recommend an automated deployment solution for applications",
+              "targetCount": 6
+            }
+          ]
+        },
+        {
+          "id": "design_migrations",
+          "label": "Design migrations",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "evaluate_a_migration_solution_that_leverages_the_microsoft_cloud_adoptio",
+              "label": "Evaluate a migration solution that leverages the Microsoft Cloud Adoption Framework for Azure",
+              "targetCount": 7
+            },
+            {
+              "id": "evaluate_on_premises_servers_data_and_applications_for_migration",
+              "label": "Evaluate on-premises servers, data, and applications for migration",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_solution_for_migrating_workloads_to_infrastructure_as_a_serv",
+              "label": "Recommend a solution for migrating workloads to infrastructure as a service (IaaS) and platform as a service (PaaS)",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_solution_for_migrating_databases",
+              "label": "Recommend a solution for migrating databases",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_solution_for_migrating_unstructured_data",
+              "label": "Recommend a solution for migrating unstructured data",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "design_network_solutions",
+          "label": "Design network solutions",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "recommend_a_connectivity_solution_that_connects_azure_resources_to_the_i",
+              "label": "Recommend a connectivity solution that connects Azure resources to the internet",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_connectivity_solution_that_connects_azure_resources_to_on_pr",
+              "label": "Recommend a connectivity solution that connects Azure resources to on-premises networks",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_solution_to_optimize_network_performance",
+              "label": "Recommend a solution to optimize network performance",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_solution_to_optimize_network_security",
+              "label": "Recommend a solution to optimize network security",
+              "targetCount": 7
+            },
+            {
+              "id": "recommend_a_load_balancing_and_routing_solution",
+              "label": "Recommend a load-balancing and routing solution",
+              "targetCount": 7
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

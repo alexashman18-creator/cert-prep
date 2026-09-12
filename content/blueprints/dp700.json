@@ -2,10 +2,15 @@
   "schemaVersion": 1,
   "certificationId": "dp700",
   "examCode": "DP-700",
-  "displayName": "Fabric Data Engineer",
-  "blueprintStatus": "pending_verification",
-  "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/fabric-data-engineer-associate/",
+  "displayName": "Fabric Data Engineer Associate",
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-07-21",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-700",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/dp-700/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/fabric-data-engineer-associate/",
+  "officialExamDurationMinutes": 100,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 450,
   "difficultyMix": {
     "beginner": 0.25,
@@ -14,5 +19,389 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/dp-700",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/dp-700/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/fabric-data-engineer-associate/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": "2026-07-21",
+    "officialExamDurationMinutes": 100,
+    "officialQuestionRange": null,
+    "notes": [
+      "Skills outline taken from the official DP-700 study guide heading “Skills measured as of July 21, 2026”.",
+      "Official exam title is Implementing Data Engineering Solutions Using Microsoft Fabric.",
+      "Official certification page states 100 minutes to complete the assessment.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "implement_and_manage_an_analytics_solution",
+      "label": "Implement and manage an analytics solution",
+      "weight": 0.333333,
+      "weightRange": "30–35%",
+      "targetCount": 150,
+      "objectives": [
+        {
+          "id": "configure_microsoft_fabric_workspace_settings",
+          "label": "Configure Microsoft Fabric workspace settings",
+          "targetCount": 33,
+          "subobjectives": [
+            {
+              "id": "configure_spark_workspace_settings",
+              "label": "Configure Spark workspace settings",
+              "targetCount": 9
+            },
+            {
+              "id": "configure_domain_workspace_settings",
+              "label": "Configure domain workspace settings",
+              "targetCount": 8
+            },
+            {
+              "id": "configure_onelake_workspace_settings",
+              "label": "Configure OneLake workspace settings",
+              "targetCount": 8
+            },
+            {
+              "id": "configure_apache_airflow_workspace_settings",
+              "label": "Configure Apache Airflow workspace settings",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "implement_lifecycle_management_in_fabric",
+          "label": "Implement lifecycle management in Fabric",
+          "targetCount": 25,
+          "subobjectives": [
+            {
+              "id": "configure_version_control",
+              "label": "Configure version control",
+              "targetCount": 9
+            },
+            {
+              "id": "implement_database_projects",
+              "label": "Implement database projects",
+              "targetCount": 8
+            },
+            {
+              "id": "create_and_configure_deployment_pipelines",
+              "label": "Create and configure deployment pipelines",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "configure_security_and_governance",
+          "label": "Configure security and governance",
+          "targetCount": 67,
+          "subobjectives": [
+            {
+              "id": "implement_workspace_level_access_controls",
+              "label": "Implement workspace-level access controls",
+              "targetCount": 9
+            },
+            {
+              "id": "implement_item_level_access_controls",
+              "label": "Implement item-level access controls",
+              "targetCount": 9
+            },
+            {
+              "id": "implement_row_level_column_level_object_level_and_folder_file_level_acce",
+              "label": "Implement row-level, column-level, object-level, and folder/file-level access controls",
+              "targetCount": 9
+            },
+            {
+              "id": "implement_dynamic_data_masking",
+              "label": "Implement dynamic data masking",
+              "targetCount": 8
+            },
+            {
+              "id": "apply_sensitivity_labels_to_items",
+              "label": "Apply sensitivity labels to items",
+              "targetCount": 8
+            },
+            {
+              "id": "endorse_items",
+              "label": "Endorse items",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_and_use_microsoft_fabric_audit_logs",
+              "label": "Implement and use Microsoft Fabric audit logs",
+              "targetCount": 8
+            },
+            {
+              "id": "configure_and_implement_onelake_security",
+              "label": "Configure and implement OneLake security",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "orchestrate_processes",
+          "label": "Orchestrate processes",
+          "targetCount": 25,
+          "subobjectives": [
+            {
+              "id": "choose_between_dataflow_gen_2_a_pipeline_and_a_notebook",
+              "label": "Choose between Dataflow gen 2, a pipeline and a notebook",
+              "targetCount": 9
+            },
+            {
+              "id": "design_and_implement_schedules_and_event_based_triggers",
+              "label": "Design and implement schedules and event-based triggers",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_orchestration_patterns_with_notebooks_and_pipelines_including",
+              "label": "Implement orchestration patterns with notebooks and pipelines, including parameters and dynamic expressions",
+              "targetCount": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ingest_and_transform_data",
+      "label": "Ingest and transform data",
+      "weight": 0.333333,
+      "weightRange": "30–35%",
+      "targetCount": 150,
+      "objectives": [
+        {
+          "id": "design_and_implement_loading_patterns",
+          "label": "Design and implement loading patterns",
+          "targetCount": 24,
+          "subobjectives": [
+            {
+              "id": "design_and_implement_full_and_incremental_data_loads",
+              "label": "Design and implement full and incremental data loads",
+              "targetCount": 8
+            },
+            {
+              "id": "prepare_data_for_loading_into_a_dimensional_model",
+              "label": "Prepare data for loading into a dimensional model",
+              "targetCount": 8
+            },
+            {
+              "id": "design_and_implement_a_loading_pattern_for_streaming_data",
+              "label": "Design and implement a loading pattern for streaming data",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "ingest_and_transform_batch_data",
+          "label": "Ingest and transform batch data",
+          "targetCount": 71,
+          "subobjectives": [
+            {
+              "id": "choose_an_appropriate_data_store",
+              "label": "Choose an appropriate data store",
+              "targetCount": 8
+            },
+            {
+              "id": "choose_between_dataflows_gen2_notebooks_kql_and_t_sql_for_data_transform",
+              "label": "Choose between Dataflows Gen2, notebooks, KQL, and T-SQL for data transformation",
+              "targetCount": 8
+            },
+            {
+              "id": "create_and_manage_onelake_shortcuts",
+              "label": "Create and manage OneLake shortcuts",
+              "targetCount": 8
+            },
+            {
+              "id": "implement_mirroring",
+              "label": "Implement mirroring",
+              "targetCount": 8
+            },
+            {
+              "id": "ingest_data_by_using_pipelines",
+              "label": "Ingest data by using pipelines",
+              "targetCount": 8
+            },
+            {
+              "id": "transform_data_by_using_pyspark_sql_and_kql",
+              "label": "Transform data by using PySpark, SQL, and KQL",
+              "targetCount": 8
+            },
+            {
+              "id": "denormalize_data",
+              "label": "Denormalize data",
+              "targetCount": 8
+            },
+            {
+              "id": "group_and_aggregate_data",
+              "label": "Group and aggregate data",
+              "targetCount": 8
+            },
+            {
+              "id": "handle_duplicate_missing_and_late_arriving_data",
+              "label": "Handle duplicate, missing, and late-arriving data",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "ingest_and_transform_streaming_data",
+          "label": "Ingest and transform streaming data",
+          "targetCount": 55,
+          "subobjectives": [
+            {
+              "id": "choose_an_appropriate_streaming_engine",
+              "label": "Choose an appropriate streaming engine",
+              "targetCount": 8
+            },
+            {
+              "id": "choose_between_native_tables_and_onelake_shortcuts_in_real_time_intellig",
+              "label": "Choose between native tables and OneLake shortcuts in Real-Time Intelligence",
+              "targetCount": 8
+            },
+            {
+              "id": "choose_between_query_acceleration_for_onelake_shortcuts_and_standard_one",
+              "label": "Choose between Query acceleration for OneLake shortcuts and standard OneLake shortcuts in Real-Time Intelligence",
+              "targetCount": 8
+            },
+            {
+              "id": "process_data_by_using_eventstreams",
+              "label": "Process data by using Eventstreams",
+              "targetCount": 8
+            },
+            {
+              "id": "process_data_by_using_spark_structured_streaming",
+              "label": "Process data by using Spark structured streaming",
+              "targetCount": 8
+            },
+            {
+              "id": "process_data_by_using_kql",
+              "label": "Process data by using KQL",
+              "targetCount": 8
+            },
+            {
+              "id": "create_windowing_functions",
+              "label": "Create windowing functions",
+              "targetCount": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monitor_and_optimize_an_analytics_solution",
+      "label": "Monitor and optimize an analytics solution",
+      "weight": 0.333334,
+      "weightRange": "30–35%",
+      "targetCount": 150,
+      "objectives": [
+        {
+          "id": "monitor_fabric_items",
+          "label": "Monitor Fabric items",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "monitor_data_ingestion",
+              "label": "Monitor data ingestion",
+              "targetCount": 9
+            },
+            {
+              "id": "monitor_data_transformation",
+              "label": "Monitor data transformation",
+              "targetCount": 9
+            },
+            {
+              "id": "monitor_semantic_model_refresh",
+              "label": "Monitor semantic model refresh",
+              "targetCount": 9
+            },
+            {
+              "id": "configure_alerts",
+              "label": "Configure alerts",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "identify_and_resolve_errors",
+          "label": "Identify and resolve errors",
+          "targetCount": 62,
+          "subobjectives": [
+            {
+              "id": "identify_and_resolve_pipeline_errors",
+              "label": "Identify and resolve pipeline errors",
+              "targetCount": 9
+            },
+            {
+              "id": "identify_and_resolve_dataflow_gen2_errors",
+              "label": "Identify and resolve Dataflow Gen2 errors",
+              "targetCount": 9
+            },
+            {
+              "id": "identify_and_resolve_notebook_errors",
+              "label": "Identify and resolve notebook errors",
+              "targetCount": 9
+            },
+            {
+              "id": "identify_and_resolve_eventhouse_errors",
+              "label": "Identify and resolve Eventhouse errors",
+              "targetCount": 9
+            },
+            {
+              "id": "identify_and_resolve_eventstream_errors",
+              "label": "Identify and resolve Eventstream errors",
+              "targetCount": 9
+            },
+            {
+              "id": "identify_and_resolve_t_sql_errors",
+              "label": "Identify and resolve T-SQL errors",
+              "targetCount": 9
+            },
+            {
+              "id": "identify_and_resolve_onelake_shortcut_errors",
+              "label": "Identify and resolve OneLake shortcut errors",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "optimize_performance",
+          "label": "Optimize performance",
+          "targetCount": 53,
+          "subobjectives": [
+            {
+              "id": "optimize_a_lakehouse_table",
+              "label": "Optimize a Lakehouse table",
+              "targetCount": 9
+            },
+            {
+              "id": "optimize_a_pipeline",
+              "label": "Optimize a pipeline",
+              "targetCount": 9
+            },
+            {
+              "id": "optimize_a_data_warehouse",
+              "label": "Optimize a data warehouse",
+              "targetCount": 9
+            },
+            {
+              "id": "optimize_eventstreams_and_eventhouses",
+              "label": "Optimize Eventstreams and Eventhouses",
+              "targetCount": 9
+            },
+            {
+              "id": "optimize_spark_performance",
+              "label": "Optimize Spark performance",
+              "targetCount": 9
+            },
+            {
+              "id": "optimize_query_performance",
+              "label": "Optimize query performance",
+              "targetCount": 8
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

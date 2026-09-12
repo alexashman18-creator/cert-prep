@@ -2,10 +2,15 @@
   "schemaVersion": 1,
   "certificationId": "az104",
   "examCode": "AZ-104",
-  "displayName": "Azure Administrator",
-  "blueprintStatus": "pending_verification",
-  "skillsOutlineEffectiveDate": null,
-  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/azure-administrator/",
+  "displayName": "Azure Administrator Associate",
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-04-17",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-104",
+  "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/az-104/",
+  "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-administrator/",
+  "officialExamDurationMinutes": 100,
+  "officialQuestionRange": null,
+  "contentTargetKind": "internal_content_bank",
   "contentTargetCount": 500,
   "difficultyMix": {
     "beginner": 0.25,
@@ -14,5 +19,582 @@
   },
   "underCoveredRatio": 0.4,
   "overCoveredRatio": 1.25,
-  "domains": []
+  "source": {
+    "verifiedDate": "2026-09-12",
+    "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-104",
+    "examUrl": "https://learn.microsoft.com/credentials/certifications/exams/az-104/",
+    "certificationUrl": "https://learn.microsoft.com/credentials/certifications/azure-administrator/",
+    "examDurationDocumentationUrl": "https://learn.microsoft.com/credentials/support/exam-duration-exam-experience",
+    "skillsOutlineQuotedAsOf": "2026-04-17",
+    "officialExamDurationMinutes": 100,
+    "officialQuestionRange": null,
+    "notes": [
+      "Skills outline taken from the official AZ-104 study guide heading “Skills measured as of April 17, 2026”.",
+      "Official certification name is Microsoft Certified: Azure Administrator Associate.",
+      "Official certification page states 100 minutes to complete the assessment.",
+      "Microsoft states that most certification exams typically contain 40–60 questions, and that the number can vary by exam. That is not a per-exam official count."
+    ]
+  },
+  "domains": [
+    {
+      "id": "manage_azure_identities_and_governance",
+      "label": "Manage Azure identities and governance",
+      "weight": 0.243243,
+      "weightRange": "20–25%",
+      "targetCount": 122,
+      "objectives": [
+        {
+          "id": "manage_microsoft_entra_users_and_groups",
+          "label": "Manage Microsoft Entra users and groups",
+          "targetCount": 41,
+          "subobjectives": [
+            {
+              "id": "create_users_and_groups",
+              "label": "Create users and groups",
+              "targetCount": 9
+            },
+            {
+              "id": "manage_user_and_group_properties",
+              "label": "Manage user and group properties",
+              "targetCount": 8
+            },
+            {
+              "id": "manage_licenses_in_microsoft_entra_id",
+              "label": "Manage licenses in Microsoft Entra ID",
+              "targetCount": 8
+            },
+            {
+              "id": "manage_external_users",
+              "label": "Manage external users",
+              "targetCount": 8
+            },
+            {
+              "id": "configure_self_service_password_reset_sspr",
+              "label": "Configure self-service password reset (SSPR)",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "manage_access_to_azure_resources",
+          "label": "Manage access to Azure resources",
+          "targetCount": 24,
+          "subobjectives": [
+            {
+              "id": "manage_built_in_azure_roles",
+              "label": "Manage built-in Azure roles",
+              "targetCount": 8
+            },
+            {
+              "id": "assign_roles_at_different_scopes",
+              "label": "Assign roles at different scopes",
+              "targetCount": 8
+            },
+            {
+              "id": "interpret_access_assignments",
+              "label": "Interpret access assignments",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "manage_azure_subscriptions_and_governance",
+          "label": "Manage Azure subscriptions and governance",
+          "targetCount": 57,
+          "subobjectives": [
+            {
+              "id": "implement_and_manage_azure_policy",
+              "label": "Implement and manage Azure Policy",
+              "targetCount": 9
+            },
+            {
+              "id": "configure_resource_locks",
+              "label": "Configure resource locks",
+              "targetCount": 8
+            },
+            {
+              "id": "apply_and_manage_tags_on_resources",
+              "label": "Apply and manage tags on resources",
+              "targetCount": 8
+            },
+            {
+              "id": "manage_resource_groups",
+              "label": "Manage resource groups",
+              "targetCount": 8
+            },
+            {
+              "id": "manage_subscriptions",
+              "label": "Manage subscriptions",
+              "targetCount": 8
+            },
+            {
+              "id": "manage_costs_by_using_alerts_budgets_and_azure_advisor_recommendations",
+              "label": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+              "targetCount": 8
+            },
+            {
+              "id": "configure_management_groups",
+              "label": "Configure management groups",
+              "targetCount": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "implement_and_manage_storage",
+      "label": "Implement and manage storage",
+      "weight": 0.189189,
+      "weightRange": "15–20%",
+      "targetCount": 95,
+      "objectives": [
+        {
+          "id": "configure_access_to_storage",
+          "label": "Configure access to storage",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "configure_azure_storage_firewalls_and_virtual_networks",
+              "label": "Configure Azure Storage firewalls and virtual networks",
+              "targetCount": 6
+            },
+            {
+              "id": "create_and_use_shared_access_signature_sas_tokens",
+              "label": "Create and use shared access signature (SAS) tokens",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_stored_access_policies",
+              "label": "Configure stored access policies",
+              "targetCount": 6
+            },
+            {
+              "id": "manage_access_keys",
+              "label": "Manage access keys",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_identity_based_access_for_azure_files",
+              "label": "Configure identity-based access for Azure Files",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "configure_and_manage_storage_accounts",
+          "label": "Configure and manage storage accounts",
+          "targetCount": 28,
+          "subobjectives": [
+            {
+              "id": "create_and_configure_storage_accounts",
+              "label": "Create and configure storage accounts",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_azure_storage_redundancy",
+              "label": "Configure Azure Storage redundancy",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_object_replication",
+              "label": "Configure object replication",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_storage_account_encryption",
+              "label": "Configure storage account encryption",
+              "targetCount": 5
+            },
+            {
+              "id": "manage_data_by_using_azure_storage_explorer_and_azcopy",
+              "label": "Manage data by using Azure Storage Explorer and AzCopy",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "configure_azure_files_and_azure_blob_storage",
+          "label": "Configure Azure Files and Azure Blob Storage",
+          "targetCount": 39,
+          "subobjectives": [
+            {
+              "id": "create_and_configure_a_file_share_in_azure_files",
+              "label": "Create and configure a file share in Azure Files",
+              "targetCount": 6
+            },
+            {
+              "id": "create_and_configure_a_container_in_azure_blob_storage",
+              "label": "Create and configure a container in Azure Blob Storage",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_storage_tiers",
+              "label": "Configure storage tiers",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_soft_delete_for_blobs_and_containers",
+              "label": "Configure soft delete for blobs and containers",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_snapshots_and_soft_delete_for_azure_files",
+              "label": "Configure snapshots and soft delete for Azure Files",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_blob_lifecycle_management",
+              "label": "Configure blob lifecycle management",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_blob_versioning",
+              "label": "Configure blob versioning",
+              "targetCount": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deploy_and_manage_azure_compute_resources",
+      "label": "Deploy and manage Azure compute resources",
+      "weight": 0.243243,
+      "weightRange": "20–25%",
+      "targetCount": 122,
+      "objectives": [
+        {
+          "id": "automate_deployment_of_resources_by_using_azure_resource_manager_arm_tem",
+          "label": "Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files",
+          "targetCount": 25,
+          "subobjectives": [
+            {
+              "id": "interpret_an_azure_resource_manager_template_or_a_bicep_file",
+              "label": "Interpret an Azure Resource Manager template or a Bicep file",
+              "targetCount": 5
+            },
+            {
+              "id": "modify_an_existing_azure_resource_manager_template",
+              "label": "Modify an existing Azure Resource Manager template",
+              "targetCount": 5
+            },
+            {
+              "id": "modify_an_existing_bicep_file",
+              "label": "Modify an existing Bicep file",
+              "targetCount": 5
+            },
+            {
+              "id": "deploy_resources_by_using_an_azure_resource_manager_template_or_a_bicep",
+              "label": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+              "targetCount": 5
+            },
+            {
+              "id": "export_a_deployment_as_an_azure_resource_manager_template_or_convert_an",
+              "label": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "create_and_configure_virtual_machines",
+          "label": "Create and configure virtual machines",
+          "targetCount": 36,
+          "subobjectives": [
+            {
+              "id": "create_a_virtual_machine",
+              "label": "Create a virtual machine",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_encryption_at_host_for_azure_virtual_machines",
+              "label": "Configure encryption at host for Azure virtual machines",
+              "targetCount": 5
+            },
+            {
+              "id": "move_a_virtual_machine_to_another_resource_group_subscription_or_region",
+              "label": "Move a virtual machine to another resource group, subscription, or region",
+              "targetCount": 5
+            },
+            {
+              "id": "manage_virtual_machine_sizes",
+              "label": "Manage virtual machine sizes",
+              "targetCount": 5
+            },
+            {
+              "id": "manage_virtual_machine_disks",
+              "label": "Manage virtual machine disks",
+              "targetCount": 5
+            },
+            {
+              "id": "deploy_virtual_machines_to_availability_zones_and_availability_sets",
+              "label": "Deploy virtual machines to availability zones and availability sets",
+              "targetCount": 5
+            },
+            {
+              "id": "deploy_and_configure_an_azure_virtual_machine_scale_sets",
+              "label": "Deploy and configure an Azure Virtual Machine Scale Sets",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "provision_and_manage_containers_in_the_azure_portal",
+          "label": "Provision and manage containers in the Azure portal",
+          "targetCount": 20,
+          "subobjectives": [
+            {
+              "id": "create_and_manage_an_azure_container_registry",
+              "label": "Create and manage an Azure Container Registry",
+              "targetCount": 5
+            },
+            {
+              "id": "provision_a_container_by_using_azure_container_instances",
+              "label": "Provision a container by using Azure Container Instances",
+              "targetCount": 5
+            },
+            {
+              "id": "provision_a_container_by_using_azure_container_apps",
+              "label": "Provision a container by using Azure Container Apps",
+              "targetCount": 5
+            },
+            {
+              "id": "manage_sizing_and_scaling_for_containers_including_azure_container_insta",
+              "label": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "create_and_configure_azure_app_service",
+          "label": "Create and configure Azure App Service",
+          "targetCount": 41,
+          "subobjectives": [
+            {
+              "id": "provision_an_app_service_plan",
+              "label": "Provision an App Service plan",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_scaling_for_an_app_service_plan",
+              "label": "Configure scaling for an App Service plan",
+              "targetCount": 5
+            },
+            {
+              "id": "create_an_app_service",
+              "label": "Create an App Service",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_certificates_and_transport_layer_security_tls_for_an_app_servi",
+              "label": "Configure certificates and Transport Layer Security (TLS) for an App Service",
+              "targetCount": 5
+            },
+            {
+              "id": "map_an_existing_custom_dns_name_to_an_app_service",
+              "label": "Map an existing custom DNS name to an App Service",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_backup_for_an_app_service",
+              "label": "Configure backup for an App Service",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_networking_settings_for_an_app_service",
+              "label": "Configure networking settings for an App Service",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_deployment_slots_for_an_app_service",
+              "label": "Configure deployment slots for an App Service",
+              "targetCount": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "implement_and_manage_virtual_networking",
+      "label": "Implement and manage virtual networking",
+      "weight": 0.189189,
+      "weightRange": "15–20%",
+      "targetCount": 94,
+      "objectives": [
+        {
+          "id": "configure_and_manage_virtual_networks_in_azure",
+          "label": "Configure and manage virtual networks in Azure",
+          "targetCount": 36,
+          "subobjectives": [
+            {
+              "id": "create_and_configure_virtual_networks_and_subnets",
+              "label": "Create and configure virtual networks and subnets",
+              "targetCount": 8
+            },
+            {
+              "id": "create_and_configure_virtual_network_peering",
+              "label": "Create and configure virtual network peering",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_public_ip_addresses",
+              "label": "Configure public IP addresses",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_user_defined_routes",
+              "label": "Configure user-defined routes",
+              "targetCount": 7
+            },
+            {
+              "id": "troubleshoot_network_connectivity",
+              "label": "Troubleshoot network connectivity",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "configure_secure_access_to_virtual_networks",
+          "label": "Configure secure access to virtual networks",
+          "targetCount": 36,
+          "subobjectives": [
+            {
+              "id": "create_and_configure_network_security_groups_nsgs_and_application_securi",
+              "label": "Create and configure network security groups (NSGs) and application security groups",
+              "targetCount": 8
+            },
+            {
+              "id": "evaluate_effective_security_rules_in_nsgs",
+              "label": "Evaluate effective security rules in NSGs",
+              "targetCount": 7
+            },
+            {
+              "id": "implement_azure_bastion",
+              "label": "Implement Azure Bastion",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_service_endpoints_for_azure_platform_as_a_service_paas",
+              "label": "Configure service endpoints for Azure platform as a service (PaaS)",
+              "targetCount": 7
+            },
+            {
+              "id": "configure_private_endpoints_for_azure_paas",
+              "label": "Configure private endpoints for Azure PaaS",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "configure_name_resolution_and_load_balancing",
+          "label": "Configure name resolution and load balancing",
+          "targetCount": 22,
+          "subobjectives": [
+            {
+              "id": "configure_azure_dns",
+              "label": "Configure Azure DNS",
+              "targetCount": 8
+            },
+            {
+              "id": "configure_an_internal_or_public_load_balancer",
+              "label": "Configure an internal or public load balancer",
+              "targetCount": 7
+            },
+            {
+              "id": "troubleshoot_load_balancing",
+              "label": "Troubleshoot load balancing",
+              "targetCount": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monitor_and_maintain_azure_resources",
+      "label": "Monitor and maintain Azure resources",
+      "weight": 0.135136,
+      "weightRange": "10–15%",
+      "targetCount": 67,
+      "objectives": [
+        {
+          "id": "monitor_resources_in_azure",
+          "label": "Monitor resources in Azure",
+          "targetCount": 31,
+          "subobjectives": [
+            {
+              "id": "interpret_metrics_in_azure_monitor",
+              "label": "Interpret metrics in Azure Monitor",
+              "targetCount": 6
+            },
+            {
+              "id": "configure_log_settings_in_azure_monitor",
+              "label": "Configure log settings in Azure Monitor",
+              "targetCount": 5
+            },
+            {
+              "id": "query_and_analyze_logs_in_azure_monitor",
+              "label": "Query and analyze logs in Azure Monitor",
+              "targetCount": 5
+            },
+            {
+              "id": "set_up_alert_rules_action_groups_and_alert_processing_rules_in_azure_mon",
+              "label": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_and_interpret_monitoring_of_virtual_machines_storage_accounts",
+              "label": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
+              "targetCount": 5
+            },
+            {
+              "id": "use_azure_network_watcher_and_connection_monitor",
+              "label": "Use Azure Network Watcher and Connection monitor",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "implement_backup_and_recovery",
+          "label": "Implement backup and recovery",
+          "targetCount": 36,
+          "subobjectives": [
+            {
+              "id": "create_a_recovery_services_vault",
+              "label": "Create a Recovery Services vault",
+              "targetCount": 6
+            },
+            {
+              "id": "create_an_azure_backup_vault",
+              "label": "Create an Azure Backup vault",
+              "targetCount": 5
+            },
+            {
+              "id": "create_and_configure_a_backup_policy",
+              "label": "Create and configure a backup policy",
+              "targetCount": 5
+            },
+            {
+              "id": "perform_backup_and_restore_operations_by_using_azure_backup",
+              "label": "Perform backup and restore operations by using Azure Backup",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_azure_site_recovery_for_azure_resources",
+              "label": "Configure Azure Site Recovery for Azure resources",
+              "targetCount": 5
+            },
+            {
+              "id": "perform_a_failover_to_a_secondary_region_by_using_site_recovery",
+              "label": "Perform a failover to a secondary region by using Site Recovery",
+              "targetCount": 5
+            },
+            {
+              "id": "configure_and_interpret_reports_and_alerts_for_backups",
+              "label": "Configure and interpret reports and alerts for backups",
+              "targetCount": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
