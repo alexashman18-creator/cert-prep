@@ -107,7 +107,35 @@ export default function ExamSessionScreen() {
   );
 
   return (
-    <Screen edges={['right', 'bottom', 'left']}>
+    <Screen
+      edges={['right', 'bottom', 'left']}
+      footer={
+        <>
+          <View style={styles.row}>
+            <View style={styles.flex}>
+              <AppButton
+                label="Previous"
+                variant="secondary"
+                onPress={() => void goToIndex(Math.max(0, session.currentIndex - 1))}
+                disabled={session.currentIndex === 0}
+              />
+            </View>
+            <View style={styles.flex}>
+              <AppButton
+                label="Next"
+                onPress={() =>
+                  void goToIndex(Math.min(questions.length - 1, session.currentIndex + 1))
+                }
+                disabled={session.currentIndex >= questions.length - 1}
+              />
+            </View>
+          </View>
+          <AppButton label="Finish Exam" variant="secondary" onPress={finish} />
+          <AppText variant="caption" color={colors.inkTertiary} align="center">
+            Answers stay hidden until you finish. Progress is saved on this device.
+          </AppText>
+        </>
+      }>
       <View style={styles.toolbar}>
         <TimerBadge remainingSeconds={remainingSeconds} />
         <Pressable onPress={() => setNavigatorOpen(true)} style={styles.navButton}>
@@ -137,32 +165,6 @@ export default function ExamSessionScreen() {
           {flagged ? 'Flagged for review' : 'Flag for review'}
         </AppText>
       </Pressable>
-
-      <View style={styles.actions}>
-        <View style={styles.row}>
-          <View style={styles.flex}>
-            <AppButton
-              label="Previous"
-              variant="secondary"
-              onPress={() => void goToIndex(Math.max(0, session.currentIndex - 1))}
-              disabled={session.currentIndex === 0}
-            />
-          </View>
-          <View style={styles.flex}>
-            <AppButton
-              label="Next"
-              onPress={() =>
-                void goToIndex(Math.min(questions.length - 1, session.currentIndex + 1))
-              }
-              disabled={session.currentIndex >= questions.length - 1}
-            />
-          </View>
-        </View>
-        <AppButton label="Finish Exam" variant="secondary" onPress={finish} />
-        <AppText variant="caption" color={colors.inkTertiary} align="center">
-          Answers stay hidden until you finish. Progress is saved on this device.
-        </AppText>
-      </View>
 
       <QuestionNavigator
         visible={navigatorOpen}
@@ -195,9 +197,6 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
-  },
-  actions: {
-    gap: spacing.sm,
   },
   row: {
     flexDirection: 'row',

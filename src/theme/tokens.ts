@@ -1,3 +1,5 @@
+import { Platform, type ViewStyle } from 'react-native';
+
 export const colors = {
   background: '#F3F6F9',
   surface: '#FFFFFF',
@@ -82,22 +84,28 @@ export const typography = {
   },
 } as const;
 
-export const shadows = {
-  card: {
-    shadowColor: '#12263A',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.06,
-    shadowRadius: 16,
-    elevation: 3,
-  },
-  raised: {
-    shadowColor: '#12263A',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.08,
-    shadowRadius: 20,
-    elevation: 5,
-  },
-} as const;
+export const shadows: Record<'card' | 'raised', ViewStyle> = {
+  card: Platform.select<ViewStyle>({
+    web: { boxShadow: '0 6px 16px rgba(18, 38, 58, 0.06)' },
+    default: {
+      shadowColor: '#12263A',
+      shadowOffset: { width: 0, height: 6 },
+      shadowOpacity: 0.06,
+      shadowRadius: 16,
+      elevation: 3,
+    },
+  })!,
+  raised: Platform.select<ViewStyle>({
+    web: { boxShadow: '0 10px 20px rgba(18, 38, 58, 0.08)' },
+    default: {
+      shadowColor: '#12263A',
+      shadowOffset: { width: 0, height: 10 },
+      shadowOpacity: 0.08,
+      shadowRadius: 20,
+      elevation: 5,
+    },
+  })!,
+};
 
 export const layout = {
   maxContentWidth: 560,

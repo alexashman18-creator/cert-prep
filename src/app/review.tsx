@@ -17,7 +17,7 @@ import { colors, spacing } from '@/theme/tokens';
 export default function ReviewMistakesScreen() {
   const repos = useRepositories();
   const startMistakes = useStartMistakePractice();
-  const [items, setItems] = useState<Array<{ mistake: MistakeRecord; question: Question }>>([]);
+  const [items, setItems] = useState<{ mistake: MistakeRecord; question: Question }[]>([]);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {

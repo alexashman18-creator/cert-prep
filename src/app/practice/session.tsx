@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 
 import { FeedbackPanel } from '@/components/question/FeedbackPanel';
 import { QuestionPrompt } from '@/components/question/QuestionPrompt';
@@ -62,7 +62,22 @@ export default function PracticeSessionScreen() {
   };
 
   return (
-    <Screen edges={['right', 'bottom', 'left']}>
+    <Screen
+      edges={['right', 'bottom', 'left']}
+      footer={
+        <>
+          {!submitted ? (
+            <AppButton
+              label="Submit answer"
+              onPress={() => void submit()}
+              disabled={!selectedOptionId || busy}
+            />
+          ) : (
+            <AppButton label={isLast ? 'See results' : 'Next Question'} onPress={() => void next()} />
+          )}
+          <AppButton label="Home" variant="ghost" onPress={() => router.replace('/')} />
+        </>
+      }>
       <QuestionPrompt
         question={currentQuestion}
         index={session.currentIndex}
@@ -86,19 +101,6 @@ export default function PracticeSessionScreen() {
       {submitted && selectedOptionId ? (
         <FeedbackPanel question={currentQuestion} selectedOptionId={selectedOptionId} />
       ) : null}
-
-      <View style={styles.actions}>
-        {!submitted ? (
-          <AppButton
-            label="Submit answer"
-            onPress={() => void submit()}
-            disabled={!selectedOptionId || busy}
-          />
-        ) : (
-          <AppButton label={isLast ? 'See results' : 'Next Question'} onPress={() => void next()} />
-        )}
-        <AppButton label="Home" variant="ghost" onPress={() => router.replace('/')} />
-      </View>
     </Screen>
   );
 }
@@ -110,9 +112,5 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
-  },
-  actions: {
-    gap: spacing.sm,
-    marginTop: spacing.xl,
   },
 });

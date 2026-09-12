@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     borderColor: colors.accent,
   },
   flagged: {
+    backgroundColor: colors.warningSoft,
     borderColor: colors.flag,
   },
   current: {

@@ -54,6 +54,8 @@ Home, results, and resume banners always read from repositories so killing the a
 
 The database file is `az900-prep.db`.
 
+Web preview uses Expo’s alpha SQLite/wasm build. The app is configured with `web.output: "single"` and Metro `wasm` assets so the worker can bundle. Native iOS/Android remain the primary targets.
+
 `SQLiteProvider` opens the database and runs `initializeDatabase`:
 
 1. Apply versioned migrations via `PRAGMA user_version`.

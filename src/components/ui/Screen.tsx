@@ -6,14 +6,16 @@ import { colors, layout, spacing } from '@/theme/tokens';
 
 interface ScreenProps {
   children: ReactNode;
+  footer?: ReactNode;
   scroll?: boolean;
   padded?: boolean;
-  edges?: Array<'top' | 'right' | 'bottom' | 'left'>;
+  edges?: ('top' | 'right' | 'bottom' | 'left')[];
   contentStyle?: ViewStyle;
 }
 
 export function Screen({
   children,
+  footer,
   scroll = true,
   padded = true,
   edges = ['top', 'right', 'bottom', 'left'],
@@ -36,6 +38,7 @@ export function Screen({
       ) : (
         <View style={styles.flex}>{body}</View>
       )}
+      {footer ? <View style={[styles.footer, padded && styles.padded]}>{footer}</View> : null}
     </SafeAreaView>
   );
 }
@@ -51,6 +54,18 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingBottom: spacing.xxl,
+    alignItems: 'center',
+  },
+  footer: {
+    width: '100%',
+    maxWidth: layout.maxContentWidth,
+    alignSelf: 'center',
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    backgroundColor: colors.background,
+    gap: spacing.sm,
   },
   content: {
     width: '100%',
