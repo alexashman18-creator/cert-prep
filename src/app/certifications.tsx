@@ -109,7 +109,7 @@ function AvailableCard({
             </AppText>
             <AppText variant="caption" color={colors.inkTertiary}>
               {certification.mockExam
-                ? `${certification.mockExam.targetQuestionCount} unique questions · ${certification.mockExam.examDurationMinutes}-minute mock exam`
+                ? `Mock exam target: ${certification.mockExam.targetQuestionCount} unique questions · ${certification.mockExam.examDurationMinutes}-minute timer`
                 : 'Study track ready'}
             </AppText>
           </View>

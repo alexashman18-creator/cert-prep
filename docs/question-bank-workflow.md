@@ -10,7 +10,7 @@ Use JSON. Put each batch in:
 
 The first production batch file is:
 
-`content/questions/batches/az900/production.json`
+`content/questions/batches/az900/batch-001.json`
 
 A JSON Schema lives at `content/questions/question-bank.schema.json` for editor validation.
 
@@ -91,7 +91,7 @@ Production releases (`__DEV__ === false`) use **verified** questions only. Draft
 
 ```bash
 npm run questions:validate
-npm run questions:validate -- content/questions/batches/az900/production.json
+npm run questions:validate -- content/questions/batches/az900/batch-001.json
 ```
 
 Validation **rejects** the file and prints every issue. It does not import a partial bank. Failures include:
@@ -176,7 +176,7 @@ Use this when Microsoft publishes an AZ-900 skills-outline update.
 ## How to add a new verified question batch
 
 1. Author original items against current Microsoft Learn. Do not use dumps.
-2. Save them as JSON matching this document. Either append to `content/questions/batches/az900/production.json` or add a new file such as `content/questions/batches/az900/2026-10-verified.json`.
+2. Save them as JSON matching this document. For the first verified AZ-900 set, fill `content/questions/batches/az900/batch-001.json`. Later sets can be new files such as `content/questions/batches/az900/2026-10-verified.json`.
 3. Set every shippable item to `"contentStatus": "verified"` with a Learn `sourceUrl`, `sourceTitle`, and `verifiedDate`.
 4. Keep unfinished work as `"contentStatus": "draft"` in a separate file if needed. Drafts are imported but never served in sessions.
 5. Run `npm run questions:validate`.
@@ -199,6 +199,6 @@ They are engineering fixtures, not verified production content. Release builds d
 
 Provide a single JSON file that matches the schema above. The drop-in path is:
 
-**`content/questions/batches/az900/production.json`**
+**`content/questions/batches/az900/batch-001.json`**
 
-Replace the empty `questions` array with the verified items. Then run validate + import.
+Replace the empty `questions` array with the verified items. Then run validate + import. See `docs/az900-production-batch-checklist.md`.

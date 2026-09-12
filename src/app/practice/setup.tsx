@@ -98,7 +98,7 @@ export default function PracticeSetupScreen() {
             ))}
           </View>
           <AppText variant="caption" color={colors.inkSecondary} style={styles.hint}>
-            {available} sample question{available === 1 ? '' : 's'} available
+            {available} question{available === 1 ? '' : 's'} available
             {actualCount < length ? `. This session will use ${actualCount}.` : '.'}
           </AppText>
         </Card>
