@@ -1,6 +1,6 @@
 import { fromJson } from '@/lib/json';
 import { isDomainId, type DomainId } from '@/types/domain';
-import type { AnswerOption, ContentStatus, Difficulty, Question } from '@/types/question';
+import { isContentStatus, type AnswerOption, type ContentStatus, type Difficulty, type Question } from '@/types/question';
 import type {
   ExamSession,
   FlaggedQuestion,
@@ -30,6 +30,7 @@ export type QuestionRow = {
   verified_date: string | null;
   question_version: number;
   content_status: string;
+  updated_at?: string | null;
 };
 
 export type PracticeSessionRow = {
@@ -91,6 +92,16 @@ export type ProgressRow = {
   updated_at: string;
 };
 
+function asContentStatus(value: string): ContentStatus {
+  if (isContentStatus(value)) {
+    return value;
+  }
+  if (value === 'development_sample') {
+    return 'development';
+  }
+  throw new Error(`Unknown content status: ${value}`);
+}
+
 function asDomain(value: string): DomainId {
   if (!isDomainId(value)) {
     throw new Error(`Unknown domain: ${value}`);
@@ -127,7 +138,7 @@ export function mapQuestion(row: QuestionRow): Question {
     sourceTitle: row.source_title ?? '',
     verifiedDate: row.verified_date,
     questionVersion: row.question_version,
-    contentStatus: row.content_status as ContentStatus,
+    contentStatus: asContentStatus(row.content_status),
   };
 }
 

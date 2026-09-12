@@ -10,7 +10,7 @@ import { ChoiceDialog } from '@/components/ui/ChoiceDialog';
 import { Screen } from '@/components/ui/Screen';
 import { StatTile } from '@/components/ui/StatTile';
 import { SAMPLE_CONTENT_NOTICE } from '@/data/sampleQuestions';
-import { useHomeData } from '@/hooks/useHomeData';
+import { useHomeData, type HomeData } from '@/hooks/useHomeData';
 import { useStartExam } from '@/hooks/useExamSession';
 import { mockExamSubtitle } from '@/lib/examCopy';
 import { formatCount, formatPercent } from '@/lib/format';
@@ -162,8 +162,8 @@ export default function HomeScreen() {
         <AppText variant="caption" color={colors.inkSecondary}>
           Local-first. Progress is stored on this device and works offline.
           {'\n'}
-          {SAMPLE_CONTENT_NOTICE}
-          {data ? ` Question bank: ${data.questionBankSize} development samples.` : ''}
+          {data && data.developmentQuestionCount > 0 ? `${SAMPLE_CONTENT_NOTICE}\n` : ''}
+          {data ? questionBankNotice(data) : ''}
         </AppText>
       </Card>
       {error || actionError ? (
@@ -204,6 +204,19 @@ export default function HomeScreen() {
       />
     </Screen>
   );
+}
+
+function questionBankNotice(data: HomeData): string {
+  if (data.verifiedQuestionCount > 0 && data.developmentQuestionCount > 0) {
+    return `Eligible bank: ${data.verifiedQuestionCount} verified + ${data.developmentQuestionCount} development.`;
+  }
+  if (data.verifiedQuestionCount > 0) {
+    return `Question bank: ${data.verifiedQuestionCount} verified questions.`;
+  }
+  if (data.developmentQuestionCount > 0) {
+    return `Question bank: ${data.developmentQuestionCount} development samples.`;
+  }
+  return 'No eligible questions are available in this build.';
 }
 
 function ActionCard({

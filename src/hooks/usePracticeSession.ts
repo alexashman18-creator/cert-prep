@@ -19,7 +19,7 @@ export function useStartPractice() {
 
   return useCallback(
     async (input: { domainFilter: PracticeDomainFilter; requestedCount: number }) => {
-      const all = await repos.questions.getAll();
+      const all = await repos.questions.getEligible();
       const pool =
         input.domainFilter === 'all'
           ? all

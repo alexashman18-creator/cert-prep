@@ -24,7 +24,7 @@ test('development bank has four original items per domain', () => {
 test('every sample question is marked as development content and has four explained options', () => {
   for (const question of sampleQuestions) {
     assertQuestionShape(question);
-    assert.equal(question.contentStatus, 'development_sample');
+    assert.equal(question.contentStatus, 'development');
     assert.equal(question.verifiedDate, null);
     assert.match(question.id, /^az900-dev-/);
   }

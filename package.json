@@ -44,7 +44,10 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/scoring.test.ts src/lib/timer.test.ts src/lib/examCopy.test.ts src/lib/sessionMistakes.test.ts src/lib/examBlueprint.test.ts src/data/sampleQuestions.test.ts src/lib/sessionIntegrity.test.ts src/lib/searchParams.test.ts src/lib/completeExam.test.ts"
+    "test": "tsx --test src/lib/scoring.test.ts src/lib/timer.test.ts src/lib/examCopy.test.ts src/lib/sessionMistakes.test.ts src/lib/examBlueprint.test.ts src/data/sampleQuestions.test.ts src/lib/sessionIntegrity.test.ts src/lib/searchParams.test.ts src/lib/completeExam.test.ts src/content/validate.test.ts src/content/importPlan.test.ts src/content/eligibility.test.ts src/content/audit.test.ts src/content/catalog.test.ts",
+    "questions:validate": "tsx scripts/questions-cli.ts validate",
+    "questions:import": "tsx scripts/questions-cli.ts import",
+    "questions:audit": "tsx scripts/questions-cli.ts audit"
   },
   "private": true
 }

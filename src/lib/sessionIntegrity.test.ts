@@ -30,7 +30,7 @@ const question = (id: string): Question => ({
   sourceTitle: 'Learn',
   verifiedDate: null,
   questionVersion: 1,
-  contentStatus: 'development_sample',
+  contentStatus: 'development',
 });
 
 test('isResumableStatus only allows in-progress sessions', () => {

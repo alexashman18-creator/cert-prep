@@ -58,8 +58,8 @@ Web preview uses Expo’s alpha SQLite/wasm build. The app is configured with `w
 
 `SQLiteProvider` opens the database and runs `initializeDatabase`:
 
-1. Apply versioned migrations via `PRAGMA user_version`.
-2. Upsert the development sample questions.
+1. Apply versioned migrations via `PRAGMA user_version`. Schema version 2 remaps legacy `development_sample` rows to `development` and adds `questions.updated_at`.
+2. Validate and import the bundled question catalog (development samples plus any production batches). Existing rows update only when `questionVersion` is newer.
 3. Ensure a single `user_progress` row exists.
 
 Schema version 1 creates:
@@ -92,9 +92,11 @@ The question contract is sized for a 500+ item bank without structural change:
 - `optionExplanations` for every option
 - `sourceUrl`, `sourceTitle`, `verifiedDate`
 - `questionVersion`
-- `contentStatus` (`development_sample` or `verified`)
+- `contentStatus` (`development`, `draft`, `verified`, or `retired`)
 
-Questions are stored as rows with JSON columns for options and option explanations. The current seed contains 12 original development samples only.
+Questions are stored as rows with JSON columns for options and option explanations. New practice and mock-exam sessions use only `development` and `verified` items. Release builds use verified content only. Draft and retired items stay in SQLite so historical sessions can still load them. Import production batches through `content/questions/batches/` — see `docs/question-bank-workflow.md`.
+
+The current bundled seed still includes 12 original development samples. They keep `az900-dev-*` IDs and `contentStatus: "development"`.
 
 ## Session persistence strategy
 

@@ -1,6 +1,6 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 const MIGRATION_V1 = `
 PRAGMA journal_mode = WAL;
@@ -124,6 +124,17 @@ export async function runMigrations(db: SQLiteDatabase): Promise<void> {
   if (current === 0) {
     await db.execAsync(MIGRATION_V1);
     current = 1;
+  }
+
+  if (current === 1) {
+    await db.execAsync(`
+      ALTER TABLE questions ADD COLUMN updated_at TEXT;
+      UPDATE questions SET updated_at = created_at WHERE updated_at IS NULL;
+      UPDATE questions SET content_status = 'development' WHERE content_status = 'development_sample';
+      CREATE INDEX IF NOT EXISTS idx_questions_objective ON questions(objective);
+      CREATE INDEX IF NOT EXISTS idx_questions_difficulty ON questions(difficulty);
+    `);
+    current = 2;
   }
 
   await db.execAsync(`PRAGMA user_version = ${SCHEMA_VERSION}`);

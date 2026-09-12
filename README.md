@@ -19,7 +19,12 @@ npm run web
 npm run typecheck
 npm test
 npm run lint
+npm run questions:validate
+npm run questions:import
+npm run questions:audit
 ```
+
+Production questions are supplied as JSON. See `docs/question-bank-workflow.md`.
 
 ## Content notice
 

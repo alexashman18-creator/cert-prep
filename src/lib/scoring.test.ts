@@ -25,7 +25,7 @@ const question = (id: string, domain: Question['domain'], correct = 'b'): Questi
   sourceTitle: 'Learn',
   verifiedDate: null,
   questionVersion: 1,
-  contentStatus: 'development_sample',
+  contentStatus: 'development',
 });
 
 test('accuracyPercent returns one-decimal percentages', () => {

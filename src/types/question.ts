@@ -1,8 +1,10 @@
 import type { DomainId } from '@/types/domain';
 
-export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
+export const CONTENT_STATUSES = ['development', 'draft', 'verified', 'retired'] as const;
+export type ContentStatus = (typeof CONTENT_STATUSES)[number];
 
-export type ContentStatus = 'development_sample' | 'verified';
+export const DIFFICULTIES = ['beginner', 'intermediate', 'advanced'] as const;
+export type Difficulty = (typeof DIFFICULTIES)[number];
 
 export interface AnswerOption {
   id: string;
@@ -28,6 +30,14 @@ export interface Question {
   contentStatus: ContentStatus;
 }
 
+export function isContentStatus(value: string): value is ContentStatus {
+  return (CONTENT_STATUSES as readonly string[]).includes(value);
+}
+
+export function isDifficulty(value: string): value is Difficulty {
+  return (DIFFICULTIES as readonly string[]).includes(value);
+}
+
 export function assertQuestionShape(question: Question): void {
   if (question.options.length !== 4) {
     throw new Error(`Question ${question.id} must have exactly four options.`);
@@ -46,5 +56,9 @@ export function assertQuestionShape(question: Question): void {
     if (!question.optionExplanations[option.id]) {
       throw new Error(`Question ${question.id} is missing an explanation for option ${option.id}.`);
     }
+  }
+
+  if (!isContentStatus(question.contentStatus)) {
+    throw new Error(`Question ${question.id} has unsupported contentStatus.`);
   }
 }

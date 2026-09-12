@@ -22,7 +22,7 @@ export function useStartExam() {
           return existing;
         }
       }
-      const questions = selectExamQuestions(await repos.questions.getAll(), EXAM_QUESTION_TARGET);
+      const questions = selectExamQuestions(await repos.questions.getEligible(), EXAM_QUESTION_TARGET);
       if (questions.length === 0) {
         throw new Error('No questions are available for a mock exam.');
       }

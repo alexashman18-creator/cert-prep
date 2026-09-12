@@ -26,7 +26,7 @@ const question = (id: string, correct = 'b'): Question => ({
   sourceTitle: 'Learn',
   verifiedDate: null,
   questionVersion: 1,
-  contentStatus: 'development_sample',
+  contentStatus: 'development',
 });
 
 const answer = (questionId: string, selectedOptionId: string | null): SessionAnswer => ({

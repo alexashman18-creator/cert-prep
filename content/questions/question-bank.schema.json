@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://az900-prep.local/question-bank.schema.json",
+  "title": "AZ-900 Prep question bank file",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "exam", "questions"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "exam": { "const": "AZ-900" },
+    "batchId": { "type": "string", "minLength": 1 },
+    "questions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/question" }
+    }
+  },
+  "$defs": {
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "examVersion",
+        "domain",
+        "objective",
+        "subobjective",
+        "difficulty",
+        "questionText",
+        "options",
+        "correctAnswerId",
+        "overallExplanation",
+        "optionExplanations",
+        "sourceUrl",
+        "sourceTitle",
+        "verifiedDate",
+        "questionVersion",
+        "contentStatus"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "examVersion": { "type": "string", "minLength": 1 },
+        "domain": {
+          "enum": ["cloud_concepts", "architecture_services", "management_governance"]
+        },
+        "objective": { "type": "string", "minLength": 1 },
+        "subobjective": { "type": "string", "minLength": 1 },
+        "difficulty": { "enum": ["beginner", "intermediate", "advanced"] },
+        "questionText": { "type": "string", "minLength": 1 },
+        "options": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "text"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "text": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "correctAnswerId": { "type": "string", "minLength": 1 },
+        "overallExplanation": { "type": "string", "minLength": 1 },
+        "optionExplanations": {
+          "type": "object",
+          "minProperties": 4,
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "sourceUrl": { "type": "string" },
+        "sourceTitle": { "type": "string" },
+        "verifiedDate": { "type": ["string", "null"] },
+        "questionVersion": { "type": "integer", "minimum": 1 },
+        "contentStatus": {
+          "enum": ["development", "draft", "verified", "retired"]
+        }
+      }
+    }
+  }
+}

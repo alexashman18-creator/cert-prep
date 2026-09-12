@@ -39,7 +39,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Cloud cost models',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-cc-002',
@@ -69,7 +69,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Cloud adoption environments',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-cc-003',
@@ -99,7 +99,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Shared responsibility in the cloud',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-cc-004',
@@ -129,7 +129,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Cloud service models',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-as-001',
@@ -158,7 +158,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: What are availability zones?',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-as-002',
@@ -187,7 +187,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Manage resource groups',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-as-003',
@@ -217,7 +217,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Introduction to Azure Blob Storage',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-as-004',
@@ -246,7 +246,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Azure Virtual Network overview',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-mg-001',
@@ -276,7 +276,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Azure RBAC overview',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-mg-002',
@@ -306,7 +306,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: What is Azure Policy?',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-mg-003',
@@ -335,7 +335,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Management groups',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
   {
     id: 'az900-dev-mg-004',
@@ -365,7 +365,7 @@ export const sampleQuestions: Question[] = [
     sourceTitle: 'Microsoft Learn: Create and manage budgets',
     verifiedDate: null,
     questionVersion: 1,
-    contentStatus: 'development_sample',
+    contentStatus: 'development',
   },
 ];
 

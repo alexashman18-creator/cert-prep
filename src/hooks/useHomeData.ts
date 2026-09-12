@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { shouldIncludeDevelopmentQuestions } from '@/content/eligibility';
 import { useRepositories } from '@/hooks/useRepositories';
 import { completeExamSession } from '@/lib/completeExam';
 import { accuracyPercent } from '@/lib/scoring';
@@ -11,6 +12,8 @@ export interface HomeData {
   accuracy: number;
   mistakeCount: number;
   questionBankSize: number;
+  verifiedQuestionCount: number;
+  developmentQuestionCount: number;
   inProgressPractice: PracticeSession | null;
   inProgressExam: ExamSession | null;
 }
@@ -22,11 +25,12 @@ export function useHomeData() {
 
   const refresh = useCallback(async () => {
     try {
-      const [progress, mistakeIds, questionBankSize, inProgressPractice, maybeExam] =
+      const [progress, mistakeIds, questionBankSize, statusCounts, inProgressPractice, maybeExam] =
         await Promise.all([
           repos.progress.get(),
           repos.mistakes.getQuestionIds(),
-          repos.questions.countByDomain(),
+          repos.questions.countEligible(),
+          repos.questions.countByStatus(),
           repos.practice.getInProgress(),
           repos.exams.getInProgress(),
         ]);
@@ -54,6 +58,10 @@ export function useHomeData() {
         accuracy: accuracyPercent(progress.questionsCorrect, progress.questionsAnswered),
         mistakeCount: mistakeIds.length,
         questionBankSize,
+        verifiedQuestionCount: statusCounts.verified ?? 0,
+        developmentQuestionCount: shouldIncludeDevelopmentQuestions()
+          ? (statusCounts.development ?? 0)
+          : 0,
         inProgressPractice,
         inProgressExam,
       });

@@ -12,11 +12,13 @@ Production AZ-900 items must:
 - Retain a `sourceUrl`, `sourceTitle`, and `verifiedDate` on every item.
 - Be re-reviewed when Microsoft publishes updated AZ-900 skills outline or when the cited Learn article changes.
 
-If a fact cannot be confirmed in current Microsoft documentation, do not ship the item as `verified`.
+If a fact cannot be confirmed in current Microsoft documentation, do not ship the item as `verified`. Leave it `draft` or keep it out of the production batch.
+
+Content statuses are `development`, `draft`, `verified`, and `retired`. See `docs/question-bank-workflow.md`.
 
 ## Development sample content
 
-The repository currently includes a small set of original placeholder questions marked `contentStatus: "development_sample"`.
+The repository currently includes a small set of original placeholder questions marked `contentStatus: "development"`.
 
 These items exist so the product can be built and tested offline. They:
 
