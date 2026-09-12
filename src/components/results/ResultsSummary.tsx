@@ -71,8 +71,9 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
   },
   stats: {
+    width: '100%',
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
     gap: spacing.sm,
     marginTop: spacing.lg,
   },

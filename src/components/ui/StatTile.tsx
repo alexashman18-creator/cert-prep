@@ -27,7 +27,14 @@ export function StatTile({ label, value, tone = 'default' }: StatTileProps) {
       <AppText variant="title" color={VALUE_COLOR[tone]} maxFontSizeMultiplier={1.3} align="center">
         {value}
       </AppText>
-      <AppText variant="caption" color={colors.inkSecondary} align="center">
+      <AppText
+        variant="caption"
+        color={colors.inkSecondary}
+        align="center"
+        numberOfLines={2}
+        adjustsFontSizeToFit
+        minimumFontScale={0.75}
+        style={styles.label}>
         {label}
       </AppText>
     </View>
@@ -43,10 +50,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     minHeight: 92,
     paddingVertical: spacing.md,
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: spacing.xs,
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.xs,
+    overflow: 'hidden',
+  },
+  label: {
+    width: '100%',
   },
   default: {
     backgroundColor: colors.surface,
