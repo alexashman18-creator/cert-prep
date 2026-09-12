@@ -115,6 +115,10 @@ Exam:
 
 Unexpected termination can lose at most a few unsaved timer seconds, not answers or flags.
 
+Starting a new practice session abandons any other in-progress practice session so Home never shows a stale resume card. The same applies to mock exams. Returning to Home also expires a timed-out in-progress exam and scores it instead of offering Resume.
+
+Incorrect answers are stored once per question ID. A later correct answer removes that ID from Review Mistakes. Missing the same item again creates a single row, not a duplicate.
+
 Scoring is percentage accuracy and is labeled as practice performance. The app does not treat 70% raw as a Microsoft 700/1000 scaled score.
 
 ## Future Supabase sync

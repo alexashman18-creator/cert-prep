@@ -26,25 +26,35 @@ export function createExamRepository(db: SQLiteDatabase) {
         updatedAt: now,
       };
 
-      await db.runAsync(
-        `
-        INSERT INTO exam_sessions (
-          id, question_ids_json, current_index, duration_seconds, remaining_seconds,
-          last_tick_at, status, started_at, completed_at, score, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `,
-        session.id,
-        toJson(session.questionIds),
-        session.currentIndex,
-        session.durationSeconds,
-        session.remainingSeconds,
-        session.lastTickAt,
-        session.status,
-        session.startedAt,
-        session.completedAt,
-        session.score,
-        session.updatedAt,
-      );
+      await db.withTransactionAsync(async () => {
+        await db.runAsync(
+          `
+          UPDATE exam_sessions
+          SET status = 'abandoned', updated_at = ?
+          WHERE status = 'in_progress'
+          `,
+          now,
+        );
+        await db.runAsync(
+          `
+          INSERT INTO exam_sessions (
+            id, question_ids_json, current_index, duration_seconds, remaining_seconds,
+            last_tick_at, status, started_at, completed_at, score, updated_at
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          `,
+          session.id,
+          toJson(session.questionIds),
+          session.currentIndex,
+          session.durationSeconds,
+          session.remainingSeconds,
+          session.lastTickAt,
+          session.status,
+          session.startedAt,
+          session.completedAt,
+          session.score,
+          session.updatedAt,
+        );
+      });
 
       return session;
     },

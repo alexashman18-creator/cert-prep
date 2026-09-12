@@ -5,6 +5,7 @@ import { useRepositories } from '@/hooks/useRepositories';
 import { completeExamSession } from '@/lib/completeExam';
 import { EXAM_DURATION_SECONDS, EXAM_QUESTION_TARGET, selectExamQuestions } from '@/lib/examBlueprint';
 import { buildSessionResults } from '@/lib/scoring';
+import { alignSessionQuestions } from '@/lib/sessionIntegrity';
 import { restoreRemainingSeconds, shouldExpire } from '@/lib/timer';
 import { useUiStore } from '@/stores/uiStore';
 import type { Question } from '@/types/question';
@@ -39,13 +40,15 @@ export function useExamSession(sessionId: string | undefined) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<SessionAnswer[]>([]);
   const [flaggedIds, setFlaggedIds] = useState<string[]>([]);
-  const [remainingSeconds, setRemainingSeconds] = useState<number>(EXAM_DURATION_SECONDS);
+  const [remainingSeconds, setRemainingSeconds] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const remainingRef = useRef(remainingSeconds);
+  const remainingRef = useRef(0);
   const completedRef = useRef(false);
 
   useEffect(() => {
-    remainingRef.current = remainingSeconds;
+    if (remainingSeconds !== null) {
+      remainingRef.current = remainingSeconds;
+    }
   }, [remainingSeconds]);
 
   const finalizeInternal = useCallback(
@@ -85,6 +88,11 @@ export function useExamSession(sessionId: string | undefined) {
       repos.exams.getAnswers(loaded.id),
       repos.flags.list(loaded.id, 'exam'),
     ]);
+    const aligned = alignSessionQuestions(loaded.questionIds, loadedQuestions, loaded.currentIndex);
+    if (aligned.questions.length === 0) {
+      setError('This exam references questions that are no longer available.');
+      return;
+    }
 
     const restored =
       loaded.status === 'in_progress'
@@ -92,9 +100,15 @@ export function useExamSession(sessionId: string | undefined) {
         : loaded.remainingSeconds;
 
     if (loaded.status === 'in_progress' && shouldExpire(restored)) {
-      await finalizeInternal(loaded, loadedQuestions, loadedAnswers, 'expired');
-      setSession({ ...loaded, status: 'expired', remainingSeconds: 0 });
-      setQuestions(loadedQuestions);
+      await finalizeInternal(loaded, aligned.questions, loadedAnswers, 'expired');
+      setSession({
+        ...loaded,
+        status: 'expired',
+        remainingSeconds: 0,
+        currentIndex: aligned.currentIndex,
+        questionIds: aligned.questions.map((question) => question.id),
+      });
+      setQuestions(aligned.questions);
       setAnswers(loadedAnswers);
       setFlaggedIds(flags.map((flag) => flag.questionId));
       setRemainingSeconds(0);
@@ -106,12 +120,17 @@ export function useExamSession(sessionId: string | undefined) {
     }
 
     completedRef.current = loaded.status !== 'in_progress';
-    setSession({ ...loaded, remainingSeconds: restored });
-    setQuestions(loadedQuestions);
+    setSession({
+      ...loaded,
+      remainingSeconds: restored,
+      currentIndex: aligned.currentIndex,
+      questionIds: aligned.questions.map((question) => question.id),
+    });
+    setQuestions(aligned.questions);
     setAnswers(loadedAnswers);
     setFlaggedIds(flags.map((flag) => flag.questionId));
     setRemainingSeconds(restored);
-    const currentQuestion = loadedQuestions[loaded.currentIndex];
+    const currentQuestion = aligned.questions[aligned.currentIndex];
     const existing = loadedAnswers.find((answer) => answer.questionId === currentQuestion?.id);
     resetQuestionUi(existing?.selectedOptionId ?? null, false);
   }, [finalizeInternal, repos, resetQuestionUi, sessionId]);
@@ -128,7 +147,7 @@ export function useExamSession(sessionId: string | undefined) {
     }
 
     const interval = setInterval(() => {
-      setRemainingSeconds((current) => Math.max(0, current - 1));
+      setRemainingSeconds((current) => Math.max(0, (current ?? 0) - 1));
     }, 1000);
 
     const persistInterval = setInterval(() => {
@@ -138,7 +157,21 @@ export function useExamSession(sessionId: string | undefined) {
     const handleAppState = (next: AppStateStatus) => {
       if (next !== 'active') {
         void repos.exams.persistTimer(session.id, remainingRef.current);
+        return;
       }
+      void (async () => {
+        const latest = await repos.exams.getById(session.id);
+        if (!latest || latest.status !== 'in_progress') {
+          return;
+        }
+        const restored = restoreRemainingSeconds(latest.remainingSeconds, latest.lastTickAt);
+        remainingRef.current = restored;
+        setRemainingSeconds(restored);
+        if (shouldExpire(restored)) {
+          return;
+        }
+        await repos.exams.persistTimer(session.id, restored);
+      })();
     };
     const subscription = AppState.addEventListener('change', handleAppState);
 
@@ -212,7 +245,8 @@ export function useExamSession(sessionId: string | undefined) {
     [answers, finalizeInternal, questions, session],
   );
 
-  const expired = remainingSeconds <= 0 && session?.status === 'in_progress';
+  const expired = remainingSeconds !== null && remainingSeconds <= 0 && session?.status === 'in_progress';
+  const alreadyFinished = session?.status === 'completed' || session?.status === 'expired';
 
   return {
     session,
@@ -227,6 +261,7 @@ export function useExamSession(sessionId: string | undefined) {
     toggleFlag,
     finalize,
     expired,
+    alreadyFinished,
     error,
   };
 }
@@ -253,6 +288,10 @@ export function useExamResults(sessionId: string | undefined) {
           repos.questions.getByIds(loaded.questionIds),
           repos.exams.getAnswers(loaded.id),
         ]);
+        if (loadedQuestions.length === 0) {
+          setError('This exam references questions that are no longer available.');
+          return;
+        }
         setQuestions(loadedQuestions);
         setAnswers(loadedAnswers);
         setResults(

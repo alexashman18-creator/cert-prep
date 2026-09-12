@@ -42,5 +42,9 @@ export function createMistakeRepository(db: SQLiteDatabase) {
       );
       return rows.map((row) => row.question_id);
     },
+
+    async resolve(questionId: string): Promise<void> {
+      await db.runAsync('DELETE FROM mistakes WHERE question_id = ?', questionId);
+    },
   };
 }

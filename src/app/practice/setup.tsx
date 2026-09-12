@@ -69,7 +69,7 @@ export default function PracticeSetupScreen() {
           {PRACTICE_LENGTHS.map((value) => (
             <View key={value} style={styles.flex}>
               <ChoiceChip
-                label={`${value} questions`}
+                label={`${value}`}
                 selected={length === value}
                 onPress={() => setLength(value)}
               />
@@ -77,7 +77,8 @@ export default function PracticeSetupScreen() {
           ))}
         </View>
         <AppText variant="caption" color={colors.inkSecondary}>
-          {available} sample question{available === 1 ? '' : 's'} available
+          Session length in questions. {available} sample question{available === 1 ? '' : 's'}{' '}
+          available
           {actualCount < length ? `. This session will use ${actualCount}.` : '.'}
         </AppText>
       </View>
@@ -85,6 +86,12 @@ export default function PracticeSetupScreen() {
       {error ? (
         <AppText variant="body" color={colors.danger}>
           {error}
+        </AppText>
+      ) : null}
+
+      {actualCount === 0 ? (
+        <AppText variant="body" color={colors.inkSecondary}>
+          No questions are available for this selection yet.
         </AppText>
       ) : null}
 

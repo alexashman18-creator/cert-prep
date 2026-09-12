@@ -11,7 +11,10 @@ interface TimerBadgeProps {
 export function TimerBadge({ remainingSeconds }: TimerBadgeProps) {
   const urgent = remainingSeconds <= 5 * 60;
   return (
-    <View style={[styles.badge, urgent && styles.urgent]}>
+    <View
+      style={[styles.badge, urgent && styles.urgent]}
+      accessibilityRole="timer"
+      accessibilityLabel={`${urgent ? 'Less than five minutes remaining. ' : ''}Time remaining ${formatCountdown(remainingSeconds)}`}>
       <AppText variant="bodyStrong" color={urgent ? colors.danger : colors.navy}>
         {formatCountdown(remainingSeconds)}
       </AppText>

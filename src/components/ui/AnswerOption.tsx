@@ -21,25 +21,43 @@ const LETTER_COLORS: Record<AnswerState, { bg: string; fg: string; border: strin
   muted: { bg: colors.surface, fg: colors.inkTertiary, border: colors.border },
 };
 
+const STATE_STATUS: Record<AnswerState, string | null> = {
+  idle: null,
+  selected: 'Selected',
+  correct: 'Correct answer',
+  incorrect: 'Your answer',
+  muted: null,
+};
+
 export function AnswerOption({ label, text, state, disabled, onPress }: AnswerOptionProps) {
   const tone = LETTER_COLORS[state];
+  const status = STATE_STATUS[state];
   return (
     <Pressable
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
+      accessibilityState={{ disabled: Boolean(disabled), selected: state === 'selected' || state === 'incorrect' }}
+      accessibilityLabel={`${label}. ${text}${status ? `. ${status}` : ''}`}
       style={[styles.row, { borderColor: tone.border, backgroundColor: tone.bg }]}>
       <View style={[styles.letter, { backgroundColor: colors.surface }]}>
-        <AppText variant="bodyStrong" color={tone.fg}>
+        <AppText variant="bodyStrong" color={tone.fg} maxFontSizeMultiplier={1.3}>
           {label}
         </AppText>
       </View>
-      <AppText
-        variant="body"
-        color={state === 'muted' ? colors.inkTertiary : colors.ink}
-        style={styles.text}>
-        {text}
-      </AppText>
+      <View style={styles.copy}>
+        <AppText
+          variant="body"
+          color={state === 'muted' ? colors.inkTertiary : colors.ink}
+          style={styles.text}>
+          {text}
+        </AppText>
+        {status ? (
+          <AppText variant="caption" color={tone.fg}>
+            {status}
+          </AppText>
+        ) : null}
+      </View>
     </Pressable>
   );
 }
@@ -52,6 +70,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: radii.md,
     padding: spacing.md,
+    minHeight: 52,
   },
   letter: {
     width: 32,
@@ -60,8 +79,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
+  copy: {
     flex: 1,
+    gap: spacing.xs,
     paddingTop: 4,
+  },
+  text: {
+    flexShrink: 1,
   },
 });

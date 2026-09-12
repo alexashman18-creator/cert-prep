@@ -3,6 +3,26 @@ import type { Repositories } from '@/repositories/createRepositories';
 import type { Question } from '@/types/question';
 import type { SessionAnswer, SessionResults } from '@/types/session';
 
+export function classifyExamAnswers(
+  questions: Question[],
+  answers: SessionAnswer[],
+): { missedIds: string[]; correctIds: string[] } {
+  const missedIds: string[] = [];
+  const correctIds: string[] = [];
+  for (const question of questions) {
+    const selected = answers.find((answer) => answer.questionId === question.id)?.selectedOptionId;
+    if (!selected) {
+      continue;
+    }
+    if (selected === question.correctAnswerId) {
+      correctIds.push(question.id);
+    } else {
+      missedIds.push(question.id);
+    }
+  }
+  return { missedIds, correctIds };
+}
+
 export async function completeExamSession(
   repos: Repositories,
   input: {
@@ -20,21 +40,19 @@ export async function completeExamSession(
     ),
   });
 
-  await repos.exams.complete(input.sessionId, results.correct, input.status);
+  const { missedIds, correctIds } = classifyExamAnswers(input.questions, input.answers);
 
-  const missedIds = input.questions
-    .filter((question) => {
-      const selected = input.answers.find((answer) => answer.questionId === question.id)
-        ?.selectedOptionId;
-      return Boolean(selected) && selected !== question.correctAnswerId;
-    })
-    .map((question) => question.id);
-
-  await repos.mistakes.recordMany(missedIds, input.sessionId);
-  await repos.progress.recordExamCompletion({
-    questionsAnswered: results.correct + results.incorrect,
-    questionsCorrect: results.correct,
-    percent: results.percent,
+  await repos.transaction(async () => {
+    await repos.exams.complete(input.sessionId, results.correct, input.status);
+    await repos.mistakes.recordMany(missedIds, input.sessionId);
+    for (const questionId of correctIds) {
+      await repos.mistakes.resolve(questionId);
+    }
+    await repos.progress.recordExamCompletion({
+      questionsAnswered: results.correct + results.incorrect,
+      questionsCorrect: results.correct,
+      percent: results.percent,
+    });
   });
 
   return results;

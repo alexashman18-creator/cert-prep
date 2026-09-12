@@ -6,21 +6,27 @@ import { AppButton } from '@/components/ui/AppButton';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Screen } from '@/components/ui/Screen';
 import { usePracticeResults, useStartMistakePractice, useStartPractice } from '@/hooks/usePracticeSession';
+import { firstParam } from '@/lib/searchParams';
 import { spacing } from '@/theme/tokens';
 import type { PracticeDomainFilter } from '@/types/session';
 
 export default function PracticeResultsScreen() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const params = useLocalSearchParams<{ id?: string | string[] }>();
+  const id = firstParam(params.id);
   const { results, error, domainFilter } = usePracticeResults(id);
   const startPractice = useStartPractice();
   const startMistakes = useStartMistakePractice();
 
   const practiceAgain = async () => {
-    const session = await startPractice({
-      domainFilter: domainFilter as PracticeDomainFilter,
-      requestedCount: results?.total ?? 10,
-    });
-    router.replace({ pathname: '/practice/session', params: { id: session.id } });
+    try {
+      const session = await startPractice({
+        domainFilter: domainFilter as PracticeDomainFilter,
+        requestedCount: results?.total ?? 10,
+      });
+      router.replace({ pathname: '/practice/session', params: { id: session.id } });
+    } catch {
+      router.push('/practice/setup');
+    }
   };
 
   const reviewMistakes = async () => {
@@ -28,9 +34,21 @@ export default function PracticeResultsScreen() {
       router.push('/review');
       return;
     }
-    const session = await startMistakes();
-    router.replace({ pathname: '/practice/session', params: { id: session.id } });
+    try {
+      const session = await startMistakes();
+      router.replace({ pathname: '/practice/session', params: { id: session.id } });
+    } catch {
+      router.push('/review');
+    }
   };
+
+  if (!results && !error) {
+    return (
+      <Screen edges={['right', 'bottom', 'left']}>
+        <EmptyState title="Loading results" body="Calculating your practice performance." />
+      </Screen>
+    );
+  }
 
   if (error || !results) {
     return (

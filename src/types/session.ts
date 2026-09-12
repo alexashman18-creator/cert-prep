@@ -1,6 +1,6 @@
 import type { DomainId } from '@/types/domain';
 
-export type SessionStatus = 'in_progress' | 'completed' | 'expired';
+export type SessionStatus = 'in_progress' | 'completed' | 'expired' | 'abandoned';
 
 export type SessionType = 'practice' | 'exam';
 

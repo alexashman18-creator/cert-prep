@@ -18,6 +18,7 @@ export default function HomeScreen() {
   const { data, error, refresh } = useHomeData();
   const startExam = useStartExam();
   const [startingExam, setStartingExam] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -27,9 +28,20 @@ export default function HomeScreen() {
 
   const openExam = async () => {
     setStartingExam(true);
+    setActionError(null);
     try {
+      if (data?.inProgressExam) {
+        router.push({ pathname: '/exam/session', params: { id: data.inProgressExam.id } });
+        return;
+      }
+      if ((data?.questionBankSize ?? 0) === 0) {
+        setActionError('No questions are available for a mock exam yet.');
+        return;
+      }
       const session = await startExam();
       router.push({ pathname: '/exam/session', params: { id: session.id } });
+    } catch (caught) {
+      setActionError(caught instanceof Error ? caught.message : 'Unable to start a mock exam.');
     } finally {
       setStartingExam(false);
     }
@@ -78,8 +90,9 @@ export default function HomeScreen() {
         <Card style={styles.resume}>
           <AppText variant="subtitle">Resume practice</AppText>
           <AppText variant="body" color={colors.inkSecondary}>
-            Question {(data.inProgressPractice.currentIndex ?? 0) + 1} of{' '}
-            {data.inProgressPractice.questionCount} is waiting.
+            {data.inProgressPractice.currentIndex >= data.inProgressPractice.questionCount - 1
+              ? `You're on the last question of ${data.inProgressPractice.questionCount}.`
+              : `Question ${data.inProgressPractice.currentIndex + 1} of ${data.inProgressPractice.questionCount} is waiting.`}
           </AppText>
           <AppButton
             label="Continue practice"
@@ -120,15 +133,17 @@ export default function HomeScreen() {
         />
       </View>
 
-      <AppText variant="caption" color={colors.inkTertiary} style={styles.footnote}>
-        Local-first. Progress is stored on this device and works offline.
-        {'\n'}
-        {SAMPLE_CONTENT_NOTICE}
-        {data ? `\nQuestion bank: ${data.questionBankSize} development samples.` : ''}
-      </AppText>
-      {error ? (
+      <Card muted style={styles.notice}>
+        <AppText variant="caption" color={colors.inkSecondary}>
+          Local-first. Progress is stored on this device and works offline.
+          {'\n'}
+          {SAMPLE_CONTENT_NOTICE}
+          {data ? ` Question bank: ${data.questionBankSize} development samples.` : ''}
+        </AppText>
+      </Card>
+      {error || actionError ? (
         <AppText variant="caption" color={colors.danger}>
-          {error}
+          {actionError ?? error}
         </AppText>
       ) : null}
     </Screen>
@@ -149,7 +164,12 @@ function ActionCard({
   disabled?: boolean;
 }) {
   return (
-    <Pressable onPress={onPress} disabled={disabled} style={({ pressed }) => [pressed && styles.pressed]}>
+    <Pressable
+      onPress={onPress}
+      disabled={disabled}
+      accessibilityRole="button"
+      accessibilityLabel={`${title}. ${subtitle}`}
+      style={({ pressed }) => [pressed && styles.pressed]}>
       <Card>
         <View style={styles.actionRow}>
           <View style={styles.iconWrap}>
@@ -203,7 +223,7 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     marginBottom: spacing.md,
   },
-  footnote: {
+  notice: {
     marginTop: spacing.xxl,
   },
   pressed: {

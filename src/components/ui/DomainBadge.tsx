@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     backgroundColor: colors.accentSoft,
     borderRadius: radii.full,
+    maxWidth: '100%',
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
   },

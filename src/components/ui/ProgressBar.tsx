@@ -10,7 +10,10 @@ interface ProgressBarProps {
 export function ProgressBar({ value, max }: ProgressBarProps) {
   const ratio = max <= 0 ? 0 : Math.min(1, Math.max(0, value / max));
   return (
-    <View style={styles.track} accessibilityRole="progressbar">
+    <View
+      style={styles.track}
+      accessibilityRole="progressbar"
+      accessibilityValue={{ min: 0, max, now: value }}>
       <View style={[styles.fill, { width: `${ratio * 100}%` }]} />
     </View>
   );

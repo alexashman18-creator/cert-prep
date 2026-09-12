@@ -44,7 +44,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/scoring.test.ts src/lib/timer.test.ts src/lib/examBlueprint.test.ts src/data/sampleQuestions.test.ts"
+    "test": "tsx --test src/lib/scoring.test.ts src/lib/timer.test.ts src/lib/examBlueprint.test.ts src/data/sampleQuestions.test.ts src/lib/sessionIntegrity.test.ts src/lib/searchParams.test.ts src/lib/completeExam.test.ts"
   },
   "private": true
 }

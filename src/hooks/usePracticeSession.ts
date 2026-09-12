@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useRepositories } from '@/hooks/useRepositories';
-import { takeRandom } from '@/lib/shuffle';
+import { selectPracticeQuestionIds, alignSessionQuestions } from '@/lib/sessionIntegrity';
 import { buildSessionResults } from '@/lib/scoring';
 import { useUiStore } from '@/stores/uiStore';
 import type { DomainId } from '@/types/domain';
@@ -23,7 +23,10 @@ export function useStartPractice() {
         input.domainFilter === 'all'
           ? all
           : all.filter((question) => question.domain === input.domainFilter);
-      const questionIds = takeRandom(pool, input.requestedCount).map((question) => question.id);
+      const questionIds = selectPracticeQuestionIds(
+        pool.map((question) => question.id),
+        input.requestedCount,
+      );
       if (questionIds.length === 0) {
         throw new Error('No questions are available for this selection.');
       }
@@ -80,11 +83,16 @@ export function usePracticeSession(sessionId: string | undefined) {
       repos.practice.getAnswers(loaded.id),
       repos.flags.list(loaded.id, 'practice'),
     ]);
-    setSession(loaded);
-    setQuestions(loadedQuestions);
+    const aligned = alignSessionQuestions(loaded.questionIds, loadedQuestions, loaded.currentIndex);
+    if (aligned.questions.length === 0) {
+      setError('This session references questions that are no longer available.');
+      return;
+    }
+    setSession({ ...loaded, currentIndex: aligned.currentIndex, questionIds: aligned.questions.map((q) => q.id) });
+    setQuestions(aligned.questions);
     setAnswers(loadedAnswers);
     setFlaggedIds(flags.map((flag) => flag.questionId));
-    const currentQuestion = loadedQuestions[loaded.currentIndex];
+    const currentQuestion = aligned.questions[aligned.currentIndex];
     const existing = loadedAnswers.find((answer) => answer.questionId === currentQuestion?.id);
     resetQuestionUi(existing?.selectedOptionId ?? null, Boolean(existing));
   }, [repos, resetQuestionUi, sessionId]);
@@ -107,16 +115,21 @@ export function usePracticeSession(sessionId: string | undefined) {
     setBusy(true);
     try {
       const isCorrect = selectedOptionId === currentQuestion.correctAnswerId;
-      const answer = await repos.practice.saveAnswer({
-        sessionId: session.id,
-        questionId: currentQuestion.id,
-        selectedOptionId,
-        isCorrect,
+      const answer = await repos.transaction(async () => {
+        const saved = await repos.practice.saveAnswer({
+          sessionId: session.id,
+          questionId: currentQuestion.id,
+          selectedOptionId,
+          isCorrect,
+        });
+        await repos.progress.recordPracticeAnswer(isCorrect);
+        if (isCorrect) {
+          await repos.mistakes.resolve(currentQuestion.id);
+        } else {
+          await repos.mistakes.record(currentQuestion.id, session.id);
+        }
+        return saved;
       });
-      await repos.progress.recordPracticeAnswer(isCorrect);
-      if (!isCorrect) {
-        await repos.mistakes.record(currentQuestion.id, session.id);
-      }
       setAnswers((current) => [
         ...current.filter((item) => item.questionId !== currentQuestion.id),
         answer,
@@ -210,6 +223,10 @@ export function usePracticeResults(sessionId: string | undefined) {
           repos.questions.getByIds(session.questionIds),
           repos.practice.getAnswers(session.id),
         ]);
+        if (questions.length === 0) {
+          setError('This session references questions that are no longer available.');
+          return;
+        }
         setDomainFilter(session.domainFilter);
         setResults(
           buildSessionResults({

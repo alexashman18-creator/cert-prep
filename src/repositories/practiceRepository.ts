@@ -25,24 +25,34 @@ export function createPracticeRepository(db: SQLiteDatabase) {
         updatedAt: now,
       };
 
-      await db.runAsync(
-        `
-        INSERT INTO practice_sessions (
-          id, domain_filter, question_count, question_ids_json, current_index,
-          status, started_at, completed_at, score, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `,
-        session.id,
-        session.domainFilter,
-        session.questionCount,
-        toJson(session.questionIds),
-        session.currentIndex,
-        session.status,
-        session.startedAt,
-        session.completedAt,
-        session.score,
-        session.updatedAt,
-      );
+      await db.withTransactionAsync(async () => {
+        await db.runAsync(
+          `
+          UPDATE practice_sessions
+          SET status = 'abandoned', updated_at = ?
+          WHERE status = 'in_progress'
+          `,
+          now,
+        );
+        await db.runAsync(
+          `
+          INSERT INTO practice_sessions (
+            id, domain_filter, question_count, question_ids_json, current_index,
+            status, started_at, completed_at, score, updated_at
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          `,
+          session.id,
+          session.domainFilter,
+          session.questionCount,
+          toJson(session.questionIds),
+          session.currentIndex,
+          session.status,
+          session.startedAt,
+          session.completedAt,
+          session.score,
+          session.updatedAt,
+        );
+      });
 
       return session;
     },

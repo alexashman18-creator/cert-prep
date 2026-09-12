@@ -16,10 +16,13 @@ export function AppText({
   align,
   style,
   children,
+  maxFontSizeMultiplier = 1.6,
   ...rest
 }: AppTextProps) {
   return (
     <Text
+      allowFontScaling
+      maxFontSizeMultiplier={maxFontSizeMultiplier}
       style={[typography[variant], { color, textAlign: align }, style as StyleProp<TextStyle>]}
       {...rest}>
       {children}

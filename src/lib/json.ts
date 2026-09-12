@@ -3,5 +3,9 @@ export function toJson(value: unknown): string {
 }
 
 export function fromJson<T>(value: string): T {
-  return JSON.parse(value) as T;
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    throw new Error('Stored session data is malformed or incomplete.');
+  }
 }

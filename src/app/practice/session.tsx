@@ -9,10 +9,12 @@ import { AppText } from '@/components/ui/AppText';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Screen } from '@/components/ui/Screen';
 import { usePracticeSession } from '@/hooks/usePracticeSession';
+import { firstParam } from '@/lib/searchParams';
 import { colors, spacing } from '@/theme/tokens';
 
 export default function PracticeSessionScreen() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const params = useLocalSearchParams<{ id?: string | string[] }>();
+  const id = firstParam(params.id);
   const {
     session,
     questions,
@@ -87,7 +89,12 @@ export default function PracticeSessionScreen() {
         onSelect={selectOption}
       />
 
-      <Pressable onPress={() => void toggleFlag()} style={styles.flag}>
+      <Pressable
+        onPress={() => void toggleFlag()}
+        accessibilityRole="button"
+        accessibilityState={{ selected: flagged }}
+        accessibilityLabel={flagged ? 'Remove flag from question' : 'Flag question'}
+        style={styles.flag}>
         <Ionicons
           name={flagged ? 'flag' : 'flag-outline'}
           size={18}
@@ -110,6 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
+    minHeight: 44,
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
   },

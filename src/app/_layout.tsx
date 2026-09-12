@@ -7,6 +7,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { DatabaseErrorBoundary } from '@/components/DatabaseErrorBoundary';
 import { AppText } from '@/components/ui/AppText';
 import { initializeDatabase } from '@/db/initialize';
 import { colors } from '@/theme/tokens';
@@ -32,6 +33,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.flex}>
       <SafeAreaProvider>
+        <DatabaseErrorBoundary>
         <Suspense fallback={<BootScreen />}>
           <SQLiteProvider databaseName="az900-prep.db" onInit={initializeDatabase} useSuspense>
             <StatusBar style="dark" />
@@ -55,6 +57,7 @@ export default function RootLayout() {
             </Stack>
           </SQLiteProvider>
         </Suspense>
+        </DatabaseErrorBoundary>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

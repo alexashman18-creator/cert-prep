@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useRepositories } from '@/hooks/useRepositories';
+import { completeExamSession } from '@/lib/completeExam';
 import { accuracyPercent } from '@/lib/scoring';
+import { restoreRemainingSeconds, shouldExpire } from '@/lib/timer';
 import type { ExamSession, PracticeSession, UserProgress } from '@/types/session';
 
 export interface HomeData {
@@ -20,7 +22,7 @@ export function useHomeData() {
 
   const refresh = useCallback(async () => {
     try {
-      const [progress, mistakeIds, questionBankSize, inProgressPractice, inProgressExam] =
+      const [progress, mistakeIds, questionBankSize, inProgressPractice, maybeExam] =
         await Promise.all([
           repos.progress.get(),
           repos.mistakes.getQuestionIds(),
@@ -28,6 +30,24 @@ export function useHomeData() {
           repos.practice.getInProgress(),
           repos.exams.getInProgress(),
         ]);
+
+      let inProgressExam = maybeExam;
+      if (maybeExam) {
+        const remaining = restoreRemainingSeconds(maybeExam.remainingSeconds, maybeExam.lastTickAt);
+        if (shouldExpire(remaining)) {
+          const [questions, answers] = await Promise.all([
+            repos.questions.getByIds(maybeExam.questionIds),
+            repos.exams.getAnswers(maybeExam.id),
+          ]);
+          await completeExamSession(repos, {
+            sessionId: maybeExam.id,
+            questions,
+            answers,
+            status: 'expired',
+          });
+          inProgressExam = null;
+        }
+      }
 
       setData({
         progress,

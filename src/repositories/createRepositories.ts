@@ -15,6 +15,13 @@ export function createRepositories(db: SQLiteDatabase) {
     progress: createProgressRepository(db),
     mistakes: createMistakeRepository(db),
     flags: createFlagRepository(db),
+    async transaction<T>(work: () => Promise<T>): Promise<T> {
+      let result: T | undefined;
+      await db.withTransactionAsync(async () => {
+        result = await work();
+      });
+      return result as T;
+    },
   };
 }
 

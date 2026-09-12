@@ -7,11 +7,21 @@ import { AppText } from '@/components/ui/AppText';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Screen } from '@/components/ui/Screen';
 import { useExamResults } from '@/hooks/useExamSession';
+import { firstParam } from '@/lib/searchParams';
 import { colors, spacing } from '@/theme/tokens';
 
 export default function ExamResultsScreen() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const params = useLocalSearchParams<{ id?: string | string[] }>();
+  const id = firstParam(params.id);
   const { results, error } = useExamResults(id);
+
+  if (!results && !error) {
+    return (
+      <Screen edges={['right', 'bottom', 'left']}>
+        <EmptyState title="Loading results" body="Calculating your practice exam performance." />
+      </Screen>
+    );
+  }
 
   if (error || !results) {
     return (

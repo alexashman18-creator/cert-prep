@@ -23,6 +23,8 @@ export function AppButton({
   return (
     <Pressable
       accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ disabled }}
       onPress={onPress}
       disabled={disabled}
       style={({ pressed }) => [

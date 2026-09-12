@@ -43,6 +43,8 @@ export function QuestionNavigator({
                     onSelect(index);
                     onClose();
                   }}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Question ${index + 1}${current ? ', current' : ''}${answered ? ', answered' : ', unanswered'}${flagged ? ', flagged' : ''}`}
                   style={[
                     styles.cell,
                     answered && styles.answered,
@@ -52,7 +54,8 @@ export function QuestionNavigator({
                   <AppText
                     variant="bodyStrong"
                     color={current ? colors.surface : colors.ink}
-                    align="center">
+                    align="center"
+                    maxFontSizeMultiplier={1.2}>
                     {index + 1}
                   </AppText>
                 </Pressable>

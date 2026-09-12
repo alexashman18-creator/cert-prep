@@ -18,7 +18,9 @@ export default function ReviewMistakesScreen() {
   const repos = useRepositories();
   const startMistakes = useStartMistakePractice();
   const [items, setItems] = useState<{ mistake: MistakeRecord; question: Question }[]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const mistakes = await repos.mistakes.list();
@@ -30,10 +32,14 @@ export default function ReviewMistakesScreen() {
         return question ? [{ mistake, question }] : [];
       }),
     );
+    setLoaded(true);
   }, [repos]);
 
   useEffect(() => {
-    void load();
+    void load().catch((caught: unknown) => {
+      setError(caught instanceof Error ? caught.message : 'Unable to load mistakes.');
+      setLoaded(true);
+    });
   }, [load]);
 
   const start = async () => {
@@ -45,6 +51,23 @@ export default function ReviewMistakesScreen() {
       setBusy(false);
     }
   };
+
+  if (!loaded) {
+    return (
+      <Screen edges={['right', 'bottom', 'left']}>
+        <EmptyState title="Loading mistakes" body="Checking your locally saved incorrect answers." />
+      </Screen>
+    );
+  }
+
+  if (error) {
+    return (
+      <Screen edges={['right', 'bottom', 'left']}>
+        <EmptyState title="Unable to load mistakes" body={error} />
+        <AppButton label="Home" variant="secondary" onPress={() => router.replace('/')} />
+      </Screen>
+    );
+  }
 
   if (items.length === 0) {
     return (

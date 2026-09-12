@@ -11,11 +11,13 @@ import { AppText } from '@/components/ui/AppText';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Screen } from '@/components/ui/Screen';
 import { useExamSession } from '@/hooks/useExamSession';
+import { firstParam } from '@/lib/searchParams';
 import { useUiStore } from '@/stores/uiStore';
 import { colors, spacing } from '@/theme/tokens';
 
 export default function ExamSessionScreen() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const params = useLocalSearchParams<{ id?: string | string[] }>();
+  const id = firstParam(params.id);
   const navigatorOpen = useUiStore((state) => state.examNavigatorOpen);
   const setNavigatorOpen = useUiStore((state) => state.setExamNavigatorOpen);
   const {
@@ -31,17 +33,24 @@ export default function ExamSessionScreen() {
     toggleFlag,
     finalize,
     expired,
+    alreadyFinished,
     error,
   } = useExamSession(id);
 
   useEffect(() => {
-    if (!expired || !session) {
+    if (!session) {
       return;
     }
-    void finalize('expired').then(() => {
+    if (alreadyFinished) {
       router.replace({ pathname: '/exam/results', params: { id: session.id } });
-    });
-  }, [expired, finalize, session]);
+      return;
+    }
+    if (expired) {
+      void finalize('expired').then(() => {
+        router.replace({ pathname: '/exam/results', params: { id: session.id } });
+      });
+    }
+  }, [alreadyFinished, expired, finalize, session]);
 
   const finish = () => {
     const run = async () => {
@@ -137,8 +146,12 @@ export default function ExamSessionScreen() {
         </>
       }>
       <View style={styles.toolbar}>
-        <TimerBadge remainingSeconds={remainingSeconds} />
-        <Pressable onPress={() => setNavigatorOpen(true)} style={styles.navButton}>
+        <TimerBadge remainingSeconds={remainingSeconds ?? 0} />
+        <Pressable
+          onPress={() => setNavigatorOpen(true)}
+          accessibilityRole="button"
+          accessibilityLabel="Open question navigator"
+          style={styles.navButton}>
           <Ionicons name="grid-outline" size={18} color={colors.accent} />
           <AppText variant="bodyStrong" color={colors.accent}>
             Navigator
@@ -155,7 +168,12 @@ export default function ExamSessionScreen() {
         onSelect={(optionId) => void saveSelection(optionId)}
       />
 
-      <Pressable onPress={() => void toggleFlag()} style={styles.flag}>
+      <Pressable
+        onPress={() => void toggleFlag()}
+        accessibilityRole="button"
+        accessibilityState={{ selected: flagged }}
+        accessibilityLabel={flagged ? 'Remove review flag' : 'Flag for review'}
+        style={styles.flag}>
         <Ionicons
           name={flagged ? 'flag' : 'flag-outline'}
           size={18}
@@ -195,6 +213,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
+    minHeight: 44,
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
   },
