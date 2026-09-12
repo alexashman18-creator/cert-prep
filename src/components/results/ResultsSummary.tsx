@@ -3,15 +3,51 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
-import { StatTile } from '@/components/ui/StatTile';
 import { formatPercent } from '@/lib/format';
 import { domainLabel } from '@/types/domain';
 import type { SessionResults } from '@/types/session';
-import { colors, spacing } from '@/theme/tokens';
+import { colors, radii, spacing } from '@/theme/tokens';
 
 interface ResultsSummaryProps {
   results: SessionResults;
   caption: string;
+}
+
+type CountTone = 'success' | 'danger' | 'muted';
+
+const VALUE_COLOR: Record<CountTone, string> = {
+  success: colors.success,
+  danger: colors.danger,
+  muted: colors.inkSecondary,
+};
+
+function ResultCount({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: number;
+  tone: CountTone;
+}) {
+  return (
+    <View
+      style={[styles.count, styles[tone]]}
+      accessibilityRole="text"
+      accessibilityLabel={`${label}: ${value}`}>
+      <AppText variant="title" color={VALUE_COLOR[tone]} maxFontSizeMultiplier={1.3}>
+        {value}
+      </AppText>
+      <AppText
+        variant="caption"
+        color={colors.inkSecondary}
+        numberOfLines={1}
+        maxFontSizeMultiplier={1.3}
+        style={styles.countLabel}>
+        {label}
+      </AppText>
+    </View>
+  );
 }
 
 export function ResultsSummary({ results, caption }: ResultsSummaryProps) {
@@ -29,9 +65,9 @@ export function ResultsSummary({ results, caption }: ResultsSummaryProps) {
           {caption}
         </AppText>
         <View style={styles.stats}>
-          <StatTile label="Correct" value={String(results.correct)} tone="success" />
-          <StatTile label="Incorrect" value={String(results.incorrect)} tone="danger" />
-          <StatTile label="Unanswered" value={String(results.unanswered)} tone="muted" />
+          <ResultCount label="Correct" value={results.correct} tone="success" />
+          <ResultCount label="Incorrect" value={results.incorrect} tone="danger" />
+          <ResultCount label="Unanswered" value={results.unanswered} tone="muted" />
         </View>
       </Card>
       <Card>
@@ -72,10 +108,36 @@ const styles = StyleSheet.create({
   },
   stats: {
     width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
     gap: spacing.sm,
     marginTop: spacing.lg,
+  },
+  count: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    minHeight: 52,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radii.md,
+    borderWidth: 1,
+  },
+  countLabel: {
+    flex: 1,
+    flexShrink: 1,
+    minWidth: 0,
+  },
+  success: {
+    backgroundColor: colors.successSoft,
+    borderColor: '#C7E8D4',
+  },
+  danger: {
+    backgroundColor: colors.dangerSoft,
+    borderColor: '#F4C7C3',
+  },
+  muted: {
+    backgroundColor: colors.surfaceMuted,
+    borderColor: colors.border,
   },
   domains: {
     gap: spacing.xl,
