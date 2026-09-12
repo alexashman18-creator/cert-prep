@@ -98,7 +98,7 @@ The 12 AZ-900 development samples stay in `src/data/sampleQuestions.ts`.
 - `coming_soon` — shown in the catalog, not selectable, cannot open empty practice or exam sessions.
 - `inactive` — hidden from study. Keep the row for future reactivation.
 
-To enable DP-900 later, see the checklist at the end of this document.
+To enable DP-900 later, see the checklist at the end of this document. Content-bank targets and official-outline coverage live in `content/blueprints/` and are documented in `docs/content-production-system.md`. A blueprint never makes a track selectable by itself.
 
 ## Future monetisation
 

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "certificationId": "dp900",
+  "examCode": "DP-900",
+  "displayName": "Azure Data Fundamentals",
+  "blueprintStatus": "pending_verification",
+  "skillsOutlineEffectiveDate": null,
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/azure-data-fundamentals/",
+  "contentTargetCount": 350,
+  "difficultyMix": {
+    "beginner": 0.55,
+    "intermediate": 0.35,
+    "advanced": 0.1
+  },
+  "underCoveredRatio": 0.4,
+  "overCoveredRatio": 1.25,
+  "domains": []
+}

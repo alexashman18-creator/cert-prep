@@ -12,7 +12,11 @@ import {
   formatPlatformQuestionBankAudit,
   formatQuestionBankAudit,
 } from '@/content/audit';
+import { DEFAULT_BATCH_SIZE } from '@/content/blueprints/launchTargets';
+import { buildCertificationCoverage, buildPlatformCoverage } from './blueprint-io';
 import { mergeQuestionCatalog } from '@/content/catalog';
+import { filterCoverageReport, recommendNextBatch } from '@/content/coverage';
+import { formatBatchRecommendation, formatCoverageReport, formatPlatformCoverage } from '@/content/coverageFormat';
 import { filterQuestionsByCertification } from '@/content/eligibility';
 import { mapSourceQuestions } from '@/content/mapSource';
 import type { QuestionBankFile } from '@/content/types';
@@ -174,6 +178,35 @@ async function importCommand(): Promise<void> {
   console.log('The next app launch will insert new IDs and update rows only when questionVersion is newer. Retired IDs are kept.');
 }
 
+function readBatchSize(args: string[]): number {
+  const value = readFlag(args, '--batch-size');
+  if (!value) {
+    return DEFAULT_BATCH_SIZE;
+  }
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 1) {
+    throw new Error('--batch-size must be a positive integer.');
+  }
+  return parsed;
+}
+
+async function coverageCommand(args: string[]): Promise<void> {
+  const staleDays = readStaleDays(args);
+  const batchSize = readBatchSize(args);
+  const objective = readFlag(args, '--objective');
+  const certification = readCertFilter(args);
+
+  if (certification) {
+    const report = await buildCertificationCoverage(certification.id, { staleDays });
+    const filtered = objective ? filterCoverageReport(report, objective) : report;
+    console.log(formatCoverageReport(filtered));
+    console.log(formatBatchRecommendation(recommendNextBatch(report, batchSize)));
+    return;
+  }
+
+  console.log(formatPlatformCoverage(await buildPlatformCoverage({ staleDays })));
+}
+
 async function auditCommand(args: string[]): Promise<void> {
   const { catalog } = await buildProductionCatalog();
   const staleDays = readStaleDays(args);
@@ -203,10 +236,12 @@ Usage:
   npm run questions:validate [-- path/to/file.json]
   npm run questions:import
   npm run questions:audit [-- --cert=AZ-900] [-- --stale-days=180]
+  npm run questions:coverage [-- --cert=AZ-900] [-- --objective="Describe cloud concepts"] [-- --batch-size=50]
 
-validate  Reject malformed JSON banks. Reports every issue.
-import    Validate all files in content/questions/batches, then write the bundled catalog.
-audit     Report totals by certification, domains, objectives, difficulty, missing sources, and stale dates.
+validate   Reject malformed JSON banks. Reports every issue.
+import     Validate all files in content/questions/batches, then write the bundled catalog.
+audit      Report totals by certification, domains, objectives, difficulty, missing sources, and stale dates.
+coverage   Compare verified/draft counts to content blueprints and recommend the next batch.
 `);
 }
 
@@ -224,6 +259,10 @@ async function main(): Promise<void> {
     }
     if (command === 'audit') {
       await auditCommand(rest);
+      return;
+    }
+    if (command === 'coverage') {
+      await coverageCommand(rest);
       return;
     }
     printHelp();

@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 1,
+  "certificationId": "az900",
+  "examCode": "AZ-900",
+  "displayName": "Azure Fundamentals",
+  "blueprintStatus": "verified",
+  "skillsOutlineEffectiveDate": "2026-07-20",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-900",
+  "contentTargetCount": 400,
+  "difficultyMix": {
+    "beginner": 0.55,
+    "intermediate": 0.35,
+    "advanced": 0.1
+  },
+  "underCoveredRatio": 0.4,
+  "overCoveredRatio": 1.25,
+  "domains": [
+    {
+      "id": "cloud_concepts",
+      "label": "Cloud Concepts",
+      "weight": 0.27,
+      "targetCount": 108,
+      "objectives": [
+        {
+          "id": "describe_cloud_computing",
+          "label": "Describe cloud computing",
+          "targetCount": 40,
+          "subobjectives": [
+            {
+              "id": "define_cloud_computing",
+              "label": "Define cloud computing",
+              "targetCount": 6,
+              "aliases": [
+                "Describe cloud computing"
+              ]
+            },
+            {
+              "id": "shared_responsibility",
+              "label": "Describe the shared responsibility model",
+              "targetCount": 6
+            },
+            {
+              "id": "define_cloud_models",
+              "label": "Define cloud models, including public, private, and hybrid",
+              "targetCount": 6,
+              "aliases": [
+                "Define cloud models"
+              ]
+            },
+            {
+              "id": "cloud_model_use_cases",
+              "label": "Identify appropriate use cases for each cloud model",
+              "targetCount": 6
+            },
+            {
+              "id": "consumption_based",
+              "label": "Describe the consumption-based model",
+              "targetCount": 6
+            },
+            {
+              "id": "pricing_models",
+              "label": "Compare cloud pricing models",
+              "targetCount": 5
+            },
+            {
+              "id": "serverless",
+              "label": "Describe serverless",
+              "targetCount": 5
+            }
+          ],
+          "aliases": [
+            "Describe cloud concepts"
+          ]
+        },
+        {
+          "id": "describe_benefits_of_cloud_services",
+          "label": "Describe the benefits of using cloud services",
+          "targetCount": 36,
+          "subobjectives": [
+            {
+              "id": "high_availability_scalability",
+              "label": "Describe the benefits of high availability and scalability in the cloud",
+              "targetCount": 9,
+              "aliases": [
+                "Describe high availability",
+                "Describe scalability",
+                "Describe elasticity"
+              ]
+            },
+            {
+              "id": "reliability_predictability",
+              "label": "Describe the benefits of reliability and predictability in the cloud",
+              "targetCount": 9,
+              "aliases": [
+                "Describe reliability and predictability"
+              ]
+            },
+            {
+              "id": "security_governance",
+              "label": "Describe the benefits of security and governance in the cloud",
+              "targetCount": 9
+            },
+            {
+              "id": "manageability",
+              "label": "Describe the benefits of manageability in the cloud",
+              "targetCount": 9,
+              "aliases": [
+                "Describe manageability"
+              ]
+            }
+          ],
+          "aliases": [
+            "Describe benefits of using cloud services"
+          ]
+        },
+        {
+          "id": "describe_cloud_service_types",
+          "label": "Describe cloud service types",
+          "targetCount": 32,
+          "subobjectives": [
+            {
+              "id": "iaas",
+              "label": "Describe infrastructure as a service (IaaS)",
+              "targetCount": 8,
+              "aliases": [
+                "Describe Infrastructure as a Service (IaaS)"
+              ]
+            },
+            {
+              "id": "paas",
+              "label": "Describe platform as a service (PaaS)",
+              "targetCount": 8,
+              "aliases": [
+                "Describe Platform as a Service (PaaS)"
+              ]
+            },
+            {
+              "id": "saas",
+              "label": "Describe software as a service (SaaS)",
+              "targetCount": 8,
+              "aliases": [
+                "Describe Software as a Service (SaaS)"
+              ]
+            },
+            {
+              "id": "service_type_use_cases",
+              "label": "Identify appropriate use cases for each cloud service type (IaaS, PaaS, and SaaS)",
+              "targetCount": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "architecture_services",
+      "label": "Azure Architecture & Services",
+      "weight": 0.38,
+      "targetCount": 152,
+      "objectives": [
+        {
+          "id": "core_architectural_components",
+          "label": "Describe the core architectural components of Azure",
+          "targetCount": 38,
+          "subobjectives": [
+            {
+              "id": "regions",
+              "label": "Describe Azure regions, region pairs, and sovereign regions",
+              "targetCount": 6,
+              "aliases": [
+                "Describe Azure regions"
+              ]
+            },
+            {
+              "id": "availability_zones",
+              "label": "Describe availability zones",
+              "targetCount": 6
+            },
+            {
+              "id": "datacenters",
+              "label": "Describe Azure datacenters",
+              "targetCount": 6
+            },
+            {
+              "id": "resources_and_groups",
+              "label": "Describe Azure resources and resource groups",
+              "targetCount": 5,
+              "aliases": [
+                "Describe resources and resource groups"
+              ]
+            },
+            {
+              "id": "subscriptions",
+              "label": "Describe subscriptions",
+              "targetCount": 5
+            },
+            {
+              "id": "management_groups",
+              "label": "Describe management groups",
+              "targetCount": 5
+            },
+            {
+              "id": "hierarchy",
+              "label": "Describe the hierarchy of resource groups, subscriptions, and management groups",
+              "targetCount": 5,
+              "aliases": [
+                "Describe subscriptions and management groups"
+              ]
+            }
+          ],
+          "aliases": [
+            "Describe Azure architecture and services"
+          ]
+        },
+        {
+          "id": "compute_and_networking",
+          "label": "Describe Azure compute and networking services",
+          "targetCount": 50,
+          "subobjectives": [
+            {
+              "id": "compute_types",
+              "label": "Compare compute types, including containers, virtual machines, and functions",
+              "targetCount": 9,
+              "aliases": [
+                "Compare compute types",
+                "Describe Azure Functions"
+              ]
+            },
+            {
+              "id": "vm_options",
+              "label": "Describe virtual machine options, including Azure virtual machines, Azure Virtual Machine Scale Sets, availability sets, and Azure Virtual Desktop",
+              "targetCount": 9,
+              "aliases": [
+                "Describe virtual machine options"
+              ]
+            },
+            {
+              "id": "vm_resources",
+              "label": "Describe the resources required for virtual machines",
+              "targetCount": 8
+            },
+            {
+              "id": "hosting_options",
+              "label": "Describe application hosting options, including web apps, containers, and virtual machines",
+              "targetCount": 8,
+              "aliases": [
+                "Describe application hosting options"
+              ]
+            },
+            {
+              "id": "virtual_networking",
+              "label": "Describe virtual networking, including the purpose of Azure virtual networks, subnets, peering, Azure DNS, Azure VPN Gateway, and ExpressRoute",
+              "targetCount": 8,
+              "aliases": [
+                "Describe virtual networking",
+                "Describe VPN Gateway and ExpressRoute"
+              ]
+            },
+            {
+              "id": "public_private_endpoints",
+              "label": "Define public and private endpoints",
+              "targetCount": 8
+            }
+          ],
+          "aliases": [
+            "Describe Azure networking services"
+          ]
+        },
+        {
+          "id": "storage_services",
+          "label": "Describe Azure storage services",
+          "targetCount": 32,
+          "subobjectives": [
+            {
+              "id": "compare_storage",
+              "label": "Compare Azure Storage services",
+              "targetCount": 6
+            },
+            {
+              "id": "storage_tiers",
+              "label": "Describe storage tiers",
+              "targetCount": 6
+            },
+            {
+              "id": "redundancy",
+              "label": "Describe redundancy options",
+              "targetCount": 5
+            },
+            {
+              "id": "storage_accounts",
+              "label": "Describe storage account options and storage types",
+              "targetCount": 5
+            },
+            {
+              "id": "file_movement",
+              "label": "Identify options for moving files, including AzCopy, Azure Storage Explorer, and Azure File Sync",
+              "targetCount": 5,
+              "aliases": [
+                "Identify file movement options"
+              ]
+            },
+            {
+              "id": "migration",
+              "label": "Describe migration options, including Azure Migrate and Azure Data Box",
+              "targetCount": 5
+            }
+          ]
+        },
+        {
+          "id": "identity_access_security",
+          "label": "Describe Azure identity, access, and security",
+          "targetCount": 32,
+          "subobjectives": [
+            {
+              "id": "directory_services",
+              "label": "Describe directory services in Azure, including Microsoft Entra ID and Microsoft Entra Domain Services",
+              "targetCount": 4,
+              "aliases": [
+                "Describe directory services in Azure"
+              ]
+            },
+            {
+              "id": "authentication",
+              "label": "Describe authentication methods in Azure, including single sign-on (SSO), multifactor authentication (MFA), and passwordless",
+              "targetCount": 4,
+              "aliases": [
+                "Describe authentication and authorization"
+              ]
+            },
+            {
+              "id": "external_identities",
+              "label": "Describe external identities in Azure",
+              "targetCount": 4
+            },
+            {
+              "id": "conditional_access",
+              "label": "Describe Microsoft Entra Conditional Access",
+              "targetCount": 4,
+              "aliases": [
+                "Describe Conditional Access and Zero Trust"
+              ]
+            },
+            {
+              "id": "rbac",
+              "label": "Describe Azure role-based access control (RBAC)",
+              "targetCount": 4
+            },
+            {
+              "id": "zero_trust",
+              "label": "Describe the concept of Zero Trust",
+              "targetCount": 4
+            },
+            {
+              "id": "defense_in_depth",
+              "label": "Describe the purpose of the defense-in-depth model",
+              "targetCount": 4
+            },
+            {
+              "id": "defender_for_cloud",
+              "label": "Describe the purpose of Microsoft Defender for Cloud",
+              "targetCount": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "management_governance",
+      "label": "Azure Management & Governance",
+      "weight": 0.35,
+      "targetCount": 140,
+      "objectives": [
+        {
+          "id": "cost_management",
+          "label": "Describe cost management in Azure",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "cost_factors",
+              "label": "Describe factors that can affect costs in Azure",
+              "targetCount": 9,
+              "aliases": [
+                "Describe factors that affect costs"
+              ]
+            },
+            {
+              "id": "pricing_calculator",
+              "label": "Explore the pricing calculator",
+              "targetCount": 9
+            },
+            {
+              "id": "cost_management_capabilities",
+              "label": "Describe cost management capabilities in Azure",
+              "targetCount": 9,
+              "aliases": [
+                "Describe Cost Management capabilities",
+                "Describe cost optimization options"
+              ]
+            },
+            {
+              "id": "tags",
+              "label": "Describe the purpose of tags",
+              "targetCount": 8
+            }
+          ]
+        },
+        {
+          "id": "governance_compliance",
+          "label": "Describe features and tools in Azure for governance and compliance",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "purview",
+              "label": "Describe the purpose of Microsoft Purview in Azure",
+              "targetCount": 12,
+              "aliases": [
+                "Describe the purpose of Microsoft Purview"
+              ]
+            },
+            {
+              "id": "policy",
+              "label": "Describe the purpose of Azure Policy",
+              "targetCount": 12
+            },
+            {
+              "id": "resource_locks",
+              "label": "Describe the purpose of resource locks",
+              "targetCount": 11
+            }
+          ],
+          "aliases": [
+            "Describe Azure governance features"
+          ]
+        },
+        {
+          "id": "manage_and_deploy",
+          "label": "Describe features and tools for managing and deploying Azure resources",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "portal",
+              "label": "Describe the Azure portal",
+              "targetCount": 7
+            },
+            {
+              "id": "shell_cli_powershell",
+              "label": "Describe Azure Cloud Shell, Azure CLI, and Azure PowerShell",
+              "targetCount": 7,
+              "aliases": [
+                "Describe Azure Cloud Shell",
+                "Describe Azure CLI and Azure PowerShell"
+              ]
+            },
+            {
+              "id": "arc",
+              "label": "Describe the purpose of Azure Arc",
+              "targetCount": 7
+            },
+            {
+              "id": "iac",
+              "label": "Describe infrastructure as code (IaC)",
+              "targetCount": 7,
+              "aliases": [
+                "Describe infrastructure as code and ARM templates"
+              ]
+            },
+            {
+              "id": "arm",
+              "label": "Describe Azure Resource Manager (ARM) and ARM templates",
+              "targetCount": 7
+            }
+          ]
+        },
+        {
+          "id": "monitoring_tools",
+          "label": "Describe monitoring tools in Azure",
+          "targetCount": 35,
+          "subobjectives": [
+            {
+              "id": "advisor",
+              "label": "Describe the purpose of Azure Advisor",
+              "targetCount": 12,
+              "aliases": [
+                "Describe Azure Advisor and Azure Service Health"
+              ]
+            },
+            {
+              "id": "service_health",
+              "label": "Describe Azure Service Health",
+              "targetCount": 12
+            },
+            {
+              "id": "monitor",
+              "label": "Describe Azure Monitor, including Log Analytics, Azure Monitor alerts, and Azure Monitor Application Insights",
+              "targetCount": 11,
+              "aliases": [
+                "Describe Azure Monitor"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

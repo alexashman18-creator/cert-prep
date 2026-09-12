@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "certificationId": "ai901",
+  "examCode": "AI-901",
+  "displayName": "Azure AI Fundamentals",
+  "blueprintStatus": "pending_verification",
+  "skillsOutlineEffectiveDate": null,
+  "studyGuideUrl": null,
+  "contentTargetCount": 350,
+  "difficultyMix": {
+    "beginner": 0.55,
+    "intermediate": 0.35,
+    "advanced": 0.1
+  },
+  "underCoveredRatio": 0.4,
+  "overCoveredRatio": 1.25,
+  "domains": []
+}

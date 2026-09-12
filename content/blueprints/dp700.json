@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "certificationId": "dp700",
+  "examCode": "DP-700",
+  "displayName": "Fabric Data Engineer",
+  "blueprintStatus": "pending_verification",
+  "skillsOutlineEffectiveDate": null,
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/fabric-data-engineer-associate/",
+  "contentTargetCount": 450,
+  "difficultyMix": {
+    "beginner": 0.25,
+    "intermediate": 0.5,
+    "advanced": 0.25
+  },
+  "underCoveredRatio": 0.4,
+  "overCoveredRatio": 1.25,
+  "domains": []
+}

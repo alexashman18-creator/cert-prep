@@ -175,6 +175,8 @@ Reports:
 
 Use this when Microsoft publishes an AZ-900 skills-outline update.
 
+For content targets, official-outline coverage, launch readiness, and the next-batch recommendation, see `docs/content-production-system.md` and run `npm run questions:coverage -- --cert=AZ-900`.
+
 ## How to add a new verified question batch
 
 1. Author original items against current Microsoft Learn. Do not use dumps.
