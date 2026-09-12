@@ -11,8 +11,8 @@ interface HeroPanelProps {
 export function HeroPanel({ children, style }: HeroPanelProps) {
   return (
     <View style={[styles.panel, style]}>
-      <View pointerEvents="none" style={styles.orbLarge} />
-      <View pointerEvents="none" style={styles.orbSmall} />
+      <View style={styles.orbLarge} />
+      <View style={styles.orbSmall} />
       <View style={styles.content}>{children}</View>
     </View>
   );
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     height: 176,
     borderRadius: 88,
     backgroundColor: colors.heroOrb,
+    pointerEvents: 'none',
   },
   orbSmall: {
     position: 'absolute',
@@ -49,5 +50,6 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     backgroundColor: colors.heroOrbLight,
+    pointerEvents: 'none',
   },
 });
