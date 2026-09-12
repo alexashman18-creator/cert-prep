@@ -354,12 +354,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
   },
   section: {
+    width: '100%',
     gap: spacing.md,
     marginBottom: spacing.xxl,
   },
   stats: {
+    width: '100%',
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
     gap: spacing.sm,
   },
   actions: {

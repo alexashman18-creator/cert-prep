@@ -37,7 +37,8 @@ export function StatTile({ label, value, tone = 'default' }: StatTileProps) {
 const styles = StyleSheet.create({
   tile: {
     flex: 1,
-    minWidth: 96,
+    flexBasis: 0,
+    minWidth: 0,
     borderRadius: radii.md,
     borderWidth: 1,
     minHeight: 92,

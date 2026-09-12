@@ -72,6 +72,8 @@ const styles = StyleSheet.create({
     maxWidth: layout.maxContentWidth,
     alignSelf: 'center',
     flexGrow: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
   },
   padded: {
     paddingHorizontal: layout.screenPadding,
