@@ -138,33 +138,69 @@ export async function runMigrations(db: SQLiteDatabase): Promise<void> {
   }
 
   if (current === 2) {
-    await db.execAsync(`
-      ALTER TABLE questions ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
-      CREATE INDEX IF NOT EXISTS idx_questions_certification ON questions(certification_id);
-
-      ALTER TABLE practice_sessions ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
-      CREATE INDEX IF NOT EXISTS idx_practice_sessions_certification ON practice_sessions(certification_id);
-
-      ALTER TABLE exam_sessions ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
-      CREATE INDEX IF NOT EXISTS idx_exam_sessions_certification ON exam_sessions(certification_id);
-
-      ALTER TABLE mistakes ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
-      CREATE INDEX IF NOT EXISTS idx_mistakes_certification ON mistakes(certification_id);
-
-      ALTER TABLE user_progress ADD COLUMN certification_id TEXT NOT NULL DEFAULT 'az900';
-      UPDATE user_progress SET certification_id = 'az900' WHERE id = 'default' OR certification_id IS NULL OR certification_id = '';
-      CREATE UNIQUE INDEX IF NOT EXISTS idx_user_progress_certification ON user_progress(certification_id);
-
-      CREATE TABLE IF NOT EXISTS app_settings (
-        key TEXT PRIMARY KEY NOT NULL,
-        value TEXT NOT NULL,
-        updated_at TEXT NOT NULL
-      );
-      INSERT OR IGNORE INTO app_settings (key, value, updated_at)
-      VALUES ('selected_certification_id', 'az900', datetime('now'));
-    `);
+    await applyCertificationScope(db);
     current = 3;
   }
 
   await db.execAsync(`PRAGMA user_version = ${SCHEMA_VERSION}`);
+  await ensureCertificationScope(db);
+}
+
+async function tableColumns(db: SQLiteDatabase, table: string): Promise<Set<string>> {
+  const rows = await db.getAllAsync<{ name: string }>(`PRAGMA table_info(${table})`);
+  return new Set(rows.map((row) => row.name));
+}
+
+async function addColumnIfMissing(
+  db: SQLiteDatabase,
+  table: string,
+  column: string,
+  definition: string,
+): Promise<void> {
+  const columns = await tableColumns(db, table);
+  if (!columns.has(column)) {
+    await db.execAsync(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
+async function applyCertificationScope(db: SQLiteDatabase): Promise<void> {
+  await addColumnIfMissing(db, 'questions', 'certification_id', "TEXT NOT NULL DEFAULT 'az900'");
+  await db.execAsync('CREATE INDEX IF NOT EXISTS idx_questions_certification ON questions(certification_id)');
+
+  await addColumnIfMissing(db, 'practice_sessions', 'certification_id', "TEXT NOT NULL DEFAULT 'az900'");
+  await db.execAsync(
+    'CREATE INDEX IF NOT EXISTS idx_practice_sessions_certification ON practice_sessions(certification_id)',
+  );
+
+  await addColumnIfMissing(db, 'exam_sessions', 'certification_id', "TEXT NOT NULL DEFAULT 'az900'");
+  await db.execAsync(
+    'CREATE INDEX IF NOT EXISTS idx_exam_sessions_certification ON exam_sessions(certification_id)',
+  );
+
+  await addColumnIfMissing(db, 'mistakes', 'certification_id', "TEXT NOT NULL DEFAULT 'az900'");
+  await db.execAsync('CREATE INDEX IF NOT EXISTS idx_mistakes_certification ON mistakes(certification_id)');
+
+  await addColumnIfMissing(db, 'user_progress', 'certification_id', "TEXT NOT NULL DEFAULT 'az900'");
+  await db.execAsync(
+    "UPDATE user_progress SET certification_id = 'az900' WHERE id = 'default' OR certification_id IS NULL OR certification_id = ''",
+  );
+  await db.execAsync(
+    'CREATE UNIQUE INDEX IF NOT EXISTS idx_user_progress_certification ON user_progress(certification_id)',
+  );
+
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS app_settings (
+      key TEXT PRIMARY KEY NOT NULL,
+      value TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    )
+  `);
+  await db.execAsync(`
+    INSERT OR IGNORE INTO app_settings (key, value, updated_at)
+    VALUES ('selected_certification_id', 'az900', datetime('now'))
+  `);
+}
+
+async function ensureCertificationScope(db: SQLiteDatabase): Promise<void> {
+  await applyCertificationScope(db);
 }

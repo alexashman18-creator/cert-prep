@@ -171,6 +171,36 @@ test('existing AZ-900 rows migrate to az900 without resetting progress', async (
   }
 });
 
+test('repairs a v3 database that never created app_settings', async () => {
+  const { db, close } = createMemorySqlite();
+  try {
+    await db.execAsync(SCHEMA_V1_SQL);
+    await db.execAsync('PRAGMA user_version = 3');
+    await db.runAsync(
+      `
+      INSERT INTO user_progress (id, questions_answered, questions_correct, mock_exam_best_percent, updated_at)
+      VALUES ('default', 18, 12, 70, ?)
+      `,
+      NOW,
+    );
+
+    await runMigrations(db);
+
+    const progress = await db.getFirstAsync<{
+      questions_answered: number;
+      certification_id: string;
+    }>('SELECT * FROM user_progress WHERE id = ?', 'default');
+    const settings = await db.getFirstAsync<{ value: string }>(
+      "SELECT value FROM app_settings WHERE key = 'selected_certification_id'",
+    );
+    assert.equal(progress?.questions_answered, 18);
+    assert.equal(progress?.certification_id, 'az900');
+    assert.equal(settings?.value, 'az900');
+  } finally {
+    close();
+  }
+});
+
 test('progress, mistakes, sessions, and questions are isolated by certification', async () => {
   const { db, close } = createMemorySqlite();
   try {
