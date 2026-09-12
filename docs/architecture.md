@@ -96,7 +96,7 @@ The question contract is sized for a 500+ item bank without structural change:
 - `questionVersion`
 - `contentStatus` (`development`, `draft`, `verified`, or `retired`)
 
-Questions are stored as rows with JSON columns for options and option explanations. New practice and mock-exam sessions use only `development` and `verified` items. Release builds use verified content only. Draft and retired items stay in SQLite so historical sessions can still load them. Import production batches through `content/questions/batches/` — see `docs/question-bank-workflow.md`.
+Questions are stored as rows with JSON columns for options and option explanations. New practice and mock-exam sessions use **verified** items only, including development builds. The 12 bundled development samples stay in SQLite and can still be loaded by ID for historical sessions. A DEV-only `INCLUDE_DEVELOPMENT_QUESTIONS` flag in `src/content/eligibility.ts` can include them for explicit testing; production builds ignore that flag. Draft and retired items stay in SQLite so historical sessions can still load them. Import production batches through `content/questions/batches/` — see `docs/question-bank-workflow.md`.
 
 The current bundled seed still includes 12 original development samples. They keep `az900-dev-*` IDs and `contentStatus: "development"`.
 

@@ -80,12 +80,14 @@ IDs starting with `az900-dev-` are reserved for the 12 bundled development sampl
 
 | Status | Meaning | New practice / mock sessions |
 | --- | --- | --- |
-| `development` | Bundled sample / engineering content only | Eligible in development builds (`__DEV__`) |
+| `development` | Bundled sample / engineering content only | Stored only. Not selected unless the DEV-only `INCLUDE_DEVELOPMENT_QUESTIONS` flag is on |
 | `draft` | In review, not ready | Never |
 | `verified` | Production-ready, source-checked | Always eligible |
 | `retired` | Withdrawn after an exam or Learn update | Never. Row is kept for historical results |
 
-Production releases (`__DEV__ === false`) use **verified** questions only. Draft and retired items can be stored, but they are not selected for new sessions. `getByIds` still loads any status so completed exams and Review Mistakes keep working after a retire.
+Normal Practice, Mock Exam, and user-facing bank counts use **verified** questions only — including Expo Go and other `__DEV__` builds. Production releases ignore the include flag. Draft and retired items can be stored, but they are not selected for new sessions. `getByIds` still loads any status so completed exams and Review Mistakes keep working after a retire or when a historical session contains a development ID.
+
+To mix development samples into new sessions while testing, set `INCLUDE_DEVELOPMENT_QUESTIONS` to `true` in `src/content/eligibility.ts`. That flag is read only when `__DEV__ === true`. Do not expose it in production UI.
 
 ## Validation
 

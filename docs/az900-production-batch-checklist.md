@@ -96,7 +96,7 @@ npm run questions:audit -- --cert=AZ-900
 ```
 
 5. Check totals by domain in that audit (`cloud_concepts`, `architecture_services`, `management_governance`). Expect 12 development samples plus the 50 verified items, unless you filter mentally to `Verified: 50`.
-6. Confirm production sessions use verified items only. Development samples stay eligible in `__DEV__` builds. Release builds (`__DEV__ === false`) select **verified** only. Draft and retired are never selected for new sessions.
+6. Confirm normal sessions use verified items only, including Expo Go / `__DEV__` builds. Development samples stay stored and are loadable with `getByIds`. They are not selected unless `INCLUDE_DEVELOPMENT_QUESTIONS` is turned on in a development build. Draft and retired are never selected for new sessions.
 7. Launch the app:
 
 ```bash
@@ -106,7 +106,7 @@ npx expo start
 8. Smoke-test Practice and Mock Exam on AZ-900:
    - Practice setup should list the three domains and a non-zero available count.
    - Home → Mock Exam must show `min(eligibleBank, 40)` as **available** questions, not a hard-coded 40 if the eligible bank is smaller.
-   - After this batch, development builds have 62 eligible items (12 development + 50 verified), so Mock Exam copy should read **40 questions · 45-minute timer**.
+   - After this batch, the eligible bank is **50 verified** questions (12 development samples stay stored but are excluded by default), so Mock Exam copy should read **40 questions · 45-minute timer**. Domain availability should read 15 / 20 / 15.
 9. Confirm existing progress is preserved: Home counters, Review Mistakes, and any in-progress AZ-900 session must still be there. Question import only inserts new ids or updates rows when `questionVersion` is newer. It does not reset SQLite or user progress.
 
 ## After a good import

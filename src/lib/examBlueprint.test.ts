@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { AZ900_MOCK_EXAM, requireMockExamConfig } from '@/certifications';
 import { loadBundledQuestionCatalog } from '@/content/catalog';
+import { filterEligibleQuestions } from '@/content/eligibility';
 import { allocateDomainCounts, selectExamQuestions } from '@/lib/examBlueprint';
 import { sampleQuestions } from '@/data/sampleQuestions';
 
@@ -36,10 +37,11 @@ test('selectExamQuestions uses certification mock-exam configuration', () => {
   assert.equal(new Set(selected.map((question) => question.id)).size, 12);
 });
 
-test('AZ-900 mock exam selects 40 unique questions with the 27/38/35 domain mix', () => {
+test('AZ-900 mock exam selects 40 unique verified questions with the 27/38/35 domain mix', () => {
   const catalog = loadBundledQuestionCatalog();
+  const eligible = filterEligibleQuestions(catalog);
   const config = requireMockExamConfig('az900');
-  const selected = selectExamQuestions(catalog, config);
+  const selected = selectExamQuestions(eligible, config);
   const ids = selected.map((question) => question.id);
   const byDomain = Object.fromEntries(
     ['cloud_concepts', 'architecture_services', 'management_governance'].map((domain) => [
@@ -49,8 +51,11 @@ test('AZ-900 mock exam selects 40 unique questions with the 27/38/35 domain mix'
   );
 
   assert.equal(catalog.length, 62);
+  assert.equal(eligible.length, 50);
+  assert.ok(eligible.every((question) => question.contentStatus === 'verified'));
   assert.equal(selected.length, 40);
   assert.equal(new Set(ids).size, 40);
+  assert.ok(selected.every((question) => question.contentStatus === 'verified'));
   assert.equal(byDomain.cloud_concepts, 11);
   assert.equal(byDomain.architecture_services, 15);
   assert.equal(byDomain.management_governance, 14);

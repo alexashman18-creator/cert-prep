@@ -239,11 +239,22 @@ test('progress, mistakes, sessions, and questions are isolated by certification'
     );
 
     const az900Questions = await repos.questions.getEligible({ certificationId: 'az900' });
+    const az900WithDevelopment = await repos.questions.getEligible({
+      certificationId: 'az900',
+      includeDevelopment: true,
+    });
     const dp900Questions = await repos.questions.getEligible({ certificationId: 'dp900' });
-    assert.equal(az900Questions.length, 62);
+    const dp900WithDevelopment = await repos.questions.getEligible({
+      certificationId: 'dp900',
+      includeDevelopment: true,
+    });
+    assert.equal(az900Questions.length, 50);
     assert.ok(az900Questions.every((question) => question.certificationId === 'az900'));
-    assert.equal(dp900Questions.length, 1);
-    assert.equal(dp900Questions[0]?.id, 'dp900-dev-001');
+    assert.ok(az900Questions.every((question) => question.contentStatus === 'verified'));
+    assert.equal(az900WithDevelopment.length, 62);
+    assert.equal(dp900Questions.length, 0);
+    assert.equal(dp900WithDevelopment.length, 1);
+    assert.equal(dp900WithDevelopment[0]?.id, 'dp900-dev-001');
 
     await repos.progress.recordPracticeAnswer('az900', true);
     await repos.progress.recordPracticeAnswer('az900', false);
@@ -319,6 +330,30 @@ test('mock exam config is loaded from the selected certification', async () => {
     assert.equal(config.examDurationMinutes, 45);
     assert.equal(questions.length, 40);
     assert.equal(new Set(questions.map((question) => question.id)).size, 40);
+    assert.ok(questions.every((question) => question.contentStatus === 'verified'));
+  } finally {
+    close();
+  }
+});
+
+test('historical sessions can still load development questions by id', async () => {
+  const { db, close } = createMemorySqlite();
+  try {
+    await initializeDatabase(db);
+    const repos = createRepositories(db);
+
+    assert.equal(await repos.questions.countEligible({ certificationId: 'az900' }), 50);
+    assert.equal(await repos.questions.countByDomain('az900', 'cloud_concepts'), 15);
+    assert.equal(await repos.questions.countByDomain('az900', 'architecture_services'), 20);
+    assert.equal(await repos.questions.countByDomain('az900', 'management_governance'), 15);
+    assert.equal(
+      await repos.questions.countEligible({ certificationId: 'az900', includeDevelopment: true }),
+      62,
+    );
+
+    const historical = await repos.questions.getByIds(['az900-dev-cc-001', 'az900-dev-as-001']);
+    assert.equal(historical.length, 2);
+    assert.ok(historical.every((question) => question.contentStatus === 'development'));
   } finally {
     close();
   }
