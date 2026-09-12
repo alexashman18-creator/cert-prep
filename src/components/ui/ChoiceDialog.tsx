@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderTopLeftRadius: radii.xl,
     borderTopRightRadius: radii.xl,
-    padding: spacing.xl,
+    padding: spacing.xxl,
     gap: spacing.md,
   },
   actions: {

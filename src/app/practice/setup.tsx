@@ -4,11 +4,14 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppButton } from '@/components/ui/AppButton';
 import { AppText } from '@/components/ui/AppText';
+import { Card } from '@/components/ui/Card';
 import { ChoiceChip } from '@/components/ui/ChoiceChip';
+import { DomainChoiceCard } from '@/components/ui/DomainChoiceCard';
 import { Screen } from '@/components/ui/Screen';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import { useRepositories } from '@/hooks/useRepositories';
 import { useStartPractice } from '@/hooks/usePracticeSession';
-import { DOMAIN_IDS, DOMAIN_LABELS, type DomainId } from '@/types/domain';
+import { DOMAIN_IDS, type DomainId } from '@/types/domain';
 import { PRACTICE_LENGTHS, type PracticeDomainFilter, type PracticeLength } from '@/types/session';
 import { colors, spacing } from '@/theme/tokens';
 
@@ -49,13 +52,17 @@ export default function PracticeSetupScreen() {
   return (
     <Screen edges={['right', 'bottom', 'left']}>
       <View style={styles.section}>
-        <AppText variant="subtitle">Domain</AppText>
+        <SectionHeader title="Domain" subtitle="Focus one area or mix the full outline" />
         <View style={styles.choices}>
-          <ChoiceChip label="All Domains" selected={domain === 'all'} onPress={() => setDomain('all')} />
+          <DomainChoiceCard
+            domain="all"
+            selected={domain === 'all'}
+            onPress={() => setDomain('all')}
+          />
           {DOMAIN_IDS.map((id: DomainId) => (
-            <ChoiceChip
+            <DomainChoiceCard
               key={id}
-              label={DOMAIN_LABELS[id]}
+              domain={id}
               selected={domain === id}
               onPress={() => setDomain(id)}
             />
@@ -64,38 +71,44 @@ export default function PracticeSetupScreen() {
       </View>
 
       <View style={styles.section}>
-        <AppText variant="subtitle">Session length</AppText>
-        <View style={styles.row}>
-          {PRACTICE_LENGTHS.map((value) => (
-            <View key={value} style={styles.flex}>
-              <ChoiceChip
-                label={`${value}`}
-                selected={length === value}
-                onPress={() => setLength(value)}
-              />
-            </View>
-          ))}
-        </View>
-        <AppText variant="caption" color={colors.inkSecondary}>
-          Session length in questions. {available} sample question{available === 1 ? '' : 's'}{' '}
-          available
-          {actualCount < length ? `. This session will use ${actualCount}.` : '.'}
-        </AppText>
+        <SectionHeader title="Session length" subtitle="Number of questions in this sitting" />
+        <Card>
+          <View style={styles.row}>
+            {PRACTICE_LENGTHS.map((value) => (
+              <View key={value} style={styles.flex}>
+                <ChoiceChip
+                  label={`${value}`}
+                  selected={length === value}
+                  onPress={() => setLength(value)}
+                />
+              </View>
+            ))}
+          </View>
+          <AppText variant="caption" color={colors.inkSecondary} style={styles.hint}>
+            {available} sample question{available === 1 ? '' : 's'} available
+            {actualCount < length ? `. This session will use ${actualCount}.` : '.'}
+          </AppText>
+        </Card>
       </View>
 
       {error ? (
-        <AppText variant="body" color={colors.danger}>
+        <AppText variant="body" color={colors.danger} style={styles.message}>
           {error}
         </AppText>
       ) : null}
 
       {actualCount === 0 ? (
-        <AppText variant="body" color={colors.inkSecondary}>
+        <AppText variant="body" color={colors.inkSecondary} style={styles.message}>
           No questions are available for this selection yet.
         </AppText>
       ) : null}
 
-      <AppButton label="Start Practice" onPress={() => void start()} disabled={busy || actualCount === 0} />
+      <AppButton
+        label="Start Practice"
+        icon="play"
+        onPress={() => void start()}
+        disabled={busy || actualCount === 0}
+      />
     </Screen>
   );
 }
@@ -114,5 +127,11 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1,
+  },
+  hint: {
+    marginTop: spacing.md,
+  },
+  message: {
+    marginBottom: spacing.md,
   },
 });

@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AnswerOption, type AnswerState } from '@/components/ui/AnswerOption';
 import { AppText } from '@/components/ui/AppText';
+import { Card } from '@/components/ui/Card';
 import { DomainBadge } from '@/components/ui/DomainBadge';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import type { Question } from '@/types/question';
@@ -46,14 +47,20 @@ export function QuestionPrompt({
 }: QuestionPromptProps) {
   return (
     <View style={styles.wrap}>
-      <View style={styles.meta}>
-        <DomainBadge domain={question.domain} />
-        <AppText variant="caption" color={colors.inkSecondary}>
-          Question {index + 1} of {total}
-        </AppText>
+      <View style={styles.progressBlock}>
+        <View style={styles.meta}>
+          <DomainBadge domain={question.domain} />
+          <AppText variant="caption" color={colors.inkSecondary}>
+            Question {index + 1} of {total}
+          </AppText>
+        </View>
+        <ProgressBar value={index + (submitted ? 1 : 0)} max={total} />
       </View>
-      <ProgressBar value={index + (submitted ? 1 : 0)} max={total} />
-      <AppText variant="subtitle">{question.questionText}</AppText>
+
+      <Card>
+        <AppText variant="subtitle">{question.questionText}</AppText>
+      </Card>
+
       <View style={styles.options}>
         {question.options.map((option) => (
           <AnswerOption
@@ -73,6 +80,9 @@ export function QuestionPrompt({
 const styles = StyleSheet.create({
   wrap: {
     gap: spacing.lg,
+  },
+  progressBlock: {
+    gap: spacing.md,
   },
   meta: {
     flexDirection: 'row',

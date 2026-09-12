@@ -1,17 +1,15 @@
-import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { FeedbackPanel } from '@/components/question/FeedbackPanel';
 import { QuestionPrompt } from '@/components/question/QuestionPrompt';
 import { AppButton } from '@/components/ui/AppButton';
-import { AppText } from '@/components/ui/AppText';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { FlagControl } from '@/components/ui/FlagControl';
 import { Screen } from '@/components/ui/Screen';
 import { usePracticeSession } from '@/hooks/usePracticeSession';
 import { firstParam } from '@/lib/searchParams';
-import { colors, spacing } from '@/theme/tokens';
 
 export default function PracticeSessionScreen() {
   const params = useLocalSearchParams<{ id?: string | string[] }>();
@@ -41,7 +39,7 @@ export default function PracticeSessionScreen() {
   if (error) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Unable to open practice" body={error} />
+        <EmptyState title="Unable to open practice" body={error} icon="alert-circle-outline" />
         <AppButton label="Home" variant="secondary" onPress={() => router.replace('/')} />
       </Screen>
     );
@@ -50,7 +48,7 @@ export default function PracticeSessionScreen() {
   if (!session || !currentQuestion) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Loading practice" body="Restoring your local session." />
+        <EmptyState title="Loading practice" body="Restoring your local session." icon="sync-outline" />
       </Screen>
     );
   }
@@ -73,16 +71,22 @@ export default function PracticeSessionScreen() {
   return (
     <Screen
       edges={['right', 'bottom', 'left']}
+      contentStyle={styles.content}
       footer={
         <>
           {!submitted ? (
             <AppButton
               label="Submit answer"
+              icon="checkmark"
               onPress={() => void submit()}
               disabled={!selectedOptionId || busy}
             />
           ) : (
-            <AppButton label={isLast ? 'See results' : 'Next Question'} onPress={() => void next()} />
+            <AppButton
+              label={isLast ? 'See results' : 'Next Question'}
+              icon={isLast ? 'stats-chart-outline' : 'arrow-forward'}
+              onPress={() => void next()}
+            />
           )}
           <AppButton label="Home" variant="ghost" onPress={() => router.replace('/')} />
         </>
@@ -96,22 +100,11 @@ export default function PracticeSessionScreen() {
         onSelect={selectOption}
       />
 
-      <Pressable
+      <FlagControl
+        flagged={flagged}
         onPress={() => void toggleFlag()}
-        accessibilityRole="button"
-        accessibilityState={{ selected: flagged }}
-        accessibilityLabel={flagged ? 'Remove flag from question' : 'Flag question'}
-        hitSlop={8}
-        style={styles.flag}>
-        <Ionicons
-          name={flagged ? 'flag' : 'flag-outline'}
-          size={18}
-          color={flagged ? colors.flag : colors.inkSecondary}
-        />
-        <AppText variant="bodyStrong" color={flagged ? colors.flag : colors.inkSecondary}>
-          {flagged ? 'Flagged for review' : 'Flag Question'}
-        </AppText>
-      </Pressable>
+        label={flagged ? 'Flagged for review' : 'Flag Question'}
+      />
 
       {submitted && selectedOptionId ? (
         <FeedbackPanel question={currentQuestion} selectedOptionId={selectedOptionId} />
@@ -121,12 +114,7 @@ export default function PracticeSessionScreen() {
 }
 
 const styles = StyleSheet.create({
-  flag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    minHeight: 44,
-    marginTop: spacing.lg,
-    marginBottom: spacing.lg,
+  content: {
+    paddingTop: spacing.md,
   },
 });

@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 import { StatTile } from '@/components/ui/StatTile';
 import { formatPercent } from '@/lib/format';
 import { DOMAIN_LABELS } from '@/types/domain';
@@ -20,16 +21,17 @@ export function ResultsSummary({ results, caption }: ResultsSummaryProps) {
         <AppText variant="label" color={colors.accent}>
           PRACTICE PERFORMANCE
         </AppText>
-        <AppText variant="display" style={styles.score}>
+        <AppText variant="display" color={colors.navy} style={styles.score}>
           {formatPercent(results.percent)}
         </AppText>
-        <AppText variant="body" color={colors.inkSecondary}>
+        <ProgressBar value={results.percent ?? 0} max={100} tone="navy" />
+        <AppText variant="body" color={colors.inkSecondary} style={styles.caption}>
           {caption}
         </AppText>
         <View style={styles.stats}>
-          <StatTile label="Correct" value={String(results.correct)} />
-          <StatTile label="Incorrect" value={String(results.incorrect)} />
-          <StatTile label="Unanswered" value={String(results.unanswered)} />
+          <StatTile label="Correct" value={String(results.correct)} tone="success" />
+          <StatTile label="Incorrect" value={String(results.incorrect)} tone="danger" />
+          <StatTile label="Unanswered" value={String(results.unanswered)} tone="muted" />
         </View>
       </Card>
       <Card>
@@ -37,13 +39,18 @@ export function ResultsSummary({ results, caption }: ResultsSummaryProps) {
         <View style={styles.domains}>
           {results.domainPerformance.map((item) => (
             <View key={item.domain} style={styles.domainRow}>
-              <View style={styles.domainCopy}>
-                <AppText variant="bodyStrong">{DOMAIN_LABELS[item.domain]}</AppText>
-                <AppText variant="caption" color={colors.inkSecondary}>
-                  {item.correct}/{item.answered} answered correctly
+              <View style={styles.domainHead}>
+                <View style={styles.domainCopy}>
+                  <AppText variant="bodyStrong">{DOMAIN_LABELS[item.domain]}</AppText>
+                  <AppText variant="caption" color={colors.inkSecondary}>
+                    {item.correct}/{item.answered} answered correctly
+                  </AppText>
+                </View>
+                <AppText variant="subtitle" color={colors.navy}>
+                  {formatPercent(item.percent)}
                 </AppText>
               </View>
-              <AppText variant="subtitle">{formatPercent(item.percent)}</AppText>
+              <ProgressBar value={item.percent ?? 0} max={100} size="sm" />
             </View>
           ))}
         </View>
@@ -58,7 +65,10 @@ const styles = StyleSheet.create({
   },
   score: {
     marginTop: spacing.sm,
-    marginBottom: spacing.xs,
+    marginBottom: spacing.md,
+  },
+  caption: {
+    marginTop: spacing.md,
   },
   stats: {
     flexDirection: 'row',
@@ -67,10 +77,13 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
   },
   domains: {
-    gap: spacing.lg,
-    marginTop: spacing.md,
+    gap: spacing.xl,
+    marginTop: spacing.lg,
   },
   domainRow: {
+    gap: spacing.sm,
+  },
+  domainHead: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',

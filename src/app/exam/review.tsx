@@ -18,7 +18,11 @@ export default function ExamReviewScreen() {
   if (!results && !error) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Loading review" body="Restoring your answers and explanations." />
+        <EmptyState
+          title="Loading review"
+          body="Restoring your answers and explanations."
+          icon="sync-outline"
+        />
       </Screen>
     );
   }
@@ -26,7 +30,11 @@ export default function ExamReviewScreen() {
   if (error || !results) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Review unavailable" body={error ?? 'This exam could not be loaded.'} />
+        <EmptyState
+          title="Review unavailable"
+          body={error ?? 'This exam could not be loaded.'}
+          icon="alert-circle-outline"
+        />
       </Screen>
     );
   }

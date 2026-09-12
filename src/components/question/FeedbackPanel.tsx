@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/AppText';
@@ -14,8 +15,16 @@ export function FeedbackPanel({ question, selectedOptionId }: FeedbackPanelProps
   const isCorrect = selectedOptionId === question.correctAnswerId;
   return (
     <View style={styles.stack}>
-      <Card style={{ backgroundColor: isCorrect ? colors.successSoft : colors.dangerSoft }}>
-        <View accessibilityRole="text" accessibilityLabel={isCorrect ? 'Correct' : 'Incorrect'}>
+      <Card tone={isCorrect ? 'success' : 'danger'}>
+        <View
+          style={styles.verdict}
+          accessibilityRole="text"
+          accessibilityLabel={isCorrect ? 'Correct' : 'Incorrect'}>
+          <Ionicons
+            name={isCorrect ? 'checkmark-circle' : 'close-circle'}
+            size={22}
+            color={isCorrect ? colors.success : colors.danger}
+          />
           <AppText variant="subtitle" color={isCorrect ? colors.success : colors.danger}>
             {isCorrect ? 'Correct' : 'Incorrect'}
           </AppText>
@@ -27,16 +36,20 @@ export function FeedbackPanel({ question, selectedOptionId }: FeedbackPanelProps
       <Card>
         <AppText variant="subtitle">Why each option</AppText>
         <View style={styles.reasons}>
-          {question.options.map((option) => (
-            <View key={option.id} style={styles.reason}>
-              <AppText variant="bodyStrong">
-                {option.id.toUpperCase()}. {option.text}
-              </AppText>
-              <AppText variant="body" color={colors.inkSecondary}>
-                {question.optionExplanations[option.id]}
-              </AppText>
-            </View>
-          ))}
+          {question.options.map((option) => {
+            const correct = option.id === question.correctAnswerId;
+            return (
+              <View key={option.id} style={styles.reason}>
+                <AppText variant="bodyStrong" color={correct ? colors.success : colors.ink}>
+                  {option.id.toUpperCase()}. {option.text}
+                  {correct ? ' · Correct' : ''}
+                </AppText>
+                <AppText variant="body" color={colors.inkSecondary}>
+                  {question.optionExplanations[option.id]}
+                </AppText>
+              </View>
+            );
+          })}
         </View>
       </Card>
     </View>
@@ -46,6 +59,11 @@ export function FeedbackPanel({ question, selectedOptionId }: FeedbackPanelProps
 const styles = StyleSheet.create({
   stack: {
     gap: spacing.md,
+  },
+  verdict: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
   },
   block: {
     marginTop: spacing.sm,

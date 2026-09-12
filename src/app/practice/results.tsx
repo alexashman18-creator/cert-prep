@@ -45,7 +45,11 @@ export default function PracticeResultsScreen() {
   if (!results && !error) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Loading results" body="Calculating your practice performance." />
+        <EmptyState
+          title="Loading results"
+          body="Calculating your practice performance."
+          icon="stats-chart-outline"
+        />
       </Screen>
     );
   }
@@ -53,7 +57,11 @@ export default function PracticeResultsScreen() {
   if (error || !results) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Results unavailable" body={error ?? 'This session has no results yet.'} />
+        <EmptyState
+          title="Results unavailable"
+          body={error ?? 'This session has no results yet.'}
+          icon="alert-circle-outline"
+        />
         <AppButton label="Home" onPress={() => router.replace('/')} />
       </Screen>
     );
@@ -76,10 +84,16 @@ export default function PracticeResultsScreen() {
               ? `Review these mistakes (${missedQuestionIds.length})`
               : 'Review Mistakes'
           }
+          icon="refresh-outline"
           onPress={() => void reviewMistakes()}
           disabled={missedQuestionIds.length === 0}
         />
-        <AppButton label="Practice Again" variant="secondary" onPress={() => void practiceAgain()} />
+        <AppButton
+          label="Practice Again"
+          variant="secondary"
+          icon="play-outline"
+          onPress={() => void practiceAgain()}
+        />
         <AppButton label="Home" variant="ghost" onPress={() => router.replace('/')} />
       </View>
     </Screen>

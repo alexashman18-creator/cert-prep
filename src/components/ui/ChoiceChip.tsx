@@ -17,7 +17,7 @@ export function ChoiceChip({ label, selected, onPress }: ChoiceChipProps) {
       accessibilityState={{ selected }}
       accessibilityLabel={label}
       style={[styles.chip, selected && styles.selected]}>
-      <AppText variant="bodyStrong" color={selected ? colors.surface : colors.ink} align="center">
+      <AppText variant="bodyStrong" color={selected ? colors.inkOnAccent : colors.ink} align="center">
         {label}
       </AppText>
     </Pressable>

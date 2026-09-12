@@ -1,26 +1,58 @@
 import { Platform, type ViewStyle } from 'react-native';
 
+import type { DomainId } from '@/types/domain';
+
 export const colors = {
-  background: '#F3F6F9',
+  background: '#E8EEF5',
+  backgroundWarm: '#F4F7FA',
   surface: '#FFFFFF',
-  surfaceMuted: '#EAF0F6',
-  ink: '#12263A',
-  inkSecondary: '#4A5D73',
+  surfaceMuted: '#E4EDF5',
+  surfaceNavy: '#0B2A4A',
+  ink: '#10233A',
+  inkSecondary: '#4A5F75',
   inkTertiary: '#7A8B9C',
-  border: '#D7E0EA',
-  accent: '#0B5CAB',
-  accentPressed: '#094A89',
-  accentSoft: '#E6F0F8',
+  inkOnAccent: '#F7FBFF',
+  border: '#D3DEE8',
+  borderStrong: '#B7C7D6',
+  accent: '#0A6CBD',
+  accentPressed: '#085A9E',
+  accentDeep: '#064A84',
+  accentSoft: '#D9EAF8',
+  accentMuted: '#EEF5FB',
   success: '#1B7F4E',
-  successSoft: '#E6F6EE',
+  successSoft: '#E5F6ED',
   danger: '#B42318',
   dangerSoft: '#FDECEC',
-  warning: '#B54708',
+  warning: '#9A4B0F',
   warningSoft: '#FEF4E6',
   flag: '#9A3412',
-  navy: '#0F2A44',
-  overlay: 'rgba(18, 38, 58, 0.45)',
+  navy: '#0B2A4A',
+  navySoft: '#E4EAF1',
+  overlay: 'rgba(11, 42, 74, 0.46)',
+  heroOrb: 'rgba(10, 108, 189, 0.28)',
+  heroOrbLight: 'rgba(255, 255, 255, 0.08)',
 } as const;
+
+export const domainThemes: Record<
+  DomainId,
+  { fg: string; bg: string; border: string }
+> = {
+  cloud_concepts: {
+    fg: '#0A6CBD',
+    bg: '#D9EAF8',
+    border: '#B5D4EF',
+  },
+  architecture_services: {
+    fg: '#0F6A6A',
+    bg: '#E3F3F2',
+    border: '#B9D9D7',
+  },
+  management_governance: {
+    fg: '#5B4B8A',
+    bg: '#EEEAF6',
+    border: '#D0C8E4',
+  },
+};
 
 export const spacing = {
   xs: 4,
@@ -44,10 +76,10 @@ export const radii = {
 
 export const typography = {
   display: {
-    fontSize: 30,
-    lineHeight: 36,
+    fontSize: 34,
+    lineHeight: 40,
     fontWeight: '700' as const,
-    letterSpacing: -0.6,
+    letterSpacing: -0.8,
   },
   title: {
     fontSize: 22,
@@ -74,35 +106,55 @@ export const typography = {
     fontSize: 13,
     lineHeight: 18,
     fontWeight: '500' as const,
-    letterSpacing: 0.2,
+    letterSpacing: 0.15,
   },
   label: {
-    fontSize: 12,
-    lineHeight: 16,
-    fontWeight: '600' as const,
-    letterSpacing: 0.6,
+    fontSize: 11,
+    lineHeight: 14,
+    fontWeight: '700' as const,
+    letterSpacing: 0.8,
   },
 } as const;
 
-export const shadows: Record<'card' | 'raised', ViewStyle> = {
-  card: Platform.select<ViewStyle>({
-    web: { boxShadow: '0 6px 16px rgba(18, 38, 58, 0.06)' },
+export const shadows: Record<'none' | 'card' | 'raised' | 'button', ViewStyle> = {
+  none: Platform.select<ViewStyle>({
+    web: { boxShadow: 'none' },
     default: {
-      shadowColor: '#12263A',
+      shadowColor: 'transparent',
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0,
+      shadowRadius: 0,
+      elevation: 0,
+    },
+  })!,
+  card: Platform.select<ViewStyle>({
+    web: { boxShadow: '0 8px 20px rgba(16, 35, 58, 0.06)' },
+    default: {
+      shadowColor: '#10233A',
       shadowOffset: { width: 0, height: 6 },
-      shadowOpacity: 0.06,
-      shadowRadius: 16,
-      elevation: 3,
+      shadowOpacity: 0.07,
+      shadowRadius: 14,
+      elevation: 2,
     },
   })!,
   raised: Platform.select<ViewStyle>({
-    web: { boxShadow: '0 10px 20px rgba(18, 38, 58, 0.08)' },
+    web: { boxShadow: '0 12px 28px rgba(16, 35, 58, 0.1)' },
     default: {
-      shadowColor: '#12263A',
+      shadowColor: '#10233A',
       shadowOffset: { width: 0, height: 10 },
-      shadowOpacity: 0.08,
+      shadowOpacity: 0.1,
       shadowRadius: 20,
-      elevation: 5,
+      elevation: 4,
+    },
+  })!,
+  button: Platform.select<ViewStyle>({
+    web: { boxShadow: '0 6px 14px rgba(10, 108, 189, 0.22)' },
+    default: {
+      shadowColor: '#0A6CBD',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.22,
+      shadowRadius: 10,
+      elevation: 3,
     },
   })!,
 };

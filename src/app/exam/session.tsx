@@ -9,11 +9,12 @@ import { QuestionPrompt } from '@/components/question/QuestionPrompt';
 import { AppButton } from '@/components/ui/AppButton';
 import { AppText } from '@/components/ui/AppText';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { FlagControl } from '@/components/ui/FlagControl';
 import { Screen } from '@/components/ui/Screen';
 import { useExamSession } from '@/hooks/useExamSession';
 import { firstParam } from '@/lib/searchParams';
 import { useUiStore } from '@/stores/uiStore';
-import { colors, spacing } from '@/theme/tokens';
+import { colors, radii, spacing } from '@/theme/tokens';
 
 export default function ExamSessionScreen() {
   const params = useLocalSearchParams<{ id?: string | string[] }>();
@@ -85,7 +86,7 @@ export default function ExamSessionScreen() {
   if (error) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Unable to open exam" body={error} />
+        <EmptyState title="Unable to open exam" body={error} icon="alert-circle-outline" />
         <AppButton label="Home" variant="secondary" onPress={() => router.replace('/')} />
       </Screen>
     );
@@ -94,7 +95,11 @@ export default function ExamSessionScreen() {
   if (!session || !currentQuestion) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Restoring exam" body="Reloading your questions, answers, flags, and timer." />
+        <EmptyState
+          title="Restoring exam"
+          body="Reloading your questions, answers, flags, and timer."
+          icon="sync-outline"
+        />
       </Screen>
     );
   }
@@ -118,6 +123,7 @@ export default function ExamSessionScreen() {
   return (
     <Screen
       edges={['right', 'bottom', 'left']}
+      contentStyle={styles.content}
       footer={
         <>
           <View style={styles.row}>
@@ -125,6 +131,7 @@ export default function ExamSessionScreen() {
               <AppButton
                 label="Previous"
                 variant="secondary"
+                icon="arrow-back"
                 onPress={() => void goToIndex(Math.max(0, session.currentIndex - 1))}
                 disabled={session.currentIndex === 0}
               />
@@ -132,6 +139,7 @@ export default function ExamSessionScreen() {
             <View style={styles.flex}>
               <AppButton
                 label="Next"
+                icon="arrow-forward"
                 onPress={() =>
                   void goToIndex(Math.min(questions.length - 1, session.currentIndex + 1))
                 }
@@ -154,7 +162,7 @@ export default function ExamSessionScreen() {
           accessibilityLabel="Open question navigator"
           hitSlop={8}
           style={styles.navButton}>
-          <Ionicons name="grid-outline" size={18} color={colors.accent} />
+          <Ionicons name="grid-outline" size={16} color={colors.accent} />
           <AppText variant="bodyStrong" color={colors.accent}>
             Navigator
           </AppText>
@@ -170,22 +178,7 @@ export default function ExamSessionScreen() {
         onSelect={(optionId) => void saveSelection(optionId)}
       />
 
-      <Pressable
-        onPress={() => void toggleFlag()}
-        accessibilityRole="button"
-        accessibilityState={{ selected: flagged }}
-        accessibilityLabel={flagged ? 'Remove review flag' : 'Flag for review'}
-        hitSlop={8}
-        style={styles.flag}>
-        <Ionicons
-          name={flagged ? 'flag' : 'flag-outline'}
-          size={18}
-          color={flagged ? colors.flag : colors.inkSecondary}
-        />
-        <AppText variant="bodyStrong" color={flagged ? colors.flag : colors.inkSecondary}>
-          {flagged ? 'Flagged for review' : 'Flag for review'}
-        </AppText>
-      </Pressable>
+      <FlagControl flagged={flagged} onPress={() => void toggleFlag()} />
 
       <QuestionNavigator
         visible={navigatorOpen}
@@ -201,6 +194,9 @@ export default function ExamSessionScreen() {
 }
 
 const styles = StyleSheet.create({
+  content: {
+    paddingTop: spacing.md,
+  },
   toolbar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -213,15 +209,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
-    minHeight: 44,
-  },
-  flag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    minHeight: 44,
-    marginTop: spacing.lg,
-    marginBottom: spacing.lg,
+    minHeight: 36,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: radii.full,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
   },
   row: {
     flexDirection: 'row',

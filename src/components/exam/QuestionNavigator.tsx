@@ -27,10 +27,13 @@ export function QuestionNavigator({
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable style={styles.overlay} onPress={onClose}>
         <Pressable style={styles.sheet} onPress={() => undefined}>
+          <View style={styles.handle} />
           <AppText variant="subtitle">Question navigator</AppText>
-          <AppText variant="caption" color={colors.inkSecondary}>
-            Answered · Flagged · Current
-          </AppText>
+          <View style={styles.legend}>
+            <LegendSwatch color={colors.accentSoft} border={colors.accent} label="Answered" />
+            <LegendSwatch color={colors.warningSoft} border={colors.flag} label="Flagged" />
+            <LegendSwatch color={colors.navy} border={colors.navy} label="Current" light />
+          </View>
           <View style={styles.grid}>
             {Array.from({ length: total }, (_, index) => {
               const current = index === currentIndex;
@@ -54,7 +57,7 @@ export function QuestionNavigator({
                   ]}>
                   <AppText
                     variant="bodyStrong"
-                    color={current ? colors.surface : colors.ink}
+                    color={current ? colors.inkOnAccent : colors.ink}
                     align="center"
                     maxFontSizeMultiplier={1.2}>
                     {index + 1}
@@ -67,6 +70,29 @@ export function QuestionNavigator({
         </Pressable>
       </Pressable>
     </Modal>
+  );
+}
+
+function LegendSwatch({
+  color,
+  border,
+  label,
+  light,
+}: {
+  color: string;
+  border: string;
+  label: string;
+  light?: boolean;
+}) {
+  return (
+    <View style={styles.legendItem}>
+      <View style={[styles.swatch, { backgroundColor: color, borderColor: border }]}>
+        {light ? <View style={styles.swatchDot} /> : null}
+      </View>
+      <AppText variant="caption" color={colors.inkSecondary}>
+        {label}
+      </AppText>
+    </View>
   );
 }
 
@@ -83,6 +109,38 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     gap: spacing.md,
   },
+  handle: {
+    alignSelf: 'center',
+    width: 36,
+    height: 4,
+    borderRadius: radii.full,
+    backgroundColor: colors.borderStrong,
+    marginBottom: spacing.xs,
+  },
+  legend: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.md,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  swatch: {
+    width: 14,
+    height: 14,
+    borderRadius: 4,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  swatchDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: colors.surface,
+  },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -96,7 +154,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: colors.backgroundWarm,
   },
   answered: {
     backgroundColor: colors.accentSoft,

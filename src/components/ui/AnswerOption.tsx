@@ -13,12 +13,37 @@ interface AnswerOptionProps {
   onPress: () => void;
 }
 
-const LETTER_COLORS: Record<AnswerState, { bg: string; fg: string; border: string }> = {
-  idle: { bg: colors.surfaceMuted, fg: colors.ink, border: colors.border },
-  selected: { bg: colors.accentSoft, fg: colors.accent, border: colors.accent },
-  correct: { bg: colors.successSoft, fg: colors.success, border: colors.success },
-  incorrect: { bg: colors.dangerSoft, fg: colors.danger, border: colors.danger },
-  muted: { bg: colors.surface, fg: colors.inkTertiary, border: colors.border },
+const TONE: Record<AnswerState, { bg: string; fg: string; border: string; letterBg: string }> = {
+  idle: {
+    bg: colors.surface,
+    fg: colors.ink,
+    border: colors.border,
+    letterBg: colors.surfaceMuted,
+  },
+  selected: {
+    bg: colors.accentMuted,
+    fg: colors.accentDeep,
+    border: colors.accent,
+    letterBg: colors.accentSoft,
+  },
+  correct: {
+    bg: colors.successSoft,
+    fg: colors.success,
+    border: colors.success,
+    letterBg: '#D8F0E3',
+  },
+  incorrect: {
+    bg: colors.dangerSoft,
+    fg: colors.danger,
+    border: colors.danger,
+    letterBg: '#F8D4D1',
+  },
+  muted: {
+    bg: colors.backgroundWarm,
+    fg: colors.inkTertiary,
+    border: colors.border,
+    letterBg: colors.surfaceMuted,
+  },
 };
 
 const STATE_STATUS: Record<AnswerState, string | null> = {
@@ -30,7 +55,7 @@ const STATE_STATUS: Record<AnswerState, string | null> = {
 };
 
 export function AnswerOption({ label, text, state, disabled, onPress }: AnswerOptionProps) {
-  const tone = LETTER_COLORS[state];
+  const tone = TONE[state];
   const status = STATE_STATUS[state];
   return (
     <Pressable
@@ -43,7 +68,7 @@ export function AnswerOption({ label, text, state, disabled, onPress }: AnswerOp
       }}
       accessibilityLabel={`${label}. ${text}${status ? `. ${status}` : ''}`}
       style={[styles.row, { borderColor: tone.border, backgroundColor: tone.bg }]}>
-      <View style={[styles.letter, { backgroundColor: colors.surface }]}>
+      <View style={[styles.letter, { backgroundColor: tone.letterBg }]}>
         <AppText variant="bodyStrong" color={tone.fg} maxFontSizeMultiplier={1.3}>
           {label}
         </AppText>
@@ -73,11 +98,11 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: radii.md,
     padding: spacing.md,
-    minHeight: 52,
+    minHeight: 56,
   },
   letter: {
-    width: 32,
-    height: 32,
+    width: 34,
+    height: 34,
     borderRadius: radii.full,
     alignItems: 'center',
     justifyContent: 'center',

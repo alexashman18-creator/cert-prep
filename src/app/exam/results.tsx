@@ -18,7 +18,11 @@ export default function ExamResultsScreen() {
   if (!results && !error) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Loading results" body="Calculating your practice exam performance." />
+        <EmptyState
+          title="Loading results"
+          body="Calculating your practice exam performance."
+          icon="stats-chart-outline"
+        />
       </Screen>
     );
   }
@@ -26,7 +30,11 @@ export default function ExamResultsScreen() {
   if (error || !results) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Results unavailable" body={error ?? 'This exam has no results yet.'} />
+        <EmptyState
+          title="Results unavailable"
+          body={error ?? 'This exam has no results yet.'}
+          icon="alert-circle-outline"
+        />
         <AppButton label="Home" onPress={() => router.replace('/')} />
       </Screen>
     );
@@ -44,6 +52,7 @@ export default function ExamResultsScreen() {
       <View style={styles.actions}>
         <AppButton
           label="Review Answers"
+          icon="list-outline"
           onPress={() => router.push({ pathname: '/exam/review', params: { id: results.sessionId } })}
         />
         <AppButton label="Home" variant="secondary" onPress={() => router.replace('/')} />

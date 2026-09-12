@@ -1,7 +1,8 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/AppText';
-import { colors, radii, spacing } from '@/theme/tokens';
+import { colors, radii, shadows, spacing } from '@/theme/tokens';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
@@ -11,6 +12,7 @@ interface AppButtonProps {
   variant?: ButtonVariant;
   disabled?: boolean;
   fullWidth?: boolean;
+  icon?: keyof typeof Ionicons.glyphMap;
 }
 
 export function AppButton({
@@ -19,7 +21,11 @@ export function AppButton({
   variant = 'primary',
   disabled = false,
   fullWidth = true,
+  icon,
 }: AppButtonProps) {
+  const labelColor =
+    variant === 'primary' || variant === 'danger' ? colors.inkOnAccent : colors.ink;
+
   return (
     <Pressable
       accessibilityRole="button"
@@ -31,14 +37,13 @@ export function AppButton({
         styles.base,
         styles[variant],
         fullWidth && styles.fullWidth,
+        variant === 'primary' && !disabled && shadows.button,
         pressed && !disabled && styles.pressed,
         disabled && styles.disabled,
       ]}>
-      <View>
-        <AppText
-          variant="bodyStrong"
-          color={variant === 'primary' || variant === 'danger' ? colors.surface : colors.ink}
-          align="center">
+      <View style={styles.content}>
+        {icon ? <Ionicons name={icon} size={18} color={labelColor} /> : null}
+        <AppText variant="bodyStrong" color={labelColor} align="center">
           {label}
         </AppText>
       </View>
@@ -55,6 +60,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.md,
   },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+  },
   fullWidth: {
     alignSelf: 'stretch',
   },
@@ -64,7 +75,7 @@ const styles = StyleSheet.create({
   secondary: {
     backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.borderStrong,
   },
   ghost: {
     backgroundColor: 'transparent',

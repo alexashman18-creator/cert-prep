@@ -7,7 +7,9 @@ import { AppButton } from '@/components/ui/AppButton';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
 import { ChoiceDialog } from '@/components/ui/ChoiceDialog';
+import { HeroPanel } from '@/components/ui/HeroPanel';
 import { Screen } from '@/components/ui/Screen';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import { StatTile } from '@/components/ui/StatTile';
 import { SAMPLE_CONTENT_NOTICE } from '@/data/sampleQuestions';
 import { useHomeData, type HomeData } from '@/hooks/useHomeData';
@@ -71,30 +73,40 @@ export default function HomeScreen() {
 
   return (
     <Screen>
-      <View style={styles.hero}>
-        <AppText variant="label" color={colors.accent}>
-          AZ-900
+      <HeroPanel style={styles.hero}>
+        <View style={styles.heroBadge}>
+          <AppText variant="label" color={colors.inkOnAccent}>
+            AZ-900
+          </AppText>
+        </View>
+        <AppText variant="display" color={colors.inkOnAccent}>
+          AZ-900 Prep
         </AppText>
-        <AppText variant="display">AZ-900 Prep</AppText>
-        <AppText variant="body" color={colors.inkSecondary}>
-          Master Microsoft Azure Fundamentals
+        <AppText variant="body" color="rgba(247, 251, 255, 0.82)">
+          Master Microsoft Azure Fundamentals with offline practice and timed mock exams.
         </AppText>
-      </View>
+      </HeroPanel>
 
-      <View style={styles.stats}>
-        <StatTile label="Questions answered" value={formatCount(data?.progress.questionsAnswered ?? 0)} />
-        <StatTile
-          label="Accuracy"
-          value={data && data.progress.questionsAnswered > 0 ? formatPercent(data.accuracy) : '—'}
-        />
-        <StatTile
-          label="Mock exam best"
-          value={formatPercent(data?.progress.mockExamBestPercent ?? null)}
-        />
+      <View style={styles.section}>
+        <SectionHeader title="Your progress" subtitle="Saved on this device" />
+        <View style={styles.stats}>
+          <StatTile label="Questions answered" value={formatCount(data?.progress.questionsAnswered ?? 0)} />
+          <StatTile
+            label="Accuracy"
+            value={data && data.progress.questionsAnswered > 0 ? formatPercent(data.accuracy) : '—'}
+          />
+          <StatTile
+            label="Mock exam best"
+            value={formatPercent(data?.progress.mockExamBestPercent ?? null)}
+          />
+        </View>
       </View>
 
       {data?.inProgressExam ? (
-        <Card style={styles.resume}>
+        <Card tone="accent" style={styles.resume}>
+          <AppText variant="label" color={colors.accent}>
+            IN PROGRESS
+          </AppText>
           <AppText variant="subtitle">Resume mock exam</AppText>
           <AppText variant="body" color={colors.inkSecondary}>
             Your previous exam is saved locally, including answers, flags, and remaining time. The
@@ -102,6 +114,7 @@ export default function HomeScreen() {
           </AppText>
           <AppButton
             label="Continue exam"
+            icon="play"
             onPress={() =>
               router.push({ pathname: '/exam/session', params: { id: data.inProgressExam!.id } })
             }
@@ -111,6 +124,9 @@ export default function HomeScreen() {
 
       {data?.inProgressPractice ? (
         <Card style={styles.resume}>
+          <AppText variant="label" color={colors.accent}>
+            IN PROGRESS
+          </AppText>
           <AppText variant="subtitle">Resume practice</AppText>
           <AppText variant="body" color={colors.inkSecondary}>
             {data.inProgressPractice.currentIndex >= data.inProgressPractice.questionCount - 1
@@ -120,6 +136,7 @@ export default function HomeScreen() {
           <AppButton
             label="Continue practice"
             variant="secondary"
+            icon="play-outline"
             onPress={() =>
               router.push({
                 pathname: '/practice/session',
@@ -130,32 +147,39 @@ export default function HomeScreen() {
         </Card>
       ) : null}
 
-      <View style={styles.actions}>
-        <ActionCard
-          icon="book-outline"
-          title="Practice"
-          subtitle="Choose a domain and session length"
-          onPress={() => router.push('/practice/setup')}
-        />
-        <ActionCard
-          icon="timer-outline"
-          title="Mock Exam"
-          subtitle={
-            data ? mockExamSubtitle(data.questionBankSize) : 'Loading available questions…'
-          }
-          onPress={openExam}
-          disabled={startingExam || !data}
-        />
-        <ActionCard
-          icon="refresh-outline"
-          title="Review Mistakes"
-          subtitle={
-            data && data.mistakeCount > 0
-              ? `${data.mistakeCount} saved question${data.mistakeCount === 1 ? '' : 's'}`
-              : 'Practice questions you missed'
-          }
-          onPress={() => router.push('/review')}
-        />
+      <View style={styles.section}>
+        <SectionHeader title="Study" subtitle="Practice, sit a timed exam, or retry misses" />
+        <View style={styles.actions}>
+          <ActionCard
+            icon="book-outline"
+            title="Practice"
+            subtitle="Choose a domain and session length"
+            tone="practice"
+            onPress={() => router.push('/practice/setup')}
+          />
+          <ActionCard
+            icon="timer-outline"
+            title="Mock Exam"
+            subtitle={
+              data ? mockExamSubtitle(data.questionBankSize) : 'Loading available questions…'
+            }
+            tone="exam"
+            onPress={openExam}
+            disabled={startingExam || !data}
+          />
+          <ActionCard
+            icon="refresh-outline"
+            title="Review Mistakes"
+            subtitle={
+              data && data.mistakeCount > 0
+                ? `${data.mistakeCount} saved question${data.mistakeCount === 1 ? '' : 's'}`
+                : 'Practice questions you missed'
+            }
+            tone="review"
+            badge={data && data.mistakeCount > 0 ? String(data.mistakeCount) : undefined}
+            onPress={() => router.push('/review')}
+          />
+        </View>
       </View>
 
       <Card muted style={styles.notice}>
@@ -167,7 +191,7 @@ export default function HomeScreen() {
         </AppText>
       </Card>
       {error || actionError ? (
-        <AppText variant="caption" color={colors.danger}>
+        <AppText variant="caption" color={colors.danger} style={styles.error}>
           {actionError ?? error}
         </AppText>
       ) : null}
@@ -225,13 +249,23 @@ function ActionCard({
   subtitle,
   onPress,
   disabled,
+  tone,
+  badge,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
   title: string;
   subtitle: string;
   onPress: () => void;
   disabled?: boolean;
+  tone: 'practice' | 'exam' | 'review';
+  badge?: string;
 }) {
+  const iconWrap = {
+    practice: { backgroundColor: colors.accentSoft, color: colors.accent },
+    exam: { backgroundColor: colors.navy, color: colors.inkOnAccent },
+    review: { backgroundColor: colors.warningSoft, color: colors.flag },
+  }[tone];
+
   return (
     <Pressable
       onPress={onPress}
@@ -240,13 +274,24 @@ function ActionCard({
       accessibilityState={{ disabled: Boolean(disabled) }}
       accessibilityLabel={`${title}. ${subtitle}`}
       style={({ pressed }) => [pressed && styles.pressed]}>
-      <Card>
+      <Card elevated={tone === 'exam'}>
         <View style={styles.actionRow}>
-          <View style={styles.iconWrap} importantForAccessibility="no-hide-descendants">
-            <Ionicons name={icon} size={22} color={colors.accent} />
+          <View
+            style={[styles.iconWrap, { backgroundColor: iconWrap.backgroundColor }]}
+            importantForAccessibility="no-hide-descendants">
+            <Ionicons name={icon} size={22} color={iconWrap.color} />
           </View>
           <View style={styles.actionCopy}>
-            <AppText variant="subtitle">{title}</AppText>
+            <View style={styles.actionTitleRow}>
+              <AppText variant="subtitle">{title}</AppText>
+              {badge ? (
+                <View style={styles.badge}>
+                  <AppText variant="label" color={colors.flag}>
+                    {badge}
+                  </AppText>
+                </View>
+              ) : null}
+            </View>
             <AppText variant="body" color={colors.inkSecondary}>
               {subtitle}
             </AppText>
@@ -265,15 +310,24 @@ function ActionCard({
 
 const styles = StyleSheet.create({
   hero: {
-    gap: spacing.sm,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.xl,
+    marginBottom: spacing.xxl,
+  },
+  heroBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    borderRadius: radii.full,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    marginBottom: spacing.xs,
+  },
+  section: {
+    gap: spacing.md,
+    marginBottom: spacing.xxl,
   },
   stats: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: spacing.sm,
-    marginBottom: spacing.lg,
   },
   actions: {
     gap: spacing.md,
@@ -288,13 +342,24 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: radii.md,
-    backgroundColor: colors.accentSoft,
     alignItems: 'center',
     justifyContent: 'center',
   },
   actionCopy: {
     flex: 1,
     gap: 2,
+  },
+  actionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    flexWrap: 'wrap',
+  },
+  badge: {
+    backgroundColor: colors.warningSoft,
+    borderRadius: radii.full,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
   },
   actionChevron: {
     alignSelf: 'center',
@@ -304,7 +369,10 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   notice: {
-    marginTop: spacing.xxl,
+    marginTop: spacing.sm,
+  },
+  error: {
+    marginTop: spacing.md,
   },
   pressed: {
     opacity: 0.88,

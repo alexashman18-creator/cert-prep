@@ -55,7 +55,11 @@ export default function ReviewMistakesScreen() {
   if (!loaded) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Loading mistakes" body="Checking your locally saved incorrect answers." />
+        <EmptyState
+          title="Loading mistakes"
+          body="Checking your locally saved incorrect answers."
+          icon="sync-outline"
+        />
       </Screen>
     );
   }
@@ -63,7 +67,7 @@ export default function ReviewMistakesScreen() {
   if (error) {
     return (
       <Screen edges={['right', 'bottom', 'left']}>
-        <EmptyState title="Unable to load mistakes" body={error} />
+        <EmptyState title="Unable to load mistakes" body={error} icon="alert-circle-outline" />
         <AppButton label="Home" variant="secondary" onPress={() => router.replace('/')} />
       </Screen>
     );
@@ -75,8 +79,13 @@ export default function ReviewMistakesScreen() {
         <EmptyState
           title="No mistakes saved yet"
           body="Incorrect practice and exam answers are stored locally so you can retry them here."
+          icon="checkmark-circle-outline"
         />
-        <AppButton label="Start practice" onPress={() => router.push('/practice/setup')} />
+        <AppButton
+          label="Start practice"
+          icon="book-outline"
+          onPress={() => router.push('/practice/setup')}
+        />
       </Screen>
     );
   }
@@ -88,6 +97,7 @@ export default function ReviewMistakesScreen() {
       </AppText>
       <AppButton
         label={`Practice missed questions (${items.length})`}
+        icon="refresh-outline"
         onPress={() => void start()}
         disabled={busy}
       />
