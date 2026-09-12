@@ -1,98 +1,213 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from 'expo-router';
+import { router } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { AppButton } from '@/components/ui/AppButton';
+import { AppText } from '@/components/ui/AppText';
+import { Card } from '@/components/ui/Card';
+import { Screen } from '@/components/ui/Screen';
+import { StatTile } from '@/components/ui/StatTile';
+import { SAMPLE_CONTENT_NOTICE } from '@/data/sampleQuestions';
+import { useHomeData } from '@/hooks/useHomeData';
+import { useStartExam } from '@/hooks/useExamSession';
+import { formatCount, formatPercent } from '@/lib/format';
+import { colors, radii, spacing } from '@/theme/tokens';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function HomeScreen() {
+  const { data, error, refresh } = useHomeData();
+  const startExam = useStartExam();
+  const [startingExam, setStartingExam] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      void refresh();
+    }, [refresh]),
+  );
+
+  const openExam = async () => {
+    setStartingExam(true);
+    try {
+      const session = await startExam();
+      router.push({ pathname: '/exam/session', params: { id: session.id } });
+    } finally {
+      setStartingExam(false);
+    }
+  };
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
+    <Screen>
+      <View style={styles.hero}>
+        <AppText variant="label" color={colors.accent}>
+          AZ-900
+        </AppText>
+        <AppText variant="display">AZ-900 Prep</AppText>
+        <AppText variant="body" color={colors.inkSecondary}>
+          Master Microsoft Azure Fundamentals
+        </AppText>
+      </View>
+
+      <View style={styles.stats}>
+        <StatTile label="Questions answered" value={formatCount(data?.progress.questionsAnswered ?? 0)} />
+        <StatTile
+          label="Accuracy"
+          value={data && data.progress.questionsAnswered > 0 ? formatPercent(data.accuracy) : '—'}
+        />
+        <StatTile
+          label="Mock exam best"
+          value={formatPercent(data?.progress.mockExamBestPercent ?? null)}
+        />
+      </View>
+
+      {data?.inProgressExam ? (
+        <Card style={styles.resume}>
+          <AppText variant="subtitle">Resume mock exam</AppText>
+          <AppText variant="body" color={colors.inkSecondary}>
+            Your previous exam is saved locally, including answers, flags, and remaining time.
+          </AppText>
+          <AppButton
+            label="Continue exam"
+            onPress={() =>
+              router.push({ pathname: '/exam/session', params: { id: data.inProgressExam!.id } })
+            }
+          />
+        </Card>
+      ) : null}
+
+      {data?.inProgressPractice ? (
+        <Card style={styles.resume}>
+          <AppText variant="subtitle">Resume practice</AppText>
+          <AppText variant="body" color={colors.inkSecondary}>
+            Question {(data.inProgressPractice.currentIndex ?? 0) + 1} of{' '}
+            {data.inProgressPractice.questionCount} is waiting.
+          </AppText>
+          <AppButton
+            label="Continue practice"
+            variant="secondary"
+            onPress={() =>
+              router.push({
+                pathname: '/practice/session',
+                params: { id: data.inProgressPractice!.id },
+              })
+            }
+          />
+        </Card>
+      ) : null}
+
+      <View style={styles.actions}>
+        <ActionCard
+          icon="book-outline"
+          title="Practice"
+          subtitle="Choose a domain and session length"
+          onPress={() => router.push('/practice/setup')}
+        />
+        <ActionCard
+          icon="timer-outline"
+          title="Mock Exam"
+          subtitle="40 questions · 45-minute timer"
+          onPress={() => void openExam()}
+          disabled={startingExam}
+        />
+        <ActionCard
+          icon="refresh-outline"
+          title="Review Mistakes"
+          subtitle={
+            data && data.mistakeCount > 0
+              ? `${data.mistakeCount} saved question${data.mistakeCount === 1 ? '' : 's'}`
+              : 'Practice questions you missed'
+          }
+          onPress={() => router.push('/review')}
+        />
+      </View>
+
+      <AppText variant="caption" color={colors.inkTertiary} style={styles.footnote}>
+        Local-first. Progress is stored on this device and works offline.
+        {'\n'}
+        {SAMPLE_CONTENT_NOTICE}
+        {data ? `\nQuestion bank: ${data.questionBankSize} development samples.` : ''}
+      </AppText>
+      {error ? (
+        <AppText variant="caption" color={colors.danger}>
+          {error}
+        </AppText>
+      ) : null}
+    </Screen>
   );
 }
 
-export default function HomeScreen() {
+function ActionCard({
+  icon,
+  title,
+  subtitle,
+  onPress,
+  disabled,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  subtitle: string;
+  onPress: () => void;
+  disabled?: boolean;
+}) {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+    <Pressable onPress={onPress} disabled={disabled} style={({ pressed }) => [pressed && styles.pressed]}>
+      <Card>
+        <View style={styles.actionRow}>
+          <View style={styles.iconWrap}>
+            <Ionicons name={icon} size={22} color={colors.accent} />
+          </View>
+          <View style={styles.actionCopy}>
+            <AppText variant="subtitle">{title}</AppText>
+            <AppText variant="body" color={colors.inkSecondary}>
+              {subtitle}
+            </AppText>
+          </View>
+          <Ionicons name="chevron-forward" size={20} color={colors.inkTertiary} />
+        </View>
+      </Card>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
+  hero: {
+    gap: spacing.sm,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.xl,
+  },
+  stats: {
     flexDirection: 'row',
+    gap: spacing.sm,
+    marginBottom: spacing.lg,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
+  actions: {
+    gap: spacing.md,
+  },
+  actionRow: {
+    flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    gap: spacing.md,
   },
-  heroSection: {
+  iconWrap: {
+    width: 44,
+    height: 44,
+    borderRadius: radii.md,
+    backgroundColor: colors.accentSoft,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  actionCopy: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+    gap: 2,
   },
-  title: {
-    textAlign: 'center',
+  resume: {
+    gap: spacing.md,
+    marginBottom: spacing.md,
   },
-  code: {
-    textTransform: 'uppercase',
+  footnote: {
+    marginTop: spacing.xxl,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  pressed: {
+    opacity: 0.88,
   },
 });
