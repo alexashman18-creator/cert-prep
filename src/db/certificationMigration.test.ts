@@ -240,7 +240,7 @@ test('progress, mistakes, sessions, and questions are isolated by certification'
 
     const az900Questions = await repos.questions.getEligible({ certificationId: 'az900' });
     const dp900Questions = await repos.questions.getEligible({ certificationId: 'dp900' });
-    assert.equal(az900Questions.length, 12);
+    assert.equal(az900Questions.length, 62);
     assert.ok(az900Questions.every((question) => question.certificationId === 'az900'));
     assert.equal(dp900Questions.length, 1);
     assert.equal(dp900Questions[0]?.id, 'dp900-dev-001');
@@ -317,8 +317,8 @@ test('mock exam config is loaded from the selected certification', async () => {
     const questions = selectExamQuestions(await repos.questions.getEligible({ certificationId: 'az900' }), config);
     assert.equal(config.targetQuestionCount, 40);
     assert.equal(config.examDurationMinutes, 45);
-    assert.equal(questions.length, 12);
-    assert.equal(new Set(questions.map((question) => question.id)).size, 12);
+    assert.equal(questions.length, 40);
+    assert.equal(new Set(questions.map((question) => question.id)).size, 40);
   } finally {
     close();
   }

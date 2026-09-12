@@ -1,7 +1,2123 @@
 {
   "schemaVersion": 1,
-  "exam": "AZ-900",
-  "certificationId": "az900",
   "batchId": "bundled-production",
-  "questions": []
+  "banks": [
+    {
+      "schemaVersion": 1,
+      "exam": "AI-103",
+      "certificationId": "ai103",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "AI-200",
+      "certificationId": "ai200",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "AI-901",
+      "certificationId": "ai901",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "AZ-104",
+      "certificationId": "az104",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "AZ-305",
+      "certificationId": "az305",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "AZ-400",
+      "certificationId": "az400",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "AZ-900",
+      "certificationId": "az900",
+      "questions": [
+        {
+          "id": "az900-2026-cc-001",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud concepts",
+          "subobjective": "Describe cloud computing",
+          "difficulty": "beginner",
+          "questionText": "Which statement best describes cloud computing?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Delivering computing services over the internet"
+            },
+            {
+              "id": "b",
+              "text": "Running all workloads only on local physical servers"
+            },
+            {
+              "id": "c",
+              "text": "Buying software only through perpetual licenses"
+            },
+            {
+              "id": "d",
+              "text": "Using a private network without virtualization"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Cloud computing provides computing services such as compute, storage, and networking over the internet, typically on demand.",
+          "optionExplanations": {
+            "a": "Correct. Cloud computing delivers computing resources as services over the internet.",
+            "b": "Incorrect. Local-only physical infrastructure is traditional on-premises computing.",
+            "c": "Incorrect. Licensing model alone does not define cloud computing.",
+            "d": "Incorrect. A private network can be used in many architectures and does not by itself define cloud computing."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/",
+          "sourceTitle": "Microsoft Learn: Describe cloud computing",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-002",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud concepts",
+          "subobjective": "Describe the shared responsibility model",
+          "difficulty": "intermediate",
+          "questionText": "As you move from IaaS to PaaS to SaaS, what generally happens to the customer's operational responsibility?",
+          "options": [
+            {
+              "id": "a",
+              "text": "It increases"
+            },
+            {
+              "id": "b",
+              "text": "It decreases"
+            },
+            {
+              "id": "c",
+              "text": "It remains exactly the same"
+            },
+            {
+              "id": "d",
+              "text": "It shifts entirely to the customer"
+            }
+          ],
+          "correctAnswerId": "b",
+          "overallExplanation": "The cloud provider manages progressively more of the stack as you move from IaaS to PaaS to SaaS, so the customer's operational responsibility generally decreases.",
+          "optionExplanations": {
+            "a": "Incorrect. IaaS gives the customer more responsibility than PaaS or SaaS.",
+            "b": "Correct. The provider manages more layers as the service becomes more managed.",
+            "c": "Incorrect. Responsibility changes significantly between service models.",
+            "d": "Incorrect. SaaS places more responsibility on the provider, not the customer."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/",
+          "sourceTitle": "Microsoft Learn: Describe cloud computing",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-003",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud concepts",
+          "subobjective": "Define cloud models",
+          "difficulty": "beginner",
+          "questionText": "Which cloud model uses infrastructure owned and operated by a cloud service provider and shared among multiple customers?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Private cloud"
+            },
+            {
+              "id": "b",
+              "text": "Public cloud"
+            },
+            {
+              "id": "c",
+              "text": "Hybrid cloud"
+            },
+            {
+              "id": "d",
+              "text": "On-premises only"
+            }
+          ],
+          "correctAnswerId": "b",
+          "overallExplanation": "A public cloud is operated by a cloud service provider and its infrastructure is shared across customers with logical isolation.",
+          "optionExplanations": {
+            "a": "Incorrect. A private cloud is dedicated to a single organization.",
+            "b": "Correct. Public cloud infrastructure is provider-operated and shared among customers.",
+            "c": "Incorrect. Hybrid cloud combines private/on-premises and public cloud environments.",
+            "d": "Incorrect. On-premises infrastructure is not a public cloud model."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/",
+          "sourceTitle": "Microsoft Learn: Describe cloud computing",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-004",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud concepts",
+          "subobjective": "Define cloud models",
+          "difficulty": "beginner",
+          "questionText": "An organization keeps sensitive systems in its own datacenter but uses Azure for additional capacity. Which cloud model is this?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Public cloud only"
+            },
+            {
+              "id": "b",
+              "text": "Private cloud only"
+            },
+            {
+              "id": "c",
+              "text": "Hybrid cloud"
+            },
+            {
+              "id": "d",
+              "text": "Community cloud"
+            }
+          ],
+          "correctAnswerId": "c",
+          "overallExplanation": "Hybrid cloud combines private or on-premises infrastructure with public cloud services.",
+          "optionExplanations": {
+            "a": "Incorrect. Some workloads remain outside the public cloud.",
+            "b": "Incorrect. Azure public cloud capacity is also being used.",
+            "c": "Correct. The organization combines on-premises/private resources with public cloud resources.",
+            "d": "Incorrect. Community cloud is not the model described here."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/",
+          "sourceTitle": "Microsoft Learn: Describe cloud computing",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-005",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud concepts",
+          "subobjective": "Define cloud models",
+          "difficulty": "beginner",
+          "questionText": "Which cloud model is dedicated to a single organization?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Public cloud"
+            },
+            {
+              "id": "b",
+              "text": "Private cloud"
+            },
+            {
+              "id": "c",
+              "text": "Hybrid cloud"
+            },
+            {
+              "id": "d",
+              "text": "Multi-tenant SaaS"
+            }
+          ],
+          "correctAnswerId": "b",
+          "overallExplanation": "A private cloud is dedicated to one organization, although it may be hosted on-premises or by a third party.",
+          "optionExplanations": {
+            "a": "Incorrect. Public cloud serves multiple customers.",
+            "b": "Correct. Private cloud resources are dedicated to a single organization.",
+            "c": "Incorrect. Hybrid cloud combines multiple environments.",
+            "d": "Incorrect. Multi-tenant SaaS is shared across customers."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/",
+          "sourceTitle": "Microsoft Learn: Describe cloud computing",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-006",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud concepts",
+          "subobjective": "Describe the consumption-based model",
+          "difficulty": "beginner",
+          "questionText": "What is a key characteristic of a consumption-based cloud pricing model?",
+          "options": [
+            {
+              "id": "a",
+              "text": "You pay only for resources you use"
+            },
+            {
+              "id": "b",
+              "text": "You must purchase hardware up front"
+            },
+            {
+              "id": "c",
+              "text": "Costs are always fixed for five years"
+            },
+            {
+              "id": "d",
+              "text": "Every service is billed as a perpetual license"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Consumption-based pricing aligns cost with actual resource usage rather than requiring large up-front infrastructure purchases.",
+          "optionExplanations": {
+            "a": "Correct. Usage drives charges in a consumption-based model.",
+            "b": "Incorrect. Avoiding large up-front hardware purchases is one cloud benefit.",
+            "c": "Incorrect. Consumption charges can vary with usage.",
+            "d": "Incorrect. Cloud services are not generally sold only as perpetual licenses."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/",
+          "sourceTitle": "Microsoft Learn: Describe cloud computing",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-007",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud concepts",
+          "subobjective": "Compare cloud pricing models",
+          "difficulty": "intermediate",
+          "questionText": "Which expense is most closely associated with buying servers for an on-premises datacenter before they are used?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Operational expenditure (OpEx)"
+            },
+            {
+              "id": "b",
+              "text": "Capital expenditure (CapEx)"
+            },
+            {
+              "id": "c",
+              "text": "Consumption billing"
+            },
+            {
+              "id": "d",
+              "text": "Serverless billing"
+            }
+          ],
+          "correctAnswerId": "b",
+          "overallExplanation": "Purchasing physical infrastructure up front is a capital expenditure.",
+          "optionExplanations": {
+            "a": "Incorrect. OpEx typically represents ongoing operating costs.",
+            "b": "Correct. Up-front purchases of long-lived assets are CapEx.",
+            "c": "Incorrect. Consumption billing charges based on usage.",
+            "d": "Incorrect. Serverless billing is a cloud consumption approach, not an up-front server purchase."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/",
+          "sourceTitle": "Microsoft Learn: Describe cloud computing",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-008",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe benefits of using cloud services",
+          "subobjective": "Describe high availability",
+          "difficulty": "beginner",
+          "questionText": "Which cloud benefit is primarily concerned with keeping a service available even when components fail?",
+          "options": [
+            {
+              "id": "a",
+              "text": "High availability"
+            },
+            {
+              "id": "b",
+              "text": "Elasticity"
+            },
+            {
+              "id": "c",
+              "text": "Capital expenditure"
+            },
+            {
+              "id": "d",
+              "text": "Manual scaling"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "High availability focuses on maintaining service availability despite failures.",
+          "optionExplanations": {
+            "a": "Correct. High availability is about minimizing service downtime.",
+            "b": "Incorrect. Elasticity concerns adjusting resources to demand.",
+            "c": "Incorrect. CapEx is a financial concept, not an availability benefit.",
+            "d": "Incorrect. Manual scaling does not itself provide high availability."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-benefits-use-cloud-services/",
+          "sourceTitle": "Microsoft Learn: Describe the benefits of using cloud services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-009",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe benefits of using cloud services",
+          "subobjective": "Describe scalability",
+          "difficulty": "beginner",
+          "questionText": "A web application needs more compute capacity as its number of users grows. Which cloud benefit does this illustrate?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Scalability"
+            },
+            {
+              "id": "b",
+              "text": "Data sovereignty"
+            },
+            {
+              "id": "c",
+              "text": "Capital expenditure"
+            },
+            {
+              "id": "d",
+              "text": "Single sign-on"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Scalability is the ability to add or remove resources to meet demand.",
+          "optionExplanations": {
+            "a": "Correct. Scaling adds or removes capacity as workload demand changes.",
+            "b": "Incorrect. Data sovereignty concerns legal/geographic data requirements.",
+            "c": "Incorrect. CapEx is an expense model.",
+            "d": "Incorrect. Single sign-on is an identity feature."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-benefits-use-cloud-services/",
+          "sourceTitle": "Microsoft Learn: Describe the benefits of using cloud services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-010",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe benefits of using cloud services",
+          "subobjective": "Describe elasticity",
+          "difficulty": "intermediate",
+          "questionText": "A retail application automatically adds capacity during a flash sale and removes it when demand falls. Which concept is demonstrated?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Elasticity"
+            },
+            {
+              "id": "b",
+              "text": "Private cloud"
+            },
+            {
+              "id": "c",
+              "text": "Capital expenditure"
+            },
+            {
+              "id": "d",
+              "text": "Defense in depth"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Elasticity describes automatically or rapidly adjusting resources as demand rises and falls.",
+          "optionExplanations": {
+            "a": "Correct. Elasticity matches capacity to changing demand.",
+            "b": "Incorrect. Private cloud describes a deployment model.",
+            "c": "Incorrect. Capital expenditure is unrelated to automatic capacity changes.",
+            "d": "Incorrect. Defense in depth is a security strategy."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-benefits-use-cloud-services/",
+          "sourceTitle": "Microsoft Learn: Describe the benefits of using cloud services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-011",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe benefits of using cloud services",
+          "subobjective": "Describe reliability and predictability",
+          "difficulty": "intermediate",
+          "questionText": "Which cloud benefit most directly helps an organization plan expected performance and cost?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Predictability"
+            },
+            {
+              "id": "b",
+              "text": "Availability zone isolation"
+            },
+            {
+              "id": "c",
+              "text": "Passwordless authentication"
+            },
+            {
+              "id": "d",
+              "text": "Resource tagging"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Predictability helps organizations anticipate performance and costs using cloud capabilities and pricing information.",
+          "optionExplanations": {
+            "a": "Correct. Predictability concerns forecasting performance and cost.",
+            "b": "Incorrect. Availability zones improve resilience rather than cost/performance forecasting.",
+            "c": "Incorrect. Passwordless authentication is an identity feature.",
+            "d": "Incorrect. Tags help organize and report on resources but are not the broad cloud benefit asked for."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-benefits-use-cloud-services/",
+          "sourceTitle": "Microsoft Learn: Describe the benefits of using cloud services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-012",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe benefits of using cloud services",
+          "subobjective": "Describe manageability",
+          "difficulty": "beginner",
+          "questionText": "Which cloud characteristic helps administrators deploy and manage resources through portals, command-line tools, APIs, and automation?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Manageability"
+            },
+            {
+              "id": "b",
+              "text": "Physical co-location"
+            },
+            {
+              "id": "c",
+              "text": "Perpetual licensing"
+            },
+            {
+              "id": "d",
+              "text": "Air-gapped networking"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Cloud manageability includes tools and automation that simplify deploying, configuring, and monitoring resources.",
+          "optionExplanations": {
+            "a": "Correct. Cloud platforms provide multiple centralized and automated management methods.",
+            "b": "Incorrect. Physical co-location is not the management benefit described.",
+            "c": "Incorrect. Licensing is unrelated to management tooling.",
+            "d": "Incorrect. Air-gapped networking does not describe cloud manageability."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-benefits-use-cloud-services/",
+          "sourceTitle": "Microsoft Learn: Describe the benefits of using cloud services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-013",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud service types",
+          "subobjective": "Describe Infrastructure as a Service (IaaS)",
+          "difficulty": "beginner",
+          "questionText": "Which service model gives you the most control over the operating system of a cloud-hosted virtual machine?",
+          "options": [
+            {
+              "id": "a",
+              "text": "SaaS"
+            },
+            {
+              "id": "b",
+              "text": "PaaS"
+            },
+            {
+              "id": "c",
+              "text": "IaaS"
+            },
+            {
+              "id": "d",
+              "text": "Serverless SaaS"
+            }
+          ],
+          "correctAnswerId": "c",
+          "overallExplanation": "IaaS provides virtualized infrastructure while leaving the customer responsible for more of the operating system and application stack.",
+          "optionExplanations": {
+            "a": "Incorrect. SaaS provides a completed application with little infrastructure control.",
+            "b": "Incorrect. PaaS abstracts more of the operating system and platform.",
+            "c": "Correct. IaaS gives the customer direct control over the VM operating system.",
+            "d": "Incorrect. This is not a standard service model for VM operating-system control."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-service-types/",
+          "sourceTitle": "Microsoft Learn: Describe cloud service types",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-014",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud service types",
+          "subobjective": "Describe Platform as a Service (PaaS)",
+          "difficulty": "beginner",
+          "questionText": "A developer wants to deploy an application without managing the underlying operating system. Which service model is the best fit?",
+          "options": [
+            {
+              "id": "a",
+              "text": "IaaS"
+            },
+            {
+              "id": "b",
+              "text": "PaaS"
+            },
+            {
+              "id": "c",
+              "text": "On-premises"
+            },
+            {
+              "id": "d",
+              "text": "Colocation"
+            }
+          ],
+          "correctAnswerId": "b",
+          "overallExplanation": "PaaS lets developers focus on the application while the provider manages the underlying platform and operating system.",
+          "optionExplanations": {
+            "a": "Incorrect. IaaS leaves more operating-system responsibility with the customer.",
+            "b": "Correct. PaaS abstracts the operating system and infrastructure.",
+            "c": "Incorrect. On-premises environments require more infrastructure management.",
+            "d": "Incorrect. Colocation still leaves infrastructure responsibilities with the customer."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-service-types/",
+          "sourceTitle": "Microsoft Learn: Describe cloud service types",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-cc-015",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "cloud_concepts",
+          "objective": "Describe cloud service types",
+          "subobjective": "Describe Software as a Service (SaaS)",
+          "difficulty": "beginner",
+          "questionText": "Which service model delivers a complete application that users typically access over the internet?",
+          "options": [
+            {
+              "id": "a",
+              "text": "IaaS"
+            },
+            {
+              "id": "b",
+              "text": "PaaS"
+            },
+            {
+              "id": "c",
+              "text": "SaaS"
+            },
+            {
+              "id": "d",
+              "text": "Bare metal"
+            }
+          ],
+          "correctAnswerId": "c",
+          "overallExplanation": "SaaS delivers a complete application managed by the provider and consumed by end users.",
+          "optionExplanations": {
+            "a": "Incorrect. IaaS delivers infrastructure rather than a finished application.",
+            "b": "Incorrect. PaaS is primarily a platform for building and hosting applications.",
+            "c": "Correct. SaaS provides a complete software application as a service.",
+            "d": "Incorrect. Bare metal refers to physical server infrastructure."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cloud-service-types/",
+          "sourceTitle": "Microsoft Learn: Describe cloud service types",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-001",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure architecture and services",
+          "subobjective": "Describe Azure regions",
+          "difficulty": "beginner",
+          "questionText": "What is an Azure region?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A geographic area containing one or more datacenters"
+            },
+            {
+              "id": "b",
+              "text": "A single virtual machine"
+            },
+            {
+              "id": "c",
+              "text": "A billing container below a resource group"
+            },
+            {
+              "id": "d",
+              "text": "A user identity directory"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "An Azure region is a geographic area that contains one or more datacenters connected by a low-latency network.",
+          "optionExplanations": {
+            "a": "Correct. Regions are geographic areas containing Azure datacenters.",
+            "b": "Incorrect. A VM is a compute resource within Azure.",
+            "c": "Incorrect. Resource groups and subscriptions are management constructs, not regions.",
+            "d": "Incorrect. Identity directories are provided by Microsoft Entra ID."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-core-architectural-components-of-azure/",
+          "sourceTitle": "Microsoft Learn: Describe the core architectural components of Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-002",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure architecture and services",
+          "subobjective": "Describe availability zones",
+          "difficulty": "beginner",
+          "questionText": "What is the primary purpose of Azure availability zones?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Provide physically separate datacenter groups within a region for resiliency"
+            },
+            {
+              "id": "b",
+              "text": "Replace all Azure regions"
+            },
+            {
+              "id": "c",
+              "text": "Provide a global DNS namespace"
+            },
+            {
+              "id": "d",
+              "text": "Manage Azure subscriptions"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Availability zones are physically separate groups of datacenters within a region, with independent power, cooling, and networking to improve resiliency.",
+          "optionExplanations": {
+            "a": "Correct. Availability zones reduce the impact of a datacenter-level failure.",
+            "b": "Incorrect. Zones exist within supported regions; they do not replace regions.",
+            "c": "Incorrect. DNS namespaces are handled by DNS services.",
+            "d": "Incorrect. Subscription management is unrelated to availability zones."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-core-architectural-components-of-azure/",
+          "sourceTitle": "Microsoft Learn: Describe the core architectural components of Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-003",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure architecture and services",
+          "subobjective": "Describe resources and resource groups",
+          "difficulty": "beginner",
+          "questionText": "What is the main purpose of an Azure resource group?",
+          "options": [
+            {
+              "id": "a",
+              "text": "To logically group related Azure resources for management"
+            },
+            {
+              "id": "b",
+              "text": "To provide physical network isolation between datacenters"
+            },
+            {
+              "id": "c",
+              "text": "To replace Microsoft Entra ID"
+            },
+            {
+              "id": "d",
+              "text": "To set the price of Azure services"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "A resource group is a logical container used to organize and manage related Azure resources.",
+          "optionExplanations": {
+            "a": "Correct. Resource groups are management containers for resources.",
+            "b": "Incorrect. Physical datacenter isolation is not provided by resource groups.",
+            "c": "Incorrect. Resource groups do not provide identity services.",
+            "d": "Incorrect. Azure service pricing is not determined by resource groups."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-core-architectural-components-of-azure/",
+          "sourceTitle": "Microsoft Learn: Describe the core architectural components of Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-004",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure architecture and services",
+          "subobjective": "Describe subscriptions and management groups",
+          "difficulty": "intermediate",
+          "questionText": "Which Azure management scope can contain multiple subscriptions?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Resource group"
+            },
+            {
+              "id": "b",
+              "text": "Management group"
+            },
+            {
+              "id": "c",
+              "text": "Virtual network"
+            },
+            {
+              "id": "d",
+              "text": "Availability set"
+            }
+          ],
+          "correctAnswerId": "b",
+          "overallExplanation": "Management groups can contain subscriptions and other management groups, allowing governance to be applied above the subscription level.",
+          "optionExplanations": {
+            "a": "Incorrect. Resource groups exist within subscriptions.",
+            "b": "Correct. Management groups provide a scope above subscriptions.",
+            "c": "Incorrect. Virtual networks are networking resources.",
+            "d": "Incorrect. Availability sets are VM resiliency constructs."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-core-architectural-components-of-azure/",
+          "sourceTitle": "Microsoft Learn: Describe the core architectural components of Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-005",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Compare compute types",
+          "difficulty": "beginner",
+          "questionText": "Which Azure compute option provides full virtual machines where you manage the guest operating system?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Virtual Machines"
+            },
+            {
+              "id": "b",
+              "text": "Azure Functions"
+            },
+            {
+              "id": "c",
+              "text": "Azure DNS"
+            },
+            {
+              "id": "d",
+              "text": "Azure Blob Storage"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Virtual Machines provide IaaS compute with control over the guest operating system.",
+          "optionExplanations": {
+            "a": "Correct. Azure VMs provide virtualized servers with OS-level control.",
+            "b": "Incorrect. Azure Functions is serverless compute.",
+            "c": "Incorrect. Azure DNS is a networking service.",
+            "d": "Incorrect. Blob Storage is an object storage service."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-006",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Describe virtual machine options",
+          "difficulty": "intermediate",
+          "questionText": "You need a group of identical virtual machines that can scale out automatically as demand increases. Which service is designed for this?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Virtual Machine Scale Sets"
+            },
+            {
+              "id": "b",
+              "text": "Azure DNS"
+            },
+            {
+              "id": "c",
+              "text": "Azure Files"
+            },
+            {
+              "id": "d",
+              "text": "Microsoft Purview"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Virtual Machine Scale Sets let you deploy and manage a group of load-balanced VMs that can scale in or out.",
+          "optionExplanations": {
+            "a": "Correct. VM Scale Sets are designed for scalable groups of virtual machines.",
+            "b": "Incorrect. Azure DNS hosts DNS zones.",
+            "c": "Incorrect. Azure Files provides managed file shares.",
+            "d": "Incorrect. Microsoft Purview is a data governance service."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-007",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Compare compute types",
+          "difficulty": "beginner",
+          "questionText": "Which compute type packages an application and its dependencies while sharing the host operating-system kernel?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Container"
+            },
+            {
+              "id": "b",
+              "text": "Virtual machine"
+            },
+            {
+              "id": "c",
+              "text": "Resource group"
+            },
+            {
+              "id": "d",
+              "text": "Availability zone"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Containers package applications and dependencies while sharing the underlying host OS kernel, making them lightweight compared with full VMs.",
+          "optionExplanations": {
+            "a": "Correct. Containers provide lightweight application isolation.",
+            "b": "Incorrect. VMs include a full guest operating system.",
+            "c": "Incorrect. Resource groups are management containers.",
+            "d": "Incorrect. Availability zones are resiliency constructs."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-008",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Describe Azure Functions",
+          "difficulty": "beginner",
+          "questionText": "Which Azure service is designed to run event-driven code without requiring you to manage servers?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Functions"
+            },
+            {
+              "id": "b",
+              "text": "Azure Virtual Machines"
+            },
+            {
+              "id": "c",
+              "text": "Azure Files"
+            },
+            {
+              "id": "d",
+              "text": "Azure VPN Gateway"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Functions is a serverless compute service for running event-driven code.",
+          "optionExplanations": {
+            "a": "Correct. Functions provides serverless, event-driven execution.",
+            "b": "Incorrect. VMs require management of the guest OS and VM resources.",
+            "c": "Incorrect. Azure Files is storage.",
+            "d": "Incorrect. VPN Gateway provides encrypted network connectivity."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-009",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Describe application hosting options",
+          "difficulty": "beginner",
+          "questionText": "Which Azure service is a managed platform commonly used to host web applications without managing the underlying web server operating system?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure App Service"
+            },
+            {
+              "id": "b",
+              "text": "Azure Virtual Network"
+            },
+            {
+              "id": "c",
+              "text": "Azure Data Box"
+            },
+            {
+              "id": "d",
+              "text": "Azure Monitor"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure App Service provides managed hosting for web applications and APIs.",
+          "optionExplanations": {
+            "a": "Correct. App Service is a managed application-hosting platform.",
+            "b": "Incorrect. Virtual Network provides network isolation and connectivity.",
+            "c": "Incorrect. Data Box is a data migration appliance/service.",
+            "d": "Incorrect. Azure Monitor is for observability and monitoring."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-010",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Describe virtual networking",
+          "difficulty": "beginner",
+          "questionText": "What is the purpose of an Azure virtual network (VNet)?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Provide an isolated network for Azure resources"
+            },
+            {
+              "id": "b",
+              "text": "Store unstructured object data"
+            },
+            {
+              "id": "c",
+              "text": "Create user identities"
+            },
+            {
+              "id": "d",
+              "text": "Estimate Azure costs"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "An Azure VNet provides a logically isolated network in Azure for resources to communicate securely.",
+          "optionExplanations": {
+            "a": "Correct. VNets provide private network address space and connectivity for Azure resources.",
+            "b": "Incorrect. Blob Storage stores unstructured data.",
+            "c": "Incorrect. Microsoft Entra ID provides identities.",
+            "d": "Incorrect. The Pricing calculator estimates costs."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-011",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Describe virtual networking",
+          "difficulty": "intermediate",
+          "questionText": "What does Azure virtual network peering allow?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Private connectivity between virtual networks over the Azure backbone"
+            },
+            {
+              "id": "b",
+              "text": "Automatic conversion of a VNet into a subscription"
+            },
+            {
+              "id": "c",
+              "text": "Public internet access without an IP address"
+            },
+            {
+              "id": "d",
+              "text": "File synchronization between on-premises servers"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Virtual network peering connects Azure VNets privately using the Microsoft backbone network.",
+          "optionExplanations": {
+            "a": "Correct. Peering enables private VNet-to-VNet connectivity.",
+            "b": "Incorrect. Networking does not change subscription structure.",
+            "c": "Incorrect. Peering is not a mechanism for anonymous public internet access.",
+            "d": "Incorrect. Azure File Sync handles file synchronization."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-012",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Describe VPN Gateway and ExpressRoute",
+          "difficulty": "intermediate",
+          "questionText": "Which option provides a private dedicated connection from an on-premises network to Microsoft cloud services that does not traverse the public internet?",
+          "options": [
+            {
+              "id": "a",
+              "text": "ExpressRoute"
+            },
+            {
+              "id": "b",
+              "text": "Azure VPN Gateway"
+            },
+            {
+              "id": "c",
+              "text": "Public endpoint"
+            },
+            {
+              "id": "d",
+              "text": "Azure DNS"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "ExpressRoute provides private connectivity between on-premises networks and Microsoft cloud services through a connectivity provider.",
+          "optionExplanations": {
+            "a": "Correct. ExpressRoute uses private dedicated connectivity rather than the public internet.",
+            "b": "Incorrect. VPN Gateway commonly creates encrypted tunnels over the public internet.",
+            "c": "Incorrect. A public endpoint is reachable using a public IP path.",
+            "d": "Incorrect. Azure DNS hosts DNS domains; it is not a private dedicated circuit."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-013",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure compute and networking services",
+          "subobjective": "Define public and private endpoints",
+          "difficulty": "intermediate",
+          "questionText": "Why would you use a private endpoint for an Azure service?",
+          "options": [
+            {
+              "id": "a",
+              "text": "To access the service through a private IP address in a virtual network"
+            },
+            {
+              "id": "b",
+              "text": "To make the service publicly reachable from every network"
+            },
+            {
+              "id": "c",
+              "text": "To reduce the number of Azure regions"
+            },
+            {
+              "id": "d",
+              "text": "To assign billing permissions"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "A private endpoint provides private connectivity to a supported service through a private IP address in your VNet.",
+          "optionExplanations": {
+            "a": "Correct. Private endpoints keep service access on private network addressing.",
+            "b": "Incorrect. Public reachability is the opposite of the goal.",
+            "c": "Incorrect. Endpoints do not affect Azure region count.",
+            "d": "Incorrect. Billing permissions are handled through access and billing scopes."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure compute and networking services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-014",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure storage services",
+          "subobjective": "Compare Azure Storage services",
+          "difficulty": "beginner",
+          "questionText": "Which Azure Storage service is designed for large amounts of unstructured object data such as images and videos?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Blob Storage"
+            },
+            {
+              "id": "b",
+              "text": "Azure Queue Storage"
+            },
+            {
+              "id": "c",
+              "text": "Azure Table Storage"
+            },
+            {
+              "id": "d",
+              "text": "Azure DNS"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Blob Storage is Azure's object storage service for large amounts of unstructured data.",
+          "optionExplanations": {
+            "a": "Correct. Blob Storage stores unstructured objects.",
+            "b": "Incorrect. Queue Storage stores messages.",
+            "c": "Incorrect. Table Storage is a NoSQL key-value store.",
+            "d": "Incorrect. Azure DNS is not a storage service."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-storage-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure storage services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-015",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure storage services",
+          "subobjective": "Describe storage tiers",
+          "difficulty": "beginner",
+          "questionText": "Which Blob Storage access tier is intended for data that is rarely accessed and can tolerate higher retrieval latency?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Archive"
+            },
+            {
+              "id": "b",
+              "text": "Hot"
+            },
+            {
+              "id": "c",
+              "text": "Premium file share"
+            },
+            {
+              "id": "d",
+              "text": "Queue"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "The Archive tier is intended for rarely accessed data and has higher retrieval latency than online tiers.",
+          "optionExplanations": {
+            "a": "Correct. Archive is optimized for very infrequent access.",
+            "b": "Incorrect. Hot is optimized for frequently accessed data.",
+            "c": "Incorrect. Premium file share is not a Blob access tier.",
+            "d": "Incorrect. Queue is a storage service, not an access tier."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-storage-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure storage services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-016",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure storage services",
+          "subobjective": "Describe redundancy options",
+          "difficulty": "intermediate",
+          "questionText": "Which Azure Storage redundancy option synchronously replicates data across availability zones in the primary region?",
+          "options": [
+            {
+              "id": "a",
+              "text": "ZRS"
+            },
+            {
+              "id": "b",
+              "text": "LRS"
+            },
+            {
+              "id": "c",
+              "text": "Archive"
+            },
+            {
+              "id": "d",
+              "text": "Azure File Sync"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Zone-redundant storage (ZRS) replicates data synchronously across availability zones in the primary region.",
+          "optionExplanations": {
+            "a": "Correct. ZRS provides replication across zones within the primary region.",
+            "b": "Incorrect. LRS keeps multiple copies within a single datacenter region location rather than across availability zones.",
+            "c": "Incorrect. Archive is an access tier, not a redundancy option.",
+            "d": "Incorrect. Azure File Sync synchronizes file shares; it is not a storage redundancy setting."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-storage-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure storage services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-017",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure storage services",
+          "subobjective": "Identify file movement options",
+          "difficulty": "beginner",
+          "questionText": "Which tool is a command-line utility designed to copy data to and from Azure Storage?",
+          "options": [
+            {
+              "id": "a",
+              "text": "AzCopy"
+            },
+            {
+              "id": "b",
+              "text": "Azure Policy"
+            },
+            {
+              "id": "c",
+              "text": "Azure Advisor"
+            },
+            {
+              "id": "d",
+              "text": "Microsoft Entra ID"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "AzCopy is a command-line utility for copying data to and from Azure Storage.",
+          "optionExplanations": {
+            "a": "Correct. AzCopy is specifically designed for high-performance storage data transfers.",
+            "b": "Incorrect. Azure Policy enforces governance rules.",
+            "c": "Incorrect. Azure Advisor provides recommendations.",
+            "d": "Incorrect. Microsoft Entra ID provides identity and access management."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-storage-services/",
+          "sourceTitle": "Microsoft Learn: Describe Azure storage services",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-018",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure identity, access, and security",
+          "subobjective": "Describe directory services in Azure",
+          "difficulty": "beginner",
+          "questionText": "Which service provides cloud-based identity and access management for Azure and Microsoft cloud services?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Microsoft Entra ID"
+            },
+            {
+              "id": "b",
+              "text": "Azure Blob Storage"
+            },
+            {
+              "id": "c",
+              "text": "Azure ExpressRoute"
+            },
+            {
+              "id": "d",
+              "text": "Azure Monitor"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Microsoft Entra ID is Microsoft's cloud-based identity and access management service.",
+          "optionExplanations": {
+            "a": "Correct. Entra ID manages users, identities, authentication, and access.",
+            "b": "Incorrect. Blob Storage stores objects.",
+            "c": "Incorrect. ExpressRoute provides network connectivity.",
+            "d": "Incorrect. Azure Monitor provides monitoring and telemetry."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-identity-access-security/",
+          "sourceTitle": "Microsoft Learn: Describe Azure identity, access, and security",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-019",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure identity, access, and security",
+          "subobjective": "Describe authentication and authorization",
+          "difficulty": "intermediate",
+          "questionText": "Which Azure capability should you use to grant a user permission to manage virtual machines in a specific resource group without giving them broader access?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure role-based access control (RBAC)"
+            },
+            {
+              "id": "b",
+              "text": "Availability Zones"
+            },
+            {
+              "id": "c",
+              "text": "Azure DNS"
+            },
+            {
+              "id": "d",
+              "text": "Storage access tiers"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure RBAC lets you assign roles to identities at specific scopes such as a resource group.",
+          "optionExplanations": {
+            "a": "Correct. RBAC controls who can perform which actions at a defined Azure scope.",
+            "b": "Incorrect. Availability zones provide resiliency.",
+            "c": "Incorrect. Azure DNS provides DNS hosting.",
+            "d": "Incorrect. Storage tiers control storage access/cost characteristics."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-identity-access-security/",
+          "sourceTitle": "Microsoft Learn: Describe Azure identity, access, and security",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-as-020",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "architecture_services",
+          "objective": "Describe Azure identity, access, and security",
+          "subobjective": "Describe Conditional Access and Zero Trust",
+          "difficulty": "intermediate",
+          "questionText": "Which Microsoft Entra feature can require multifactor authentication based on conditions such as user, location, device, or application?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Conditional Access"
+            },
+            {
+              "id": "b",
+              "text": "Resource locks"
+            },
+            {
+              "id": "c",
+              "text": "Azure Advisor"
+            },
+            {
+              "id": "d",
+              "text": "Virtual network peering"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Microsoft Entra Conditional Access evaluates signals and applies access controls such as requiring MFA.",
+          "optionExplanations": {
+            "a": "Correct. Conditional Access uses signals and policies to control access.",
+            "b": "Incorrect. Resource locks protect resources from accidental changes or deletion.",
+            "c": "Incorrect. Azure Advisor provides optimization recommendations.",
+            "d": "Incorrect. VNet peering connects virtual networks."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-azure-identity-access-security/",
+          "sourceTitle": "Microsoft Learn: Describe Azure identity, access, and security",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-001",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe factors that affect costs",
+          "difficulty": "beginner",
+          "questionText": "Which factor can directly affect the cost of an Azure resource?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Azure region in which it is deployed"
+            },
+            {
+              "id": "b",
+              "text": "The user's desktop wallpaper"
+            },
+            {
+              "id": "c",
+              "text": "The name of the resource group"
+            },
+            {
+              "id": "d",
+              "text": "The order in which portal pages are opened"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure pricing can vary by region, service, usage, and other configuration choices.",
+          "optionExplanations": {
+            "a": "Correct. Region is one factor that can influence service pricing.",
+            "b": "Incorrect. Desktop appearance does not affect Azure charges.",
+            "c": "Incorrect. A resource group's name does not determine service price.",
+            "d": "Incorrect. Portal navigation order has no billing effect."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cost-management-azure/",
+          "sourceTitle": "Microsoft Learn: Describe cost management in Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-002",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Explore the pricing calculator",
+          "difficulty": "beginner",
+          "questionText": "Which Azure tool is intended to estimate the expected cost of planned Azure services before deployment?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Pricing calculator"
+            },
+            {
+              "id": "b",
+              "text": "Azure Service Health"
+            },
+            {
+              "id": "c",
+              "text": "Azure Policy"
+            },
+            {
+              "id": "d",
+              "text": "Microsoft Entra ID"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "The Azure Pricing calculator helps estimate costs for planned Azure configurations.",
+          "optionExplanations": {
+            "a": "Correct. The Pricing calculator is designed for cost estimates.",
+            "b": "Incorrect. Service Health reports service issues and planned maintenance.",
+            "c": "Incorrect. Azure Policy enforces governance rules.",
+            "d": "Incorrect. Entra ID provides identity and access management."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cost-management-azure/",
+          "sourceTitle": "Microsoft Learn: Describe cost management in Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-003",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe Cost Management capabilities",
+          "difficulty": "beginner",
+          "questionText": "Which service helps analyze Azure spending, create budgets, and monitor costs?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Microsoft Cost Management"
+            },
+            {
+              "id": "b",
+              "text": "Azure DNS"
+            },
+            {
+              "id": "c",
+              "text": "Azure Functions"
+            },
+            {
+              "id": "d",
+              "text": "Azure Virtual Desktop"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Microsoft Cost Management provides tools to analyze, monitor, and control cloud spending.",
+          "optionExplanations": {
+            "a": "Correct. Cost Management supports cost analysis, budgets, and related financial controls.",
+            "b": "Incorrect. Azure DNS provides DNS hosting.",
+            "c": "Incorrect. Functions is serverless compute.",
+            "d": "Incorrect. Azure Virtual Desktop provides desktop and application virtualization."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cost-management-azure/",
+          "sourceTitle": "Microsoft Learn: Describe cost management in Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-004",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe the purpose of tags",
+          "difficulty": "beginner",
+          "questionText": "What is a common use of Azure tags?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Add metadata such as department or cost center to resources"
+            },
+            {
+              "id": "b",
+              "text": "Encrypt all network traffic automatically"
+            },
+            {
+              "id": "c",
+              "text": "Replace resource groups"
+            },
+            {
+              "id": "d",
+              "text": "Provide user authentication"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Tags are key-value metadata used to organize resources and support reporting or cost allocation.",
+          "optionExplanations": {
+            "a": "Correct. Tags add organizational metadata to Azure resources.",
+            "b": "Incorrect. Tags do not encrypt network traffic.",
+            "c": "Incorrect. Tags complement rather than replace resource groups.",
+            "d": "Incorrect. Authentication is handled by identity services such as Microsoft Entra ID."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cost-management-azure/",
+          "sourceTitle": "Microsoft Learn: Describe cost management in Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-005",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe cost optimization options",
+          "difficulty": "intermediate",
+          "questionText": "Which pricing option is designed for interruptible workloads that can tolerate eviction in exchange for potentially lower compute cost?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Spot Virtual Machines"
+            },
+            {
+              "id": "b",
+              "text": "Availability Zones"
+            },
+            {
+              "id": "c",
+              "text": "Azure Policy"
+            },
+            {
+              "id": "d",
+              "text": "Microsoft Purview"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Spot Virtual Machines use unused Azure capacity at discounted prices but can be evicted when Azure needs the capacity.",
+          "optionExplanations": {
+            "a": "Correct. Spot VMs are appropriate for interruptible workloads that can handle eviction.",
+            "b": "Incorrect. Availability Zones improve resiliency rather than provide discounted interruptible compute.",
+            "c": "Incorrect. Azure Policy is a governance service.",
+            "d": "Incorrect. Microsoft Purview is used for data governance."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-cost-management-azure/",
+          "sourceTitle": "Microsoft Learn: Describe cost management in Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-006",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe the purpose of Microsoft Purview",
+          "difficulty": "beginner",
+          "questionText": "Which Microsoft service helps organizations discover, understand, and govern data across their data estate?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Microsoft Purview"
+            },
+            {
+              "id": "b",
+              "text": "Azure Virtual Machine Scale Sets"
+            },
+            {
+              "id": "c",
+              "text": "Azure DNS"
+            },
+            {
+              "id": "d",
+              "text": "Azure VPN Gateway"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Microsoft Purview provides data governance capabilities for discovering and governing data.",
+          "optionExplanations": {
+            "a": "Correct. Purview is designed for data governance and visibility.",
+            "b": "Incorrect. VM Scale Sets manage groups of virtual machines.",
+            "c": "Incorrect. Azure DNS provides DNS hosting.",
+            "d": "Incorrect. VPN Gateway provides encrypted network connectivity."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-azure-for-governance-compliance/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools in Azure for governance and compliance",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-007",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe the purpose of Azure Policy",
+          "difficulty": "beginner",
+          "questionText": "Which Azure service can evaluate resources against organizational rules, such as requiring specific tags or restricting allowed locations?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Policy"
+            },
+            {
+              "id": "b",
+              "text": "Azure Advisor"
+            },
+            {
+              "id": "c",
+              "text": "Azure Functions"
+            },
+            {
+              "id": "d",
+              "text": "Azure Files"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Policy evaluates and can enforce organizational standards across Azure resources.",
+          "optionExplanations": {
+            "a": "Correct. Azure Policy supports compliance and governance rules.",
+            "b": "Incorrect. Advisor recommends improvements but does not enforce governance rules.",
+            "c": "Incorrect. Functions runs code.",
+            "d": "Incorrect. Azure Files provides managed file shares."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-azure-for-governance-compliance/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools in Azure for governance and compliance",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-008",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe the purpose of resource locks",
+          "difficulty": "beginner",
+          "questionText": "What should you use to help prevent an Azure resource from being accidentally deleted?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A resource lock"
+            },
+            {
+              "id": "b",
+              "text": "An Azure tag"
+            },
+            {
+              "id": "c",
+              "text": "A storage access tier"
+            },
+            {
+              "id": "d",
+              "text": "A virtual network peer"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "A delete lock can prevent accidental deletion of an Azure resource.",
+          "optionExplanations": {
+            "a": "Correct. Resource locks can block deletion or modification depending on lock type.",
+            "b": "Incorrect. Tags organize resources but do not prevent deletion.",
+            "c": "Incorrect. Storage tiers affect storage access/cost characteristics.",
+            "d": "Incorrect. VNet peering provides network connectivity."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-azure-for-governance-compliance/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools in Azure for governance and compliance",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-009",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe the Azure portal",
+          "difficulty": "beginner",
+          "questionText": "What is the Azure portal?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A web-based graphical interface for managing Azure resources"
+            },
+            {
+              "id": "b",
+              "text": "A physical datacenter appliance"
+            },
+            {
+              "id": "c",
+              "text": "A private network circuit"
+            },
+            {
+              "id": "d",
+              "text": "A storage redundancy option"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "The Azure portal is a browser-based graphical interface for creating, configuring, and managing Azure resources.",
+          "optionExplanations": {
+            "a": "Correct. The portal provides a graphical management experience.",
+            "b": "Incorrect. It is not a physical appliance.",
+            "c": "Incorrect. ExpressRoute provides private circuits.",
+            "d": "Incorrect. Redundancy options such as LRS and ZRS apply to storage."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-manage-deploy-azure-resources/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools for managing and deploying Azure resources",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-010",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe Azure Cloud Shell",
+          "difficulty": "beginner",
+          "questionText": "What is Azure Cloud Shell?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A browser-accessible shell with Azure CLI and Azure PowerShell available"
+            },
+            {
+              "id": "b",
+              "text": "A replacement for Azure regions"
+            },
+            {
+              "id": "c",
+              "text": "A backup tier for Blob Storage"
+            },
+            {
+              "id": "d",
+              "text": "An identity provider"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Cloud Shell provides an authenticated browser-based shell for working with Azure using tools including Azure CLI and Azure PowerShell.",
+          "optionExplanations": {
+            "a": "Correct. Cloud Shell provides command-line management from a browser.",
+            "b": "Incorrect. Regions are physical/geographic Azure infrastructure.",
+            "c": "Incorrect. Cloud Shell is not a storage tier.",
+            "d": "Incorrect. Microsoft Entra ID provides cloud identity services."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-manage-deploy-azure-resources/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools for managing and deploying Azure resources",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-011",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe Azure CLI and Azure PowerShell",
+          "difficulty": "intermediate",
+          "questionText": "Which statement about Azure CLI and Azure PowerShell is correct?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Both can be used to automate Azure management tasks"
+            },
+            {
+              "id": "b",
+              "text": "Only Azure CLI can manage Azure resources"
+            },
+            {
+              "id": "c",
+              "text": "Neither can be used in scripts"
+            },
+            {
+              "id": "d",
+              "text": "Both are storage services"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure CLI and Azure PowerShell are command-line tools that can be used interactively or in automation scripts to manage Azure resources.",
+          "optionExplanations": {
+            "a": "Correct. Both tools support scripted Azure administration.",
+            "b": "Incorrect. Azure PowerShell can also manage Azure resources.",
+            "c": "Incorrect. Both are commonly used in automation.",
+            "d": "Incorrect. They are management tools, not storage services."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-manage-deploy-azure-resources/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools for managing and deploying Azure resources",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-012",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe the purpose of Azure Arc",
+          "difficulty": "intermediate",
+          "questionText": "What is the main purpose of Azure Arc?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Extend Azure management and governance to resources outside Azure"
+            },
+            {
+              "id": "b",
+              "text": "Provide a replacement for Microsoft Entra ID"
+            },
+            {
+              "id": "c",
+              "text": "Host only static websites"
+            },
+            {
+              "id": "d",
+              "text": "Estimate Azure subscription costs"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Arc extends Azure management capabilities to on-premises, edge, and multicloud resources.",
+          "optionExplanations": {
+            "a": "Correct. Azure Arc brings non-Azure resources into Azure's management plane.",
+            "b": "Incorrect. Azure Arc does not replace Entra ID.",
+            "c": "Incorrect. Static website hosting is not Arc's purpose.",
+            "d": "Incorrect. The Pricing calculator estimates planned costs."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-manage-deploy-azure-resources/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools for managing and deploying Azure resources",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-013",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe infrastructure as code and ARM templates",
+          "difficulty": "intermediate",
+          "questionText": "What is a key benefit of using an Azure Resource Manager (ARM) template?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Deploy Azure infrastructure declaratively and repeatably"
+            },
+            {
+              "id": "b",
+              "text": "Automatically convert every VM into a container"
+            },
+            {
+              "id": "c",
+              "text": "Provide multifactor authentication"
+            },
+            {
+              "id": "d",
+              "text": "Create private network circuits"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "ARM templates define Azure infrastructure as code so deployments can be consistent and repeatable.",
+          "optionExplanations": {
+            "a": "Correct. ARM templates declaratively define Azure resources and configurations.",
+            "b": "Incorrect. ARM templates do not automatically convert VMs to containers.",
+            "c": "Incorrect. MFA is an identity capability.",
+            "d": "Incorrect. ExpressRoute provides private connectivity circuits."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-features-tools-manage-deploy-azure-resources/",
+          "sourceTitle": "Microsoft Learn: Describe features and tools for managing and deploying Azure resources",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-014",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe Azure Advisor and Azure Service Health",
+          "difficulty": "intermediate",
+          "questionText": "You want personalized recommendations to improve the reliability, security, performance, and cost effectiveness of your Azure resources. Which service should you use?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Advisor"
+            },
+            {
+              "id": "b",
+              "text": "Azure Service Health"
+            },
+            {
+              "id": "c",
+              "text": "Azure DNS"
+            },
+            {
+              "id": "d",
+              "text": "Azure Queue Storage"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Advisor analyzes deployed resources and provides personalized best-practice recommendations.",
+          "optionExplanations": {
+            "a": "Correct. Advisor provides optimization recommendations across several categories.",
+            "b": "Incorrect. Service Health focuses on Azure service incidents, planned maintenance, and advisories affecting you.",
+            "c": "Incorrect. Azure DNS is for DNS hosting.",
+            "d": "Incorrect. Queue Storage stores messages."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-monitoring-tools-azure/",
+          "sourceTitle": "Microsoft Learn: Describe monitoring tools in Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        },
+        {
+          "id": "az900-2026-mg-015",
+          "certificationId": "az900",
+          "examVersion": "AZ-900-2026-07",
+          "domain": "management_governance",
+          "objective": "Describe Azure management and governance",
+          "subobjective": "Describe Azure Monitor",
+          "difficulty": "intermediate",
+          "questionText": "Which Azure service provides a central platform for collecting, analyzing, and acting on telemetry from Azure and other environments?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Azure Monitor"
+            },
+            {
+              "id": "b",
+              "text": "Azure Policy"
+            },
+            {
+              "id": "c",
+              "text": "Microsoft Purview"
+            },
+            {
+              "id": "d",
+              "text": "Azure Data Box"
+            }
+          ],
+          "correctAnswerId": "a",
+          "overallExplanation": "Azure Monitor is Azure's monitoring platform and includes capabilities such as Log Analytics, alerts, and Application Insights.",
+          "optionExplanations": {
+            "a": "Correct. Azure Monitor collects and analyzes telemetry and can trigger alerts or insights.",
+            "b": "Incorrect. Azure Policy is for governance and compliance.",
+            "c": "Incorrect. Microsoft Purview is for data governance.",
+            "d": "Incorrect. Azure Data Box is used for offline/large-scale data transfer."
+          },
+          "sourceUrl": "https://learn.microsoft.com/en-us/training/modules/describe-monitoring-tools-azure/",
+          "sourceTitle": "Microsoft Learn: Describe monitoring tools in Azure",
+          "verifiedDate": "2026-09-12",
+          "questionVersion": 1,
+          "contentStatus": "verified"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "DP-300",
+      "certificationId": "dp300",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "DP-700",
+      "certificationId": "dp700",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "DP-900",
+      "certificationId": "dp900",
+      "questions": []
+    },
+    {
+      "schemaVersion": 1,
+      "exam": "SC-500",
+      "certificationId": "sc500",
+      "questions": []
+    }
+  ]
 }

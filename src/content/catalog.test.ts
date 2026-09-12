@@ -30,13 +30,18 @@ const production = (id: string): Question => ({
   contentStatus: 'verified',
 });
 
-test('bundled catalog keeps the 12 development samples and no unverified production items', () => {
+test('bundled catalog keeps the 12 development samples plus verified production items', () => {
   const catalog = loadBundledQuestionCatalog();
-  assert.equal(catalog.length, 12);
-  assert.ok(catalog.every((question) => question.contentStatus === 'development'));
-  assert.ok(catalog.every((question) => question.id.startsWith('az900-dev-')));
+  const development = catalog.filter((question) => question.contentStatus === 'development');
+  const verified = catalog.filter((question) => question.contentStatus === 'verified');
+  assert.equal(catalog.length, 62);
+  assert.equal(development.length, 12);
+  assert.equal(verified.length, 50);
+  assert.ok(development.every((question) => question.id.startsWith('az900-dev-')));
+  assert.ok(verified.every((question) => !question.id.startsWith('az900-dev-')));
   assert.ok(catalog.every((question) => question.certificationId === 'az900'));
-  assert.equal(catalog.filter((question) => question.contentStatus === 'verified').length, 0);
+  assert.equal(new Set(catalog.map((question) => question.id)).size, catalog.length);
+  assert.equal(catalog.filter((question) => question.contentStatus === 'draft').length, 0);
 });
 
 test('mergeQuestionCatalog rejects production IDs that collide with development samples', () => {
